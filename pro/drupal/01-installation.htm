@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Установка и настройка</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Установка и настройка </h1>
+<ol>
+<li><b>Если не установлена  и не настроена XAMPP</b>, <a href="http://www.apachefriends.org/en/xampp-macosx.html" target="_blank">устанавливаем</a> и <a href="/Users/vova/soft/apache-xampp-readme.txt">настраиваем</a>.<br />
+<em>Если требуется новая версия PHP, обновляем XAMPP</em>:
+<ul>
+<li> Если компьютер не подключен к машине времени, сделать резервную копию xamppfiles/var/mysql, etc/httpd.conf и etc/extra/httpd-vhosts.conf</li>
+<li>выключить сервер</li>
+<li>переустановить XAMPP</li>
+<li>восстановить из машины времени или перезаписать из резервной копии   папки сайтов и файлы пользователей из /mysql/, а также httpd.conf и httpd-vhosts.conf</li>
+<li>включить сервер.</li>
+</ul>
+</li>
+<li><a href="/pro/drupal/01-php-errors.htm#php_ini">Меняем настройки php.ini</a></li>
+<li>Скачиваем <a href="http://drupal.org/project/drupal" target="_blank">Drupal</a>, распаковываем во временную папку.</li>
+<li>Удаляем избыточную информацию и дубликаты:
+<ul>
+<li><code> .gitignore</code></li>
+<li><code>.htacess</code></li>
+<li><code>CHANGELOG.txt</code></li>
+<li><code>COPYRIGHT.txt</code></li>
+<li><code>INSTALL.mysql.txt</code></li>
+<li><code>INSTALL.pgsql.txt</code></li>
+<li><code>INSTALL.sqlite.txt</code></li>
+<li><code>MAINTAINERS.txt</code></li>
+<li><code>README.txt</code></li>
+<li><code>robots.txt<br />
+</code></li>
+</ul>
+</li>
+<li>Переписываем Drupal в папку сайта.</li>
+<li>Копируем .htaccess из templates</li>
+<li><code>sites &gt; default</code><br />
+Дублируем <code>default.settings.php</code>, переименовываем в <code>settings.php</code>, проверяем свойства — должно быть разрешено редактирование.</li>
+<li>В Dreamweaver-e настраиваем сайт. В разделе servers добавляем  новый (или редактируем уже созданный) тестовый сервер):<br />
+<img src="/a/img/design-n-development/dw-testing-server.jpg" alt="" /><br />
+<img src="/a/img/design-n-development/dw-testing-server-02.jpg" alt="" /></li>
+<li><a href="http://localhost/phpmyadmin/" target="_blank">http://localhost/phpmyadmin/<br />
+</a><b>Create new database</b> &gt; вводим имя бызы, все остальные настройки оставляем неизменными &gt; создаем пустую БД. (На всякий случай, перезапускаем Apache.)</li>
+<li><code>www.new-site.dev/install.php</code>. Появляется мастер установки Drupal.<br /> 
+На одном из шагов установки потребуется ввести данные БД. <code><strong>Username: root. Password</strong></code><strong> оставляем не заполненным.</strong><br />
+Если в процессе возникают ошибки, <a href="/pro/drupal/01-troubleshooting.htm">см. возможные решения здесь</a>. </li>
+<li><em>&gt; Configuration &gt; Media &gt; File System</em></li>
+<ul>
+<li>a/upload<br />
+a/upload/private (Drupal создаст htaccess, запрещающий доступ к этой папке)</li>
+<li>_tmp  (Drupal создаст htaccess, запрещающий доступ к этой папке).</li>
+</ul>
+<li><i>(Management menu; /admin/) &gt; Edit Shortcuts</i> (вторая строка, справа)<br />
+Добавляем пункт Perfomance, путь <code>admin/config/development/performance</code><br />
+Изменения иногда появлялись только после выхода из системы и повторного входа.</li>
+<li><i>&gt; Appearance &gt; вкладка Settings (справа) &gt; пункт Global settings (справа) &gt; раздел 
+Toggle display</i>. Из всех элементов страницы оставляем только:
+</li>
+<ul class="cmd">
+<li>Site name</li>
+<li>Site slogan</li>
+<li>Main menu</li>
+<li>Secondary menu</li>
+<li>User pictures in comments (если предполагается использование Gravatar)</li>
+</ul>
+<li><a href="http://localize.drupal.org/translate/downloads" target="_blank">Скачать файлы русского языка</a>.
+<ul>
+<li>Сохраняем в <code>profiles/standard/translations/</code></li>
+<li>Убедиться, что включен модуль Locale</li>
+<li>Для перевода «ядра» Добавить их на странице <a href="/admin/config/regional/translate/import">Translate interface</a>.</li>
+<li>Для перевода модулей создать в папке нужного модуля папку po и переписать туда <a href="http://localize.drupal.org/translate/languages/ru">соответствующий файл</a>.</li>
+<li>Записать в «Напоминания» — <a href="admin/config/regional/language/">установить русский языком по умолчанию</a> перед сдачей русскоязычному заказчику.</li>
+</ul>
+</li>
+</ol>
+</body>
+</html>

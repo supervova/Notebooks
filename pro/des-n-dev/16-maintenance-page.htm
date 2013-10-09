@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Профилактические работы</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Профилактические работы</h1>
+<p>Для того, чтобы ни пользователи, ни поисковые роботы не подумали ничего плохого, прежде, чем удалять файлы с сайта нужно, во-первых, сделать резервную копию важнейших файлов и, во-вторых, переписать на сервер два новых файла: 503.php и новый вариант .htaccess.</p>
+<pre>&lt;?php<br />header(&quot;HTTP/1.1 503 Service Temporarily Unavailable&quot;);<br />header(&quot;Status: 503 Service Temporarily Unavailable&quot;);<br />header(&quot;Retry-After: Sun, 5 Jan 2012 13:00:00 GMT&quot;);<br />?&gt;<br />
+&lt;!DOCTYPE HTML&gt;<br />&lt;html&gt;<br />&lt;head&gt;<br />&lt;title&gt;Техобслуживание&lt;/title&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br />&lt;h1&gt;Извините, сайт  закрыт на техобслуживание&lt;/h1&gt;<br />&lt;p&gt;Возвращайтесь через час — будем ждать.&lt;/p&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;</pre>
+<pre>Options +FollowSymLinks<br />RewriteEngine On<br />RewriteBase /<br />RewriteCond %{REMOTE_ADDR} !^00\.00\.00\.00<br />RewriteCond %{REQUEST_URI} !^/503.php [NC]<br />RewriteRule .* /503.php [R,L]</pre>
+<p>В правиле REMOTE_ADDR надо заменить адрес с нулями своим <a href="http://smart-ip.net/" target="_blank">IP-адресом</a>, чтобы иметь возможность работать с файлами и устанавливать CMS.</p>
+</body>
+</html>

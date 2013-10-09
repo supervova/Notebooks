@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Мобильный сайт</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Стили и графика для экрана Retina (640x960 iPhone и 1536x2048 iPad)</h1>
+См. также
+«<a href="/pro/des-n-dev/02-website-planning-responsive-first-approach.htm">Планирование адаптивности — до начала  HTML-кодирования</a>».
+<p class="lead">Для начала нужно определить критические картинки из базовой мобильной версии, которые должны быть подготовлены для экранов с высоким разрешением. Как правило это: логотип, спрайты кнопок, пиктограммы, фотографии товаров, центральные иллюстрации (для смены картинок &lt;img srs=&quot;…&quot;&gt; используем либо <a href="http://www.w3.org/community/respimg/2012/03/15/polyfilling-picture-without-the-overhead/" target="_blank">такую,</a> либо <a href="../Планирование адаптивности — до начала HTML-кодирования" target="_blank">такую</a> технику). Затем увеличить их вдвое по сравнению с базовой мобильной версией.</p>
+<ol>
+<li>Пиктограммы следует готовить в двух версиях: для разрешений 163 ppi и 326 ppi (работать в нормальном разрешении 72dpi, но для Retin-ы делать размеры в ПК-пикселях вдвое больше — не 16x16, а 32x32). Исходный файл должен быть один: для меньшего разрешения, а оптимизированные картинки для Retina должны сохраняться в папку xh. </li>
+<li>Все картинки должны быть выполнены в векторных формах photoshop-а. Если группе слоев нужна маска, она тоже должна быть векторной.</li>
+<li>Для быстрого просмотра изображения в увеличенном разрешении следует записать action: snapshot + увеличение на 200%<br />
+<img src="/a/img/design-n-development/retina-scaling.jpg" alt="" /></li>
+<li>Метод «нарезки». Выделить нужный участок. Copy Merged. Вставить в новый документ. Экспортировать.</li>
+<li id="retina_sprites">Внизу файла стилей для мобильной версии добавить стили для Retin-ы
+<pre>@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+BUTTON {
+font-size: 100%; line-height: 1.25em;   <br />background-image: url(/a/img/xl/button.png);
+-webkit-background-size: 1.875em 10em;<br />-o-background-size: 1.875em 10em;<br />-moz-background-size: 1.875em 10em;<br />background-position: 0 -20px;<br />background-size: 1.875em 10em}
+}</pre>
+<strong>Важно: свойство background-size</strong> в примере уменьшает значение реального файла вдвое. На самом деле, размеры button.png в данном случае равняются 30x160, а размер шрифта равен 16 пикселей. Эти манипуляции нужны для того, чтобы мобильное устройство не растягивало изображение под свое высокое разрешение — как это обычно происходит со всей другой графикой.<br />
+<strong> В качетве альтернативы множеству растровых файлов в качестве спрайтов можно <a href="/pro/des-n-dev/05-html-css-jquery/html-svg.htm">использовать SVG-файл</a>. Тогда <code>background-position</code> надо указывать в em.</strong></li>
+<li>Везде, где только возможно нужно использовать текст вместо катринок: надписи на кнопках, заголовки и т.п.</li>
+<li>Размеры шрифта, полей, толщину линий надо указывать в пунктах. iPhone 4 считает один пункт за два пикселя —  таким образом сохраняется физический размер элементов.</li>
+</ol>
+<h1>&nbsp;</h1></body>
+</html>

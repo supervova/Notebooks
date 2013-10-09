@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>GitHub / GitHub Pages для хостинга</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>GitHub / GitHub Pages<br />
+для хостинга</h1>
+<h2>Ограничения и предостережения</h2>
+<ol>
+<li>К сожалению, GitHub Pages не поддерживает <strong>технолгию SSI</strong> — повторяющиеся фрагменты кода приходится держать в каждом файле. Альтернатива — <a href="/pro/des-n-dev/07-hosting-github-heroku-etc/02-using-jekyll-01.htm">перейти на Jekyll</a>.</li>
+<li>GitHub Pages игнорирует внутренние <strong>ссылки, фрагменты которых начинаются с нижнего подчеркивания</strong> — их следует избегать. Или, если не используется Jekyll, добавить в корневой каталог пустой файл <code>.nojekyll</code>.</li>
+<li>Не следует чистить Mac OS от системных файлов ничем, кроме Onyx и CleanMyMac — это может привести к сбоям в работе репозиториев и, как следствие, сайтов.</li>
+<li><strong>Сбои случаются. В этом случае надо <a href="https://github.com/contact" target="_blank">писать в службу поддержки</a></strong> — реагируют быстро.</li>
+</ol>
+<h2>Публикация сайта на хостинг GitHub Pages</h2>
+<ol>
+<li>Создать репозиторий.</li>
+<ul>
+<li><a href="https://github.com/new" target="_blank">Либо — в GitHub.com</a>; флаг на Initialize this repository with a README. После создания  на странице репозитория нажать кнопку Clone in Mac.</li>
+<li>Либо добавить в папку с готовым сайтом файлы .gitignore и README.md (как минимум, название проекта); и перетащить папку в GitHub for Mac. Нажать Push to GitHub в правом верхнем углу. На вопрос «Создать локальный репозиторий?» ответить согласием. <b>Называть репозитории латинскими буквами — GitHub использует эти названия в URL, и кириллица в них превращается в набор дефисов. </b></li>
+</ul>
+<li>В GitHub for Mac, в панели Branches создать ветку <b>gh-pages</b> локального репозитория.</li>
+<li>В Mac-GitHub в Settings в Ignored files добавить список файлов, которые не нужно синхронизировать.
+<pre>
+# Souce Folders
+_stock/
+
+# Souce files
+*.psd
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Misc
+wp-*.php
+wp-content/upgrade/*
+sitemap.xml
+sitemap.xml.gz
+</pre>
+</li>
+<li>Затем <strong>сделать первый коммит</strong> — GitHub for Mac, панель Changes, кнопка Commit &amp; Sync.</li>
+<li><strong>Всё, сайт — в сети. Адрес</strong><br />
+<code>http://username.github.com/repo-name/</code><br />
+Например:<br />
+<code>http://supervova.github.com/sms-novel/</code></li>
+<li><strong>Если в Dreamweaver-е сайт</strong> еще не создан, создать из той же директории .</li>
+</ol>
+<h2>Уникальное доменное имя</h2>
+<ol>
+<li>Проверить в GitHub for Mac, что текущая ветка — gh-pages. Создать текстовой файл без расширения CNAME с одной строкой — доменным именем (без www). Например,<br />
+<code>example.com</code></li>
+<li>В личном кабинете компании-регистратора надо открыть страницу настроек нужного домена (например, в Агаве надо щелкнуть на пиктограмму «шестеренка» в колонке «Операции», а затем выбрать «Управление зоной DNS»).</li>
+<li>В блоке настроке «Запись типа A» (сокращение от «Адреса») указать IP-адрес github, в который будет транслироваться домен: в левом поле первой строки формы должен быть проставлен знак @ (символ означает домен), а в правом — IP-адрес github (на момент написания —  204.232.175.78).<img src="/a/img/design-n-development/github-pages-domain-setup.png" alt="" /></li>
+<li>В блоке «Запись типа CNAME» в левом поле первой строки — www, в правом поле —доменное имя без www, но с точкой на конце (например, example.com.)</li>
+</ol>
+<h2>Повседневная работа</h2>
+<ol>
+<li><strong>Изменения, требующие синхронизации</strong>, собираются в панели Changes.</li>
+<li><strong>История изменений</strong> — в GitHub for Mac, в панели History или на GitHub.com, во вкладке Commits проекта.</li>
+<li><strong>Командная работа.</strong> Утром, перед работой загрузить последнюю версию с GitHub.com.</li>
+<li><strong>Вечером после работы</strong> переписать измененные файлы в удаленный репозиторий — GitHub for Ma &gt; Changes &gt; Commit &amp; Sync&amp;</li>
+<li><strong>Чтобы перейти  на сайт</strong> из в GitHub for Mac, в панели Settings нажать кнопку View on GitHub.</li>
+<li><strong>Для того, чтобы добавить изменения в gh-pages в ветку master, </strong> в GitHub for Mac, в панели Branches  в правом верхнем углу есть кнопка Merge View . </li>
+</ol>
+</body>
+</html>

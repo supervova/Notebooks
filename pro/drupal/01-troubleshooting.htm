@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Установка и настройка</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Проблемы с установкой и апгрейдом</h1>
+<h2>Установка</h2>
+<ol>
+<li><strong>Еще до окончания установки появляются страницы ошибок MySQL</strong>, удалить и заново создать settings.php</li>
+<li><strong>Отображается только первая страница. 
+</strong>
+<ul>
+<li>Проверить, включен ли модуль mod_rewrite  в httpd.conf</li>
+<li>Разрешено ли в настройках сервера  использование .htaccess  (AllowOverride All в httpd.conf или в httpd-vhosts.conf) </li>
+<li> Проверить используется ли последняя рабочая копия .htaccess. Если есть, то надо использовать родную версию D. Или поменять фрагмент Drupal Settings. Или поправить фрагмент, похожий на этот:
+<pre>
+RewriteEngine ON
+RewriteRule "(^|/)\." - [F]
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+</pre>
+</li>
+</ul>
+</li>
+<li><strong>Сервер не находит некоторые страницы с языковым фрагментом в адресе</strong> (/ru/ или /en/ — отключен модуль i18n). Надо переписать синонимы или установить i18n.</li>
+
+<li> В процессе обновления базы — <strong>Update #7061 Failed: DatabaseSchemaObjectExistsException</strong>
+<ul>
+<li>Удалить таблицу system_update_7061 через PMA.</li>
+<li>Запустить update.php.</li>
+<li>
+<p>Update #7061. Failed: PDOException: SQLSTATE[23000]…<br />
+Записать, что за файл вызывает данную ошибку.</p>
+</li>
+<li>Создть резервную копию базы.</li>
+<li>Через поиск PMA найти и удалить все упоминания проблемного файла.</li>
+<li>Запустить update.php.</li>
+<li>Повторять всю процедуру до тех пор, пока обновление базы не закончится благополучно.</li>
+</ul>
+</li>
+<li> В процессе обновления модулей —  <strong>xmlsitemap module Update #7200 Failed: <em>PDOException</em>: SQLSTATE[42S02]: </strong>
+<ul>
+<li>удалить модули xmlsitemap через веб-интерфейс <code>/admin/modules/uninstall</code></li>
+<li>удалить папку модуля</li>
+<li>запустить update.php</li>
+<li>установить модуль xmlsitemap через веб-интерфейс <code>admin/modules/install</code></li>
+</ul>
+</li>
+</ol>
+</body>
+</html>

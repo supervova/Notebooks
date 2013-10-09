@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Блог на Jekyll и Go</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Blogging on Jekyll: URL Redirects</h1>
+<p>About a month ago I migrated my blog from Tumblr to Octopress hosted on github-pages. I migrated because of Tumblr&rsquo;s slow page loads and frequent downtime. I picked Octopress because it is built on top of Jekyll, and it comes with a reasonable default stylesheet. Jekyll is a static site generator, which ensures I can deploy my blog on any old server in the future, and continue to use these same old tools (because I have them, rather than tumblr having them).</p>
+<h3>Migrating broke my URL Structure</h3>
+<p><img src="http://rawsyntax.com/images/urls_not_found.png" alt="s" /></p>
+<p>Running my site through Google&rsquo;s Webmaster Tools showed that many sites are still linking to my old Tumblr blogpost urls. Tumblr&rsquo;s url structure is another reason I migrated away from it. I should be in full control of the urls on my blog. Never the less, I need to support redirects from the old URLs to my new URL structure /blog/:post_title.</p>
+<p>However Jekyll is just a static site, so there&rsquo;s no ruby server to handle redirects. Other Jekyll users deploy to Heroku and use a small Sinatra app to handle redirects, but I feel like that is complicating my simple setup. If I were on a regular server I could setup an .htaccess file to handle the redirects, but github-pages does not support .htaccess.</p>
+<h3>Jekyll Plugins to the Rescue</h3>
+<p>One of the great things about Jekyll is its simple plugin system. On <a href="https://github.com/mojombo/jekyll/wiki/Plugins">Jekyll&rsquo;s Wiki</a> I found the <a href="https://github.com/tsmango/jekyll_alias_generator">Alias Generator</a>. It allows you to specify aliases on a per blogpost basis, in the YAML front matter.</p>
+<p>This post&rsquo;s YAML is:</p>
+<pre>---
+layout: post
+title: "Blogging on Jekyll: URL Redirects"
+date: 2011-11-29 14:32
+comments: true
+categories: ["programming", "blogging"]
+alias: [/blog/blogging-on-redirects]
+---</pre>
+<p>Now when I rake generate my site, the Alias Generator will create another static html file for this post at /blog/blogging-on-redirects/index.html:</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0;url=/blog/blogging-on-jekyll-url-redirects/&quot; /&gt;
+&lt;/head&gt;
+&lt;/html&gt; </pre>
+<p>Which will redirect here. Try it: <a href="http://rawsyntax.com/blog/blogging-on-redirects">/blog/blogging-on-redirects</a></p>
+<p>It was almost that simple. The Alias Generator actually broke when I provided some of my old Tumblr urls. However, I <a href="https://github.com/rawsyntax/jekyll_alias_generator">forked it here</a> and fixed it so it handles nested aliases properly now. I also opened a <a href="https://github.com/tsmango/jekyll_alias_generator/pull/1">pull request</a> to the owner to get this change merged in.</p>
+<h3>Jekyll&rsquo;s Strengths</h3>
+<p>That experience is Jekyll&rsquo;s strength as a blogging platform. The output is so simple any web server can serve it so it doesn&rsquo;t matter where you deploy to. Its generation system is open source, hackable, and has a great plugin system.</p>
+<p>But most importantly, even if the Jekyll project implodes tomorrow. I still have all my blog&rsquo;s content versioned, and have all the tools necessary to maintain my blog. I am not relying on a hosted service to back up my blog&rsquo;s content, or maintain the tools I edit it with.</p>
+<h3>Try Octopress</h3>
+<p>If you haven&rsquo;t tried <a href="http://octopress.org/">Octopress</a> yet, I highly recommend it. It&rsquo;s Jekyll based, but it has a decent default stylesheet, so it&rsquo;s very easy to install and immediately start blogging. No programming or tweaking CSS to get in the way of writing content.</p>
+</body>
+</html>

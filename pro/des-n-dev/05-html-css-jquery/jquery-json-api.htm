@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>API для «чайников»</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>API для «чайников»</h1>
+<p>API — это способ получения данных без прямого подключения к БД. Значительная часть современных API (Facebook, Twitter, Flickr и т.д.) использует простой формат передачи данных JSON. Один из самых популярных способов обработки данных в формате JSON является jQuery.</p>
+<p>Для подключения к сайту через его API, как правило, надо зарегистрировать своё приложение (блок на сайте) и получить уникальный ключ — выглядит как бесмысленный набор букв и цифр, процесс его получения занимает минуту времени.</p>
+<h2>Формат обмена данными JSON </h2>
+<p>В JSON данные записываются с использованием <a href="/pro/des-n-dev/05-html-css-jquery/jquery-js-misc.htm#abbreviations">сокращений</a>: </p>
+<ul>
+<li>Строковые поля &quot;имя&quot; : &quot;значение&quot;,</li>
+<li>&quot;Объект&quot; : { &quot;заключенное&quot; : &quot;в фигурные скобки&quot;,<br />
+&quot;неупорядоченное&quot; : &quot;множество пар имя/значение&quot;},</li>
+<li>&quot;Массив&quot; : [ &quot;заключенное в квадратные скобки&quot;,<br />
+&quot;множество значений или объектов&quot; ] </li>
+</ul>
+Например:
+<pre>
+var band = {
+  &quot;name&quot;:&quot;The Red Hot Chili Peppers&quot;,
+  &quot;members&quot;: [
+    {
+      &quot;name&quot;:&quot;Anthony Kiedis&quot;,
+      &quot;role&quot;: &quot;lead vocals&quot;
+    },
+    {
+      &quot;name&quot;:&quot; Michael 'Flea' Balzary&quot;,
+      &quot;role&quot;: &quot;bass guitar, trumpet, backing vocals&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Chad Smith&quot;,
+      &quot;role&quot;: &quot;drums,percussion&quot;
+    },
+    {
+      &quot;name&quot;: &quot;John Frusciante&quot;,
+      &quot;role&quot;: &quot;Lead Guitar&quot;
+    }
+  ],
+  &quot;year&quot;: &quot;2009&quot;
+}</pre>
+<p>Еще проще данные в формате JASON выглядят в консоли JavaScript в Chrome.<img src="/a/img/design-n-development/json-in-google-chrome-s-developer-console.png" alt="" /></p>
+<h3>JASONP</h3>
+<p>Во многих API для передачи данных используется расширение JASONP, когда имя функции обратного вызова указывается в качестве аргумента в URL запроса. Этот аргумент может присоединяться к строке с помощью фрагментов вроде <code>?jsonp=</code>, <code>callback=</code> ит т.п. Не вдаваясь в детали, <strong>если не использовать JSONP, данные с другого домена не будут обработаны при получении</strong>.</p>
+<p>Например, чтобы получить 15 последних закладок, сохраненных js-разработчика codepo8 на delicious, пишется вот что: </p>
+<pre>&lt;div id=&quot;delicious&quot;&gt;&lt;/div&gt;&lt;script&gt;<br />function delicious(o){<br />  var out = '&lt;ul&gt;';<br />  for(var i=0;i&lt;o.length;i++){<br />    out += '&lt;li&gt;&lt;a href=&quot;' + o[i].u + '&quot;&gt;' +<br />           o[i].d + '&lt;/a&gt;&lt;/li&gt;';<br />  }<br />  out += '&lt;/ul&gt;';<br />  document.getElementById('delicious').innerHTML = out;<br />}<br />&lt;/script&gt;<br />&lt;script src=&quot;http://feeds.delicious.com/v2/json/codepo8/javascript?count=15&amp;callback=delicious&quot;&gt;&lt;/script&gt;</pre>
+JSON можно использовать в PHP с функцией <code>json_decode()</code>.
+<h2>Функция jQuery getJSON</h2>
+<p><code><strong>$.getJSON</strong>( url, [данные], [вызов] )</code></p>
+<ul>
+<li>url — cсылка на источник данных.</li>
+<li>данные (необязательно) — карта (пара ключ/значение) или строка, которые можно послать на сервер, чтобы уточнить запрос.</li>
+<li>вызов (необязательно) — функция, которая исполняется всякий раз после удачного завершения загрузки данных.</li>
+</ul>
+<h3>Пример </h3>
+<pre>
+//HTML
+[...]
+&lt;input type=&quot;text&quot; placeholder=&quot;Enter a movie title&quot; id=&quot;term&quot; /&gt;
+&lt;button id=&quot;search&quot;&gt;Find me a poster&lt;/button&gt;
+
+&lt;section id=&quot;poster&quot;&gt;&lt;/section&gt;
+[...]
+
+//jQuery
+$.getJSON(&quot;http://api.themoviedb.org/2.1/Movie.search/en/json/23afca60ebf72f8d88cdcae2c4f31866/&quot; + film + &quot;?callback=?&quot;, function(json) {
+		<span class="note">//Свойство length позволяет определить, не пуст ли объект</span>
+		if (json.length != 0){
+<span class="note">				//Display the poster and a message announcing the result</span>
+				$('#poster').html('&lt;h2 class=&quot;loading&quot;&gt;Well, gee whiz! We found you a poster, skip!&lt;/h2&gt;&lt;img id=&quot;thePoster&quot; src=' + json[0].posters[0].image.url + ' /&gt;');
+			} else {
+<code class="note">				//Если ничего не найдено запрашивает постер фильма Goonies.
+    			//Его данные указываются в запросе — юмор такой.</code>
+				$.getJSON(&quot;http://api.themoviedb.org/2.1/Movie.search/en/json/23afca60ebf72f8d88cdcae2c4f31866/goonies?callback=?&quot;, function(json) {
+				<span class="note">//Для наладки кода полезно добавлять такую строчку
+    			//с ее помощью данные, переданные в формате JSON, можно посмотреть
+    			//в Firebug или консоли Chrome</span>
+				console.log(json);
+				$('#poster').html('&lt;h2 class=&quot;loading&quot;&gt;We're afraid nothing was found for that search. Perhaps you were looking for The Goonies?&lt;/h2&gt;&lt;img id=&quot;thePoster&quot; src=' + json[0].posters[0].image.url + ' /&gt;');
+			});
+		}
+});</pre>
+<p>В примере к первому параметру добавляется созданная раньше переменная film и аргумент <code>callback=</code> (расширение JASONP, см. выше). Аргумент <code>[данные]</code> не указан. Аргумент <code>[вызов]</code> — это ф ункция, которая помещает полученные данные в объект json (что-то типа переменной, насколько я понимаю).</p>
+</body>
+</html>

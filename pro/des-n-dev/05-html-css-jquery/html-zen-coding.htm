@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Zen coding / Emmet</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Zen coding</h1>
+<p>Вводим сокращение, нажимаем <kbd>ctrl</kbd> + <kbd>,</kbd> (<kbd>cmd</kbd> + <kbd>,</kbd>) или Tab (в Sublime Text, в DW для Windows) — получаем код. (В Mac OS, в DW &gt; Keyboard Shortcuts надо переопределить комбинацию  <kbd>cmd</kbd> + <kbd>,</kbd> по умолчанию присвоенную команде Edit &gt; Go to Line).</p>
+<ul>
+<li>E — элемент: <code>article</code>, <code>p</code>.</li>
+<li>E#id — элемент с <code>id</code>: <code>section#content</code>, <code>p#intro</code>, <code>span#error</code>. Если элемент не указан — будет выводиться DIV.</li>
+<li>E.class — элемент с классом: <code>div.header</code>, <code>p.error.critial</code>. Можно создавать элементы с классом (классами) и <code>id</code>: <code>#content.column.width</code> (также, как и в случае с id, если элемент не указан, будет выводиться DIV).</li>
+<li>E[name=value] — элемент с другими атрибутами: <code>a[href=http://sms-roman.ru], a.btn[href=#</code>].</li>
+<li>E{text} — элемент с каким-то содержанием: <code>p.alert{Lorem ipsum}</code>.</li>
+<li>E&gt;E — вложенный элемент: <code>div&gt;p</code>, <code>#footer&gt;p&gt;span</code>.</li>
+<li>E+E— последовательные элементы: <code>h1+p</code>, <code>header#header+#content+footer#footer</code>.</li>
+<li>E*N — множитель: <code>p*4, ul#nav&gt;li*3&gt;a</code>.</li>
+<li>(E&gt;E)+E — обособление вложенных элементов от последовательных: <code>.doc-container&gt;(header.doc-header+.doc-body+footer.doc-footer)</code></li>
+<li>E$*N  — добавление порядкового номера: <code>ul#nav&gt;li.menu-0$*3</code> = <code>&lt;ul id=&quot;nav&quot;&gt;&lt;li class=&quot;menu-01&quot;&gt;&lt;/li&gt;&lt;li class=&quot;menu-02&quot;&gt;&lt;/li&gt;&lt;li class=&quot;menu-03&quot;&gt;&lt;/li&gt;&lt;/ul&gt;</code>.</li>
+</ul>
+<p><a href="http://code.google.com/p/zen-coding/downloads/list" target="_blank">Плагины для Dreamweaver, Coda</a> и других редакторов. Хотя там есть плагин и для  Espresso, в этот редактор технология zen-кодирования встроена.</p>
+<h2><a href="https://github.com/sergeche/emmet-sublime" target="_blank">Emmet</a></h2>
+<p>Расширяет возможности  «стенографии» в HTML и добавляет возможность «стенографии» в CSS/LESS.</p>
+<ul>
+<li>p20 = <code>padding: 20px;</code></li>
+<li>ml20 = <code>margin-left: 20px;</code></li>
+<li>m10-auto = <code>margin: 10px auto;</code></li>
+<li>w50 = <code>width: 50px;</code></li>
+<li>w50p = <code>width: 50%;</code></li>
+<li>lorem20 = <code>20 слов из Lorem Ipsum</code></li>
+</ul>
+<ul>
+<li>link:css = <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; media=&quot;all&quot;&gt;</code></li>
+<li>link:favicon = <code>&lt;link rel=&quot;shortcut icon&quot; type=&quot;image/x-icon&quot; href=&quot;favicon.ico&quot;&gt;</code></li>
+<li>link:rss = <code>&lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;RSS&quot; href=&quot;rss.xml&quot;&gt;</code></li>
+<li>meta:utf = <code>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=UTF-8&quot;&gt;</code></li>
+<li>input:text = <code>&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;&quot;&gt;</code></li>
+<li>html:5 =
+<pre>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></li>
+</ul>
+<p> <a href="https://github.com/sergeche/zen-coding/blob/v0.7.1/snippets.json" target="_blank">Полный список сокращений.</a></p>
+</body>
+</html>

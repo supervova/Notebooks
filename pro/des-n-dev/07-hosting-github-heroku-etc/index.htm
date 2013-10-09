@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Хостинг: github, Heroku, AWS и др.</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Хостинг: github, Heroku, AWS и др.</h1>
+<p>Веб-сервис для хостинга проектов github и <a href="http://ru.wikipedia.org/wiki/%D0%9E%D0%B1%D0%BB%D0%B0%D1%87%D0%BD%D1%8B%D0%B5_%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F" target="_blank">облачные</a> хостинги стали привлекательной альтернативой традиционному виртуальному и выделенному виртуальному хостингу. На github можно бесплатно хостить небольшие статичные сайты. «<a href="/pro/des-n-dev/07-hosting-github-heroku-etc/04-cloud-computing.htm">Облака</a>» предоставляют лучшее соотношение цена/качество для  растущих и потенциально крупных проектов.</p>
+<h2>Cистема контроля версий Git и веб-сервис для хостинга проектов github</h2>
+<p><a href="https://github.com/">github</a> — веб-сервис для хостинга проектов и их совместной разработки, социальная сеть для разработчиков со страницами, с небольшими вики и системами отслеживания ошибок для каждого проекта. Кроме всего прочего прочего предлагает хостинг статичных веб-страниц <a href="http://pages.github.com/">github Pages</a>:  до 300Мб дискового пространства для статики и всех версий — бесплатно. Для публикации используются веб-интерфейс или ПК-приложения <a href="http://mac.github.com/" target="_blank">для Mac</a> и Windows. Подходит <strong>для небольших и средних веб-сайтов</strong>, при необходимости сайт легко переносится на облачный хостинг.</p>
+<p class="caption">Возможности сайтов github Pages можно расширить за счет:</p>
+<ul>
+<li><a href="https://github.com/mojombo/jekyll" target="_blank">генератора статисных сайтов Jekyll</a> (можно попробовать также специальный веб-редактор для Jekyll — <a href="http://prose.io/" target="_blank">Prose</a>); кроме того статических страниц, Jekyll создает <strong>RSS-ленту.</strong></li>
+<li>системой комментариев <a href="http://disqus.com/" target="_blank">Disqus</a></li>
+<li><a href="https://developers.facebook.com/docs/plugins/" target="_blank">социальными плагинами Facebook</a></li>
+<li>фотогалереями фотохостинга <a href="http://imgur.com/" target="_blank">Imgur</a></li>
+<li><a href="http://charliepark.org/tags-in-jekyll/" target="_blank">сниппетом для тегов</a></li>
+<li><a href="http://www.google.com/cse/" target="_blank">пользовательским поиском Google</a>.</li>
+</ul>
+<p id="domain-name">Для подключения доменных имен в корне репозитория создать файл CNAME, а в нем написать домен. Если это под-домен, то нужно прописать CNAME-запись, которая будет указывать на username.github.com. А если это домен верхнего уровня — A-запись, указывающую на 207.97.227.245 (CNAME для доменов верхнего уровня лучше не использовать...). Подождать, пока обновятся DNS.</p>
+<ul>
+<li>Git: <a href="http://git-scm.com/videos" target="_blank">4 видеоурока</a> (всего — около 23 мин)</li>
+<li><a href="https://help.github.com/categories/20/articles" target="_blank">github Pages — официальная справка</a></li>
+<li><a href="/pro/des-n-dev/07-hosting-github-heroku-etc/02-using-jekyll-01.htm">Блог на Jekyll и github</a></li>
+<li><a href="/pro/des-n-dev/07-hosting-github-heroku-etc/02-using-jekyll-02.htm">Блог на Jekyll и Go</a>.</li>
+<li><a href="http://drupal.org/node/803746" target="_blank">Git в разработке Drupal-сайтов</a>.</li>
+</ul>
+<h2>Облачный хостинг</h2>
+<p>Популярные сервисы и их главные преимущества:</p>
+<ul>
+<li><a href="http://www.heroku.com/" target="_blank">Heroku</a> — простота и свобода; небольшой сайт/приложение можно хостить бесплатно.</li>
+<li><a href="http://aws.amazon.com/" target="_blank">Amazon Web Services</a> (AWS) — наибольшая свобода для разработчиков.</li>
+<li><a href="http://www.linode.com/" target="_blank">Linode</a> — в некоторых случаях дешевле AWS.</li>
+<li><a href="https://www.appfog.com/" target="_blank">AppFog</a> (PHPFog) — <a href="http://net.tutsplus.com/articles/editorials/appfog-vs-heroku/" target="_blank">в некоторых случаях дешевле Heroku</a>.</li>
+<li><a href="http://ru.wikipedia.org/wiki/Google_App_Engine" target="_blank">Google Code Engine</a> — интеграция с сервисами Google.</li>
+</ul>
+<p><a href="http://smashingboxes.com/heroku-vs-amazon-web-services/" target="_blank">Сравнение цен</a>. Приложение/сайт с БД на 10 МБ и одним рабочим процессом: Heroku — $75 в месяц; AWS — от $17,69 в месяц  (предоплата за 3 года) до
+$57,6 в месяц.</p>
+<p><a href="http://www.heroku.com/" target="_blank">Heroku</a> и <a href="http://ru.wikipedia.org/wiki/Google_App_Engine" target="_blank">Google Code Engine</a> относятся к <a href="http://ru.wikipedia.org/wiki/PaaS" target="_blank">PaaS</a> модели. Amazon Web Services — к <a href="http://ru.wikipedia.org/wiki/IaaS" target="_blank">IaasS</a>.</p>
+<ul>
+<li><a href="/pro/des-n-dev/07-hosting-github-heroku-etc/03-heroku-hosting-01.htm">Настройка хостинга на Heroku</a></li>
+<li><a href="/pro/des-n-dev/07-hosting-github-heroku-etc/03-heroku-hosting-02.htm" target="_blank">Heroku в качестве хостинга сайтов</a></li>
+<li><a href="http://sysadminsjourney.com/content/2011/09/20/drupal-heroku/" target="_blank">Drupal на Heroku</a></li>
+<li><a href="http://archive.org/details/ChallengesOfHostingDrupalOnAws" target="_blank">Drupal на AWS</a></li>
+</ul>
+</body>
+</html>

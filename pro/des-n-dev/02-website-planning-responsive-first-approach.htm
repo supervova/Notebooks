@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Планирование адаптивности — до начала HTML-кодирования</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Планирование адаптивности — до начала  HTML-кодирования</h1>
+См. также все записи о <a href="/pro/des-n-dev/06-mobile/index.htm">разработке для мобильных устройств</a>.
+<ol>
+<li>Сначала <strong>группируем содержание страницы по контейнерам</strong> и выстраиваем в том порядке, в котором оно должно появляться на экранах телефона. На этам этапе предполагаем, что ничего скрывать — display: none— не будем.
+<pre>&lt;header id=&quot;header&quot;&gt;&lt;/header&gt;
+&lt;div id=&quot;content&quot;&gt;
+		&lt;article id=&quot;main&quot;&gt;&lt;/article&gt;
+		&lt;aside id=&quot;sidebar&quot;&gt;&lt;/aside&gt;
+		&lt;aside id=&quot;ads&quot;&gt;&lt;/aside&gt;
+		&lt;nav id=&quot;submenu&quot;&gt;&lt;/nav&gt;
+&lt;/div&gt;
+
+body
+{ margin: auto;
+letter-spacing: -0.31em; *letter-spacing: normal; word-spacing: -0.43em;  <span class="note">/* Какой-то хак на уровне контейнеров — зачем-то нужен */</span>
+text-align: center; <span class="note">/* чтобы выровнять блоки содержания по центру экрана */</span>}
+
+#header, #main, #sidebar, #ads, #submenu
+{ <strong>display: inline-block;</strong>   <span class="note">/* фишка — все контейнеры переводятся в строковые блоки */</span>
+*display: inline; zoom: 1; <span class="note">/* Строковый блок — Хак для IE; перевести в hacks.css */</span>    
+letter-spacing: normal; word-spacing: normal; <span class="note">/* reset: в содержании трекинг — нормальный */</span>
+text-align: left;
+vertical-align: top;
+width: 100% <span class="note">/* контейнеры должны растягиваться */</span> }
+</pre>
+</li>
+<li><strong>Определяем содержание, тип и максимальную и минимальную для контейнеров</strong>
+<ul>
+<li>«Шапка»
+<ul>
+<li>Содержание: логотип, главное меню, строка поиска</li>
+<li>Тип: баннер</li>
+<li>Мин. ширина: лучше не устанавливать</li>
+<li> Макс. ширина: 960px</li>
+</ul>
+</li>
+<li>#Main
+<ul>
+<li>Содержание: всякое разное — материал статичных страниц, новость, заметка блога, фотогалереи, списки загружаемых материалов и т.д.)</li>
+<li>Тип: центральный блок</li>
+<li>Мин. ширина: 360px</li>
+<li> Макс. ширина: 520px</li>
+</ul>
+Идеальная ширина строки — от 25em до 33em. Если размер основного текста 16пикселей, получаем 400 и 528 пикселей.
+</li>
+<li>#Sidebar
+<ul>
+<li>Содержание: CTA</li>
+<li>Тип:  блок с текстовыми и мультемедийными материалами<em></em></li>
+<li>Мин. ширина: 280px</li>
+<li> Макс. ширина: 380px</li>
+</ul>
+</li>
+<li>#Ads
+<ul>
+<li>Содержание: реклама</li>
+<li>Тип:  блок<em> стандартных рекламных блоков фиксированной ширины — 230px</em></li>
+<li>Фиксированная ширина:  250px или 490px (2 рекламы +  пробел)</li>
+</ul>
+</li>
+<li>#Submenu
+<ul>
+<li>Содержание: меню раздела</li>
+<li>Тип:  блок доп. навигации</li>
+<li>Мин. ширина: 220px</li>
+<li>Макс. ширина: 280px</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>На основе <strong>минимальной</strong> ширины контейнеров,<strong> записываем идеи макетов для экранов разных размеров.</strong>
+<ul>
+<li>Ширина экрана — 470px
+<ul>
+<li>«Шапка»</li>
+<li>#Main</li>
+<li>#Sidebar — Complementary</li>
+<li>#Ads  (250) + #Submenu (220)</li>
+</ul>
+</li>
+<li>530px
+<ul>
+<li>«Шапка»</li>
+<li>#Main</li>
+<li>#Sidebar (280) + #Ads (250)</li>
+<li>#Submenu</li>
+</ul>
+</li>
+<li>700px
+<ul>
+<li>«Шапка»</li>
+<li>#Main (420) + #Sidebar (280)</li>
+<li>#Ads</li>
+<li>#Submenu</li>
+</ul>
+или
+<ul>
+
+<li>«Шапка»</li>
+<li>#Main (420) + #Sidebar (280)</li>
+<li>#Ads + #Submenu</li>
+</ul>
+</li>
+<li>950px
+<ul><li>#Main (420) + #Sidebar (280) + #Ads (250)</li>
+<li> #Submenu</li>
+</ul>
+</li>
+<li><del>1170px</del>
+<ul>
+<li><del>#Main (420) + #Sidebar (280) + #Ads (250) + #Submenu</del></li>
+</ul>
+</li>
+<li>1190px
+<ul>
+<li>#Main (420) + #Sidebar (280) + #Ads <strong>(490)</strong></li>
+<li>#Submenu</li>
+</ul>
+</li>
+<li>1410px (макет «каскад»</li>
+<li>«Шапка» (240) #Main (420) + #Sidebar (280) + #Ads (250) + #Submenu (220)</li>
+</ul>
+Между 1170px и 1190px небольшая разница, удаляем из списка 1170pх, чтобы не смущать пользователей, меняющих ширину браузера слишком частой сменой макетов.</li>
+<li><strong>Добавляем стили для разных макетов с использованием media queries:</strong>
+<pre>
+/*470*/
+@media only screen and (min-width: 470px) and (max-width: 529px) {
+		<span class="note">/*Собираем два блока в одну строку*/</span>
+    #ads { float: left; width: 250px}
+    #submenu { display: block; overflow: hidden; width: auto} 
+}
+/*530*/
+@media only screen and (min-width: 530px) and (max-width: 699px) {
+#wrapper { display: block; margin: auto; max-width: 550px; <span class="note">/* см. комментарий ниже */</span>}
+		<span class="note">/*Собираем два блока в одну строку*/</span>
+    #sidebar { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    		margin-right: -250px; padding-right: 250px}
+    #ads { width: 250px}
+}
+/*700*/
+@media only screen and (min-width: 700px) and (max-width: 949px) {
+#wrapper { display: block; margin: auto; max-width: 830px <span class="note">/* см. комментарий ниже */</span>}
+    #main { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+			float: left; margin-right: -280px; padding-right: 280px; <strong>height: 300px</strong>}
+    <span class="note">/*Создаем из рекламы и CTA колонку вдоль основного содержания */</span>
+    #ads, #sidebar { <strong>float: right; height: 150px;</strong> width: 280px}
+    #submenu { <strong>clear: both</strong>}
+}
+/*950*/
+@media only screen and (min-width: 950px) and (max-width: 1169px) {
+#wrapper { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+		display: block; margin: auto; padding-right: 250px}
+		<span class="note">/*Собираем три блока в одну строку*/</span>
+    #main { width: 60%}
+    #sidebar { width: 40%}
+    #ads { margin-right: -250px; width: 250px}
+}
+/*1190*/
+@media only screen and (min-width: 1190px) and (max-width: 1409px) {
+#wrapper { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    display: block; margin: auto; padding-right: 490px}
+    #main {width: 60%}
+    #sidebar { width: 40%}
+    #ads { width: 490px; margin-right: -490px}
+}
+/*1410*/
+@media only screen and (min-width: 1410px) {
+BODY { max-width: 1740px}
+#wrapper { border-right: solid 250px transparent;
+-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+        float: left; margin-right: -16%; padding-left: 17%; padding-right: 16%; width:100%}
+    #header { float: left; margin-right: -17%; width: 17%}
+    #main { width: 60%}
+    #sidebar { width: 40%}
+    #ads { margin-right: -250px; width: 250px}
+    #submenu { width: 16%}
+}
+</pre>
+</li>
+<li><strong>Добавляем хаки для старых Explorerо-в</strong>
+<pre>
+&lt;!--[if lt IE 9]&gt;
+    &lt;style&gt;
+    BODY { margin: auto; min-width: 850px; max-width: 1000px; _width: 900px}
+    #main { width: 55%}
+    #sidebar { *margin-right: -1px; /* Исправление ошибки explorer-ов в округлении чисел */
+		width: 25%}
+    #ads { width: 20%}
+    #submenu { clear: both}
+    &lt;/style&gt;
+&lt;![endif]--&gt;
+</pre>
+</li>
+</ol>
+<p><a href="http://www.css-101.org/articles/responsive_design/demos/demo.html" target="_blank">Демо-страница</a> и способ смены фотографий в зависимости от ширины экрана: <a href="http://www.w3.org/community/respimg/2012/03/15/polyfilling-picture-without-the-overhead/" target="_blank">один вариант</a> и <a href="Планирование адаптивности — до начала HTML-кодирования" target="_blank">второй вариант</a>.</p>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Экспорт/импорт бызы</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+BODY { width: 760px}
+H1, H2, H3, P, PRE, UL { margin-right: auto; margin-left: auto; text-align: left; max-width: 540px}
+TR:nth-child(even) { background: #FFF}
+TR:nth-child(odd) { background: #ECEFF3}
+</style>
+</head>
+
+<body>
+<h1>Свой шаблон для tumblr-блога. Настройки</h1>
+<h2 id="pages">Специальные страницы (вроде About)</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:HasPages} {/block:HasPages}</th>
+<td>Блок отображается  в том случае, если в настройках определены какие-то специальные страницы.</td>
+</tr>
+<tr>
+<th>{block:Pages} {/block:Pages}</th>
+<td>Блок отображается  на каждой из специальных страниц.</td>
+</tr>
+<tr>
+<th>{URL}</th>
+<td>URL этой страницы</td>
+</tr>
+<tr>
+<th>{Label}</th>
+<td>Текст ссылки на эту страницу</td>
+</tr>
+</tbody>
+</table>
+<h2 id="following">Подписка / Following</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:Following} {/block:Following}</th>
+<td>Отображается, если автор блога подписан на чужие блоги</td>
+</tr>
+<tr>
+<th>{block:Followed} {/block:Followed}</th>
+<td>Отображается для каждого блога, на который подписан пользователь</td>
+</tr>
+<tr>
+<th>{FollowedName}</th>
+<td>Автора блога, на который подписан пользователь</td>
+</tr>
+<tr>
+<th>{FollowedTitle}</th>
+<td>Название блога, на который подписан пользователь</td>
+</tr>
+<tr>
+<th>{FollowedURL}</th>
+<td>URL блога, на который подписан пользователь</td>
+</tr>
+<tr>
+<th>{FollowedPortraitURL-16}<br />
+[24-30-40-48-64-96-128]</th>
+<td>Портрет фвтора блога, на который подписан пользователь, разных размеров.</td>
+</tr>
+</tbody>
+</table>
+<h3>Пример</h3>
+<pre><b>{block:Following}</b>
+Blogs I follow:
+&lt;ul&gt;
+<b>{block:Followed}</b>
+&lt;li&gt;
+
+&lt;img src=&quot;<b>{FollowedPortraitURL-48}</b>&quot;/&gt;
+&lt;a href=&quot;<b>{FollowedURL}</b>&quot;&gt;<b>{FollowedName}</b>&lt;/a&gt;
+&lt;/li&gt;
+<b>{/block:Followed}</b>
+
+&lt;/ul&gt;
+<b>{/block:Following}</b>
+</pre>
+<h2 id="likes">«Лайки»</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:Likes} {/block:Likes}</th>
+<td>Отображается, если в настройках <a href="http://www.tumblr.com/settings">«лайки» сделаны публичными</a>.</td>
+</tr>
+<tr>
+<th>{Likes}</th>
+<td>HTML «лаек».</td>
+</tr>
+<tr>
+<th>{Likes limit=&quot;5&quot;}</th>
+<td>HTML 5 последних «лаек» (максимум — 10)</td>
+</tr>
+<tr>
+<th>{Likes width=&quot;200&quot;}</th>
+<td>HTML «лаек» с аудио и видеоплейерами по 200 пикселей в ширину (ширину картинок нужно указывать в css с помощью свойства max-width)</td>
+</tr>
+<tr>
+<th>{Likes summarize=&quot;100&quot;}</th>
+<td>HTML «лаек» с кратким изложением до 100 знаков  (максимум — 250)</td>
+</tr>
+</tbody>
+</table>
+<h3>Пример</h3>
+<pre>
+...
+li.like_post { float: left; padding: 0 40px 0 0; width: 150px
+/* <i>ширина должна соответствовать ширине tumblr-тега «лаек»</i> */}
+li.like_post IMG { max-width: 100%}
+...
+<b>{block:Likes}</b>
+&lt;div id=&quot;likes_container&quot;&gt;
+&lt;h2&gt;Нам понравилось&lt;/h2&gt;
+<b>{Likes limit=&quot;5&quot; summarize=&quot;100&quot; width=&quot;150&quot;}</b>
+&lt;a href=&quot;http://www.tumblr.com/liked/by/<b>{Name}</b>&quot;&gt;И всё в том же духе&lt;/a&gt;
+&lt;/div&gt;
+<b>{/block:Likes}</b>
+...</pre>
+<h2 id="twitter">Twitter</h2>
+<p>Если в настройках Tumblr включена интеграция с  Twitter в tumblr-блог можно включать <b>/tweets.js,</b> который будет показывать последние записи в личной twitter-ленте. Этот скрипт запускает функцию <b>recent_tweets()</b> с единственным параметром — данными Twitter API JSON. </p>
+<table>
+<tbody>
+<tr>
+<th>{block:Twitter} {/block:Twitter}</th>
+<td>Отображается, если в настройках включена интеграция с  Twitter</td>
+</tr>
+<tr>
+<th>{TwitterUsername}</th>
+<td>Пользовательское имя автора tumblr-блога в Twitter.</td>
+</tr>
+</tbody>
+</table>
+<h3>Пример</h3>
+<pre><b>{block:Twitter}</b>
+&lt;div id=&quot;twitter&quot; style=&quot;display:none&quot;&gt;&lt;!--Непонятен смысл display:none — требует проверки экспериментом--&gt;
+&lt;h3&gt;&lt;a href=&quot;http://twitter.com/<b>{TwitterUsername}</b>&quot;&gt;Latest Tweets&lt;/a&gt;&lt;/h3&gt;
+&lt;div id=&quot;tweets&quot;&gt;&lt;/div&gt;        
+&lt;/div&gt;
+    
+&lt;script type=&quot;text/javascript&quot;&gt;
+function recent_tweets(data) {<br />	for (i=0; i&lt;data.length; i++) {<br />		document.getElementById(&quot;tweets&quot;).innerHTML = <br />		document.getElementById(&quot;tweets&quot;).innerHTML + <br />		'&lt;a href=&quot;http://twitter.com/{TwitterUsername}/status/' + <br />		data[i].id + '&quot;&gt;&lt;div class=&quot;content&quot;&gt;' + data[i].text + <br />		'&lt;/div&gt;&lt;/a&gt;';<br />	}<br />	document.getElementById(&quot;twitter&quot;).style.display = 'block';<br />}
+&lt;/script&gt;
+<b>{/block:Twitter}</b>
+      
+&lt;!-- Put this at the bottom of the page --&gt;
+<b>{block:Twitter}</b>
+&lt;script type=&quot;text/javascript&quot; src=&quot;<b>/tweets.js</b>&quot;&gt;&lt;/script&gt;
+<b>{/block:Twitter}</b></pre>
+<hr />
+<h2 id="custom-colors">Пользователю можно разрешить менять цвета шаблона</h2>
+<p>Если включить специальные мета-теги в шаблон, пользователь сможет менять цвета шаблона в разделе Customize. </p>
+<h3>Пример</h3>
+<pre>...
+&lt;!-- DEFAULTS --&gt;
+&lt;meta name=&quot;color:Background&quot; content=&quot;#eee&quot;/&gt;
+&lt;meta name=&quot;color:Content Background&quot; content=&quot;#fff&quot;/&gt;
+&lt;meta name=&quot;color:Text&quot; content=&quot;#000&quot;/&gt;
+...
+BODY { background: <b>{color:Background}</b>}
+#content { background: <b>{color:Content Background}</b>; color: <b>{color:Text}</b>}
+...</pre>
+<h2 id="custom-fonts">Пользователю можно разрешить менять шрифты</h2>
+<p>Если включить специальные мета-теги в шаблон, пользователь сможет менять шрифты в разделе Customize. </p>
+<h3>Пример</h3>
+<pre>...
+&lt;!-- DEFAULTS --&gt;
+&lt;meta name=&quot;font:Title&quot; content=&quot;Helvetica Neue&quot;/&gt;
+&lt;meta name=&quot;font:Body&quot; content=&quot;Arial, Helvetica, sans-serif&quot;/&gt;
+...
+H1 { font: 30px <b>{font:Title}</b>}
+#content { font: 12px <b>{font:Body}</b>}
+...</pre>
+<h2 id="booleans">Пользователю можно разрешить скрывать/показывать блоки</h2>
+<p>Если включить специальные условные мета-теги в шаблон, пользователь сможет скрывать и показывать отдельные блоки или элементы дизайна. Атрибут мета-тега name: if: + в свободной форме описание опции, с пробелами между словами. С помощью атрибута content указывается значение по умолчанию (1— да, 0 — нет). В HTML блоки помещаются в специальные теги <b>{block:If…}</b> и/или <b>{block:IfNot…}</b>, где вместо троеточия указывается описание опции без пробелов.</p>
+<h3>Пример </h3>
+<pre>...
+&lt;!-- DEFAULTS --&gt;
+&lt;meta name=&quot;if:Show people I follow&quot; content=&quot;1&quot;/&gt;
+&lt;meta name=&quot;if:Reverse pagination&quot; content=&quot;0&quot;/&gt;
+...
+<b>{block:IfNotReversePagination}</b>
+&lt;a href=&quot;...&quot;&gt;Позже&lt;/a&gt; &lt;a href=&quot;...&quot;&gt;Раньше&lt;/a&gt;
+<b>{/block:IfNotReversePagination}</b>
+...
+<b>{block:IfReversePagination}</b>
+&lt;a href=&quot;...&quot;&gt;Раньше&lt;/a&gt; &lt;a href=&quot;...&quot;&gt;Позже&lt;/a&gt;
+<b>{/block:IfReversePagination}</b>
+<b>...
+{block:IfShowPeopleIFollow}</b>
+&lt;div id=&quot;following&quot;&gt;...&lt;/div&gt;
+<b>{/block:IfShowPeopleIFollow}</b>
+...</pre>
+<h2 id="custom-text">Надписи с изменяемыми фрагментами</h2>
+<p>Если включить специальные мета-теги в шаблон, пользователь сможет использовать переменные в надписях, включенных в шаблон. Полезно для виджетов с именами пользователей.</p>
+<h3>Пример </h3>
+<pre>...
+&lt;!-- DEFAULTS --&gt;
+&lt;meta name=&quot;text:Flickr Username&quot; content=&quot;&quot;/&gt;
+...
+<b>{block:IfFlickrUsername}</b>
+&lt;div id=&quot;flickr_widget&quot;&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://flickr.com/widget?user=<b>{text:Flickr Username}</b>&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+<b>{/block:IfFlickrUsername}</b>
+...</pre>
+<h2 id="custom-images">Пользователю можно разрешить менять графику</h2>
+<p>Если включить специальные мета-теги в шаблон, пользователь сможет менять отдельные картинки, включенные в шаблон. Полезно для виджетов с именами пользователей. Если значение переменной изображения (например, <b>{image:Logo}</b>) не определено, в данной области страницы будет добавлен прозрачный 1-пиксельный gif. </p>
+<h3>Пример</h3>
+<pre>...
+&lt;!-- DEFAULTS --&gt;
+&lt;meta name=&quot;image:Background&quot; content=&quot;http://static.tumblr.com/...&quot;/&gt;
+&lt;meta name=&quot;image:Header&quot; content=&quot;&quot;/&gt;
+...
+BODY { background: #2D567C url(&quot;<b>{image:Background}</b>&quot;)}
+...
+<b>{block:IfHeaderImage}</b>&lt;img src=&quot;<b>{image:Header}</b>&quot;/&gt;<b>{/block:IfHeaderImage}</b>
+<b>{block:IfNotHeaderImage}</b>&lt;h1&gt;<b>{Title}</b>&lt;/h1&gt;<b>{/block:IfNotHeaderImage}
+</b>...</pre>
+<h2 id="custom-css">Пользовательские CSS</h2>
+<p>С помощью тега <b>{CustomCSS}</b> включенного последней строкой в блок стилей, пользователи смогут менять тему, не редактируя разметку. </p>
+<h3>Пример</h3>
+<pre>...<br />&lt;style type=&quot;text/css&quot;&gt;
+#content { background: #FFF; color: #000}
+<b>{CustomCSS}</b>
+&lt;/style&gt;
+...</pre>
+<hr />
+<h2 id="group-blogs">Групповые блоги</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:GroupMembers} {/block:GroupMembers}</th>
+<td>Блок в котором отображаются члены группы.</td>
+</tr>
+<tr>
+<th>{block:GroupMember} {/block:GroupMember}</th>
+<td>Каждый член группы.</td>
+</tr>
+<tr>
+<th>{GroupMemberName}</th>
+<td>Имя члена группы.</td>
+</tr>
+<tr>
+<th>{GroupMemberTitle}</th>
+<td>Титул члена группы.</td>
+</tr>
+<tr>
+<th>{GroupMemberURL}</th>
+<td>URL блога члена группы.</td>
+</tr>
+<tr>
+<th>{GroupMemberPortraitURL-16}<br />
+[24-30-40-48-64-96-128]</th>
+<td>URL аватара члена группы разных размеров.</td>
+</tr>
+<tr>
+<th>{PostAuthorName}</th>
+<td>Автор заметки в блоге группы.</td>
+</tr>
+<tr>
+<th>{PostAuthorTitle}</th>
+<td>Титул автора заметки в блоге группы.</td>
+</tr>
+<tr>
+<th>{PostAuthorURL}</th>
+<td>URL личного блога автора заметки в блоге группы.</td>
+</tr>
+<tr>
+<th>{PostAuthorPortraitURL-16}<br />
+[24-30-40-48-64-96-128]</th>
+<td>URL аватара автора заметки в блоге группе разных размеров.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="day-pages">Страницы отдельного дня</h2>
+<p>Tumblr-блог, может показывать записи за отдельный день <code>http://supervova.tumblr.com/day/2011/03/01/</code> <br />
+Используя разметку, можно сделать навигацию типа «Ранее — Позже». </p>
+<table>
+<tbody>
+<tr>
+<th>{block:DayPage} {/block:DayPage}</th>
+<td>Блок отображается только на странице отдельного дня.</td>
+</tr>
+<tr>
+<th>{block:DayPagination} {/block:DayPagination}</th>
+<td>Блок отображается  в том случае, если есть предыдущие и/или следущие страницы.</td>
+</tr>
+<tr>
+<th>{block:PreviousDayPage} {/block:PreviousDayPage}</th>
+<td>Блок отображается  в том случае, если есть предыдущие страницы отдельных дней — «ранее».</td>
+</tr>
+<tr>
+<th>{block:NextDayPage} {/block:NextDayPage}</th>
+<td>Блок отображается  в том случае, если есть следующие страницы отдельных дней — «позже».</td>
+</tr>
+<tr>
+<th>{PreviousDayPage}</th>
+<td>URL предыдущей страницы отдельного дня — «ранее».</td>
+</tr>
+<tr>
+<th>{NextDayPage}</th>
+<td>URL следующей страницы отдельного дня — «ранее».</td>
+</tr>
+</tbody>
+</table>
+<h3>Пример</h3>
+<pre>...
+&lt;h1&gt;<b>{Title}</b>&lt;/h1&gt;
+
+<b>{block:DayPage}</b>
+	&lt;h2&gt;<b>{Month}</b> <b>{DayOfMonth}</b>, <b>{Year}</b>&lt;/h2&gt;
+<b>{/block:DayPage}</b>
+
+&lt;ol id=&quot;posts&quot;&gt;
+<b>{block:Posts}</b>
+...
+<b>{/block:Posts}</b>
+&lt;/ol&gt;
+
+&lt;div id=&quot;footer&quot;&gt;
+<b>{block:Pagination}</b>
+	<b><br />{block:PreviousPage}</b>
+&lt;a href=&quot;<b>{PreviousPage}</b>&quot;&gt;&amp;#171; Previous&lt;/a&gt;
+<b>{/block:PreviousPage}</b>
+
+<b>{block:NextPage}</b>
+&lt;a href=&quot;<b>{NextPage}</b>&quot;&gt;Next &amp;#187;&lt;/a&gt;
+<b>{/block:NextPage}</b>
+
+<b>{/block:Pagination}</b>
+
+<b>{block:DayPagination}</b><br /><br /><b>{block:PreviousDayPage}</b>
+&lt;a href=&quot;<b>{PreviousDayPage}</b>&quot;&gt;&amp;#171; <b>{ShortMonth}</b> <b>{DayOfMonth}</b>&lt;/a&gt;
+<b>{/block:PreviousDayPage}</b>
+
+<b>{block:NextDayPage}</b>
+&lt;a href=&quot;<b>{NextDayPage}</b>&quot;&gt;<b>{ShortMonth}</b> <b>{DayOfMonth}</b> &amp;#187;&lt;/a&gt;
+<b>{/block:NextDayPage}</b><br /><br /><b>{/block:DayPagination}</b>
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</body>
+</html>

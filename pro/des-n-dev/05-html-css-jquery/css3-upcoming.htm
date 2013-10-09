@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>CSS3</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>CSS3. На подходе<a href="#selectors"></a></h1>
+<ol>
+<li><strong><a href="http://coding.smashingmagazine.com/2011/12/15/six-css-layout-features-to-look-forward-to/" target="_blank">Разбиение материала на страницы</a></strong> — для создания онлайн-презентаций или книг. 
+<code>@media paged,  overflow-style: paged-x (overflow-style: paged-x-controls).</code>
+<pre>
+@media paged {
+  html {
+    width: 100%;
+    overflow-style: paged-x;
+    padding: 5%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+}
+</pre>
+</li>
+<li><a href="http://coding.smashingmagazine.com/2011/12/15/six-css-layout-features-to-look-forward-to/"><strong>Регионы</strong></a>. flow-into: article_flow — свойство региона. flow-from: article_flow — свойство предка региона. @region — возможность оформлять элеметны внутри региона иначе.</li>
+<li><strong><a href="http://dev.w3.org/csswg/css3-grid-align/" target="_blank">Сложный макет, построенный по сетке. </a></strong>
+<img src="/a/img/design-n-development/grid-game-landscape.png" alt="" /><img src="/a/img/design-n-development/grid-game-portrait.png" alt="" />
+<pre>
+&lt;style type=&quot;text/css&quot;&gt;
+    #grid { 
+        display: grid;
+
+        /* Two columns: the first sized to content, the second receives the remaining space,   */
+        /* but is never smaller than the minimum size of the board or the game controls, which */
+        /* occupy this column. */
+        grid-columns: auto minmax(min-content, 1fr);
+
+        /* Three rows: the first and last sized to content, the middle row receives the remaining */
+        /* space, but is never smaller than the minimum height of the board or stats areas.       */
+        grid-rows: auto minmax(min-content, 1fr) auto
+    }
+
+    /* Each part of the game is positioned between grid lines by referencing the starting grid line and */
+    /* then specifying, if more than one, the number of rows or columns spanned to determine the ending */
+    /* grid line, which establishes bounds for the part. */
+    #title    { grid-column: 1; grid-row: 1 }
+    #score    { grid-column: 1; grid-row: 3 }
+    #stats    { grid-column: 1; grid-row: 2; grid-row-align: start }
+    #board    { grid-column: 2; grid-row: 1; grid-row-span: 2 }
+    #controls { grid-column: 2; grid-row: 2; grid-column-align: center }
+&lt;/style&gt;
+
+&lt;div id=&quot;grid&quot;&gt;
+    &lt;div id=&quot;title&quot;&gt;Game Title&lt;/div&gt;
+    &lt;div id=&quot;score&quot;&gt;Score&lt;/div&gt;
+    &lt;div id=&quot;stats&quot;&gt;Stats&lt;/div&gt;
+    &lt;div id=&quot;board&quot;&gt;Board&lt;/div&gt;
+    &lt;div id=&quot;controls&quot;&gt;Controls&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</li>
+<li><strong>Блоковый элемент, в котором можно выравнивать потомков, как в ячейке таблицы</strong> — не только горизонтально, но и вертикально. display: flexbox — свойство предка. flex-pack: center, flex-align: center — свойства потомка (по вертикали, и по горизонтали, соответственно). </li>
+</ol>
+</body>
+</html>

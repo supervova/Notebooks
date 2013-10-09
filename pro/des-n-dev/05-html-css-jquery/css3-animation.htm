@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>CSS3</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>CSS3. Анимация<a href="#selectors"></a></h1>
+<h2>Анимация (в том числе — с использованием ключевых кадров)</h2>
+<p>Поддерживается браузерами webkit и Firefox 5+. Но в коде для краткости не используются фрагменты с префиксом -moz.</p>
+<b>Свойство transition.</b> <a href="http://www.webdesignerdepot.com/2010/01/css-transitions-101/" target="_blank">Список свойств, к которым применимо transition</a>. Для оперы тоже нужен префикс.<br />
+<code>A { background-color: #F00}<br />
+A:hover { background-color: #00F;<br />
+<span class="note">/* tell the transition to apply to background-color and make it 2 seconds long */</span><br />
+-moz-transition-property: background-color; -moz-transition-duration: .4s; -moz-transition-timing-function: ease; <span class="note">/*Firefox будет поддерживать свойства с версии 3.7*/</span><br />
+-webkit-transition: background-color .4s ease; <span class="note">/*Сокращенная форма записи*/</span><br />
+-o-transition: background-color .4s ease;<br />
+transition-property: background-color; transition-duration: .4s; transition-timing-function: ease}</code><br />
+<b>правило @-webkit-keyframes свойства animation-name, animation-duration, and animation-interation-count</b><br />
+<img src="/a/img/design-n-development/yellow.jpg" alt="" class="animated" /><br />
+<span class="note"><code>/*анимируем элемент с классом animated в положении hover*/</code></span><code><br />
+.animated:hover {<br />
+-webkit-animation-name: hover_rotor; <span class="note">/*название необходимо, чтобы затем описать анимацию в правиле @-keyframes*/</span><br />
+-webkit-animation-duration: 4s; <span class="note">/*время также можно указать в милисекундах и десятичными дробями — 2000ms, 3.3s.*/</span><br />
+-webkit-animation-delay: 0; <span class="note">/*здесь всё очевидно*/</span><br />
+-webkit-animation-iteration-count: infinite; <span class="note">/*кроме бесконечного числа повторений, можно указать цифрой количество раз, в том числе — 1*/<br />
+</span>-webkit-animation-timing-function: linear; <span class="note">/*ускорение; может указывать здесь, в стилях анимированого элемента, а может указываться в праивле @keyframes другие возможные значения: ease-in, ease-out, ease-in-out*/</span></code><br />
+<code>-webkit-animation-direction: normal; <span class="note">/*может быть alternate — при этом кажый цикл анимации будет проигрываться в противоположной последовательности ключевых кадров, т.е. первый раз с 0% до 100%, второй раз со 100% до 0% и т.д.*/</span><br />
+-webkit-animation-play-state: running} <span class="note">/*второе значение paused; практическое применение — останавливать/запускать анимацию с помощью кнопок и js, пауз в ключевых кадрах*/</span><br />
+<span class="note">/*краткая форма записи*/</span></code><br />
+<code>.animated:hover { -webkit-animation: hover_rotor 4s linear 0 infinite normal}<br />
+<span class="note">/*имя, длительность, ускорение, задержка, продолжительность, направление*/</span></code><br />
+<pre>
+@-webkit-keyframes 'hover_rotor' { /*Как и в других случаях @-синтаксиса, @-keyframes является группой правил */
+    from { <span class="note">/*Обязательных ключевых кадров два: from и to (или 0% и 100%). Между ними можно вставлять 
+    кадры в процентном выражении от целого цикла анимации. Порядок кадров произвольный: 50%-0%-100%
+    будет проигрываться также, как и 0%-50%-100% */</span>
+      -webkit-transform: rotate(0deg);
+<span class="note">      /*можно анимировать таки качества как координаты
+      абсолютно позиционированного элемента, его цвет.
+      Каждому ключевому кадру можно добавить собственное
+      значение ускорения
+      -webkit-animation-timing-function: ease;
+      -webkit-animation-timing-function: steps(4); и т.п.
+      */</span>
+    }
+    25% {
+     -webkit-transform: rotate(90deg);
+      -webkit-animation-timing-function: ease-in;
+    } 
+    50% {
+      -webkit-transform: rotate(180deg);
+      -webkit-animation-timing-function: ease-out;
+    }
+    75% {
+      -webkit-transform: rotate(270deg);
+      -webkit-animation-timing-function: ease-in;
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+}</pre>
+<h2>Использование  принципов Диснея</h2>
+<h3>Растяжения и сжатия</h3>
+<p>Персонаж реагирует на силу тяжести, перемещение и силу инерции, в  буквальном смысле слова растягиваясь и сжимаясь в процессе движения.  Например, в мультфильме персонажи части слегка сжимаются перед тем, как  подпрыгнуть вверх, немного растягиваются, паря в воздухе, а затем опять  сжимаются при ударе об опорную поверхность. В результате имитируется  реакция на силу тяжести.</p>
+<img src="/a/img/design-n-development/animation-01-exaggeration.jpg" alt="" />
+<pre>
+@-webkit-keyframes example {
+   0% { -webkit-transform: scaleY(1.0)}
+   50% { -webkit-transform: translateY(-300px) scaleY(1.2)}
+   100% { -webkit-transform: scaleY(1.0)}
+}
+</pre>
+<h3>Предвосхищение и завершение</h3>
+<p>При моделировании движения необходимо учитывать силу и момент  инерции. Например, накидка на прыгающем персонаже будет двигаться еще  некоторое время после его остановки. После приземления гимнаст вынужден  слегка согнуть колени и наклониться, чтобы стабилизировать свое  положение. Остаточное движение, наблюдающееся после окончания главного,  называется завершением (<strong>follow-through</strong>).</p>
+<p>Точно так же следует моделировать небольшие движения персонажа до  начала его основного перемещения. Эта техника называется предвосхищением  (<strong>anticipation</strong>).</p>
+<p>В следующем фрагменте кода просто задерживается  анимация из предыдущего раздела.</p>
+<pre>
+@-webkit-keyframes example {
+   0% { -webkit-transform: translateY(-300px) scaleY(1.2)}
+   35% { -webkit-transform: translateY(-300px) scaleY(1.2)} /* Same position as 0% */
+   65% { -webkit-transform: translateY(0px) scaleY(1.2)}    /* Starts moving after 35% to this position */
+   67% { -webkit-transform: translateY(10px) scaleY(0.8)}
+   85% { -webkit-transform: translateY(-100px) scaleY(1.2)}
+   100% { -webkit-transform: translateY(0px)}
+}
+</pre>
+<h3 class="item">Декорации и освещение, фокусирующее внимание на главном</h3>
+<h3>Покадровая анимация и анимация ключевых кадров (Pose to Pose)</h3>
+<p>В CSS и Flash чаще используют технику анимации ключевых кадров. Промежуточные кадры — in-betweening или, сокращенно, tweening — заполняются программой. Художники-аниматоры просто рисуют промежуточные кадры позже ключевых.</p>
+<h3>Законы физики</h3>
+<h4>Ньютоновские законы движения</h4>
+<ol>
+<li>Тело остается в состоянии покоя или равномерного прямолинейного  движения, если на него не действуют внешние силы. Это явление называется  инерцией.</li>
+<li>Ускорение, приобретаемое телом в инерциальной системе отсчета, прямо  пропорционально действующей на него силе и обратно пропорционально его  массе. Другими словами, чем больше масса объекта, тем большее усилие  потребуется для изменения его скорости.</li>
+<li>Тела взаимодействуют с силами, равными по модулю и противоположными  по направлению. Например, когда вы давите на кирпичную стенку, стенка с  такой же силой давит на вашу руку. Именно поэтому рука не проваливается  сквозь стену.</li>
+</ol>
+<h4>Импульс</h4>
+<p>Вы должны понимать, что означает термин импульс. Импульсом обладает  любой движущийся объект. Его значение равно произведению массы объекта  на его скорость. Чем тяжелее объект или чем больше его скорость, тем  больше будет его импульс.</p>
+<p>Например, маленькая пуля оказывает значительное влияние на кусок  дерева. Все дело в том, что ее абсолютная скорость сильно увеличивает  значение импульса. Аналогично, медленно движущийся грузовик способен  искорежить ваш автомобиль, потому что он имеет большую массу, а  следовательно, и импульс.</p>
+<p>При столкновении одного объекта с другим происходит передача  импульса. Это означает, что в результате такого столкновения неподвижный  объект может прийти в движение.</p>
+<h3>Замедление и ускорение</h3>
+<img src="/a/img/design-n-development/animation-01-easing.jpg" alt="" />
+<p>В CSS регулируется с помощью <code>animation-timing-function</code></p>
+<pre>-webkit-animation-timing-function: ease-out</pre>
+<p class="caption">Значения этого свойства:</p>
+<ul>
+<li>ease-in — ускорение</li>
+<li>ease-out — замедление</li>
+<li>ease-in-out — в нечале ускорение, в конце замедление</li>
+<li>linear — одинаковая скорость</li>
+</ul>
+<p>Для точных настроек можно использовать bezier-curve функцию.</p>
+<h3>Траектории</h3>
+<img src="/a/img/design-n-development/animation-03-arcs.jpg" alt="" />
+<pre>
+&lt;div class=&quot;ball-arc&quot;&gt;<br />   &lt;div class=&quot;ball&quot;&gt;&lt;/div&gt;<br />&lt;/div&gt;
+
+.ball-arc {
+-webkit-animation: ball-x 2.5s cubic-bezier(0, 0, 0.35, 1);
+}
+   /* cubic-bezier here is to adjust the animation-timing speed.
+   This example makes the ball take longer to slow down. */
+
+@-webkit-keyframes ball-x {
+   0% { -webkit-transform: translateX(-275px); }
+   100% { -webkit-transform: translateX(0px); }
+}
+</pre>
+<h3>Сопутствующие движения</h3>
+<p>Когда девушка идет, ее волосы и юбка развиваются, груди колышатся. После того, как мячик падает на землю и перестает скакать, он еще какое-то время катится.</p>
+<pre>
+.ball img {
+-webkit-animation: spin 2.5s;
+}
+
+@-webkit-keyframes spin {
+   0% { -webkit-transform: rotate(-180deg)}
+   100% { -webkit-transform: rotate(360deg)}
+}
+</pre>
+<h3>Расчет времени</h3>
+<p>Чтобы анимация выглядела реалистичной, следует точно настраивать скорости движений: только супермен может бежать быстрее лошади, пуля быстрее бабочки и т.д. В CSS регулируется в свойстве <code>animation-duration</code>.</p>
+<h3>Преувеличение</h3>
+<p>Вместе с тем, для выделения каких-то действий, в анимации умеренно используется преувеличение. Верхняя часть туловища героя дольше, чем следовало бы остается в кадре, когда ноги уже убежали (преувеличение инерции), шар сильнее расплющиваются при ударе об пол и т.п.</p>
+<pre>
+@-webkit-keyframes wobble {
+
+0%, 24%, 54%, 74%, 86%, 96%, 100% {
+   -webkit-transform: scaleX(1.0)
+/* Make the ball a normal size at these points */
+}
+
+25%, 55%, 75% {
+   -webkit-transform: scaleX(1.3) scaleY(0.8) translateY(10px)
+/* Points hitting the floor: squash effect */
+}
+
+30%, 60%, 80% {
+   -webkit-transform: scaleX(0.8) scaleY(1.2)
+/* Wobble inwards after hitting the floor */
+}
+
+75%, 87% {
+   -webkit-transform: scaleX(1.2)
+/* Subtler squash for the last few bounces */
+}
+
+97% -webkit-transform: scaleX(1.1)
+/* Even subtler squash for last bounce */
+}
+}
+</pre>
+<h3>Качество рисунка, его привлекательность</h3>
+<h2 id="transform">Перемещение, вращение, масштабирование, перекашивание</h2>
+<p>Свойство <b>transform</b> и его значения translate, rotate, scale. Для оперы тоже нужен префикс.<br />
+<code>IMG.rotated { -moz-transform: rotate(-90deg); -o-transform: rotate(-90deg); -webkit-transform: rotate(-90deg); transform: rotate(-90deg); <br />
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3)} <span class="note">/*для IE применяем фильтр; значения 1, 2, 3 — кратны 45градусам, надо потеестировать; для IE8 добавляем -ms-filter с тем же значением */</span><br />
+A:hover { -moz-transform: scale(-1.3, 1); -o-transform: scale(-1.3, 1); -webkit-transform: scale(-1.3, 1); transform: scale(-1.3, 1); <span class="note">/* This should make my links zoom slightly and flip horizontally  on hover, but the height will remain unchanged */</span>}<br />
+.current .current { <span class="note">/* This will move the .current element left 10 pixels and down 20 pixels. */</span><br />
+-moz-transform: translate(10px, 20px); -o-transform: translate(10px, 20px); -webkit-transform: translate(10px, 20px); transform: translate(10px, 20px)}<br />
+#nav{ <span class="note">/*Совмещаем разные типы*/</span><br />
+-moz-transform: translate(10, 25) rotate(90deg) scale(2, 1); -webkit-transform: translate(10, 25) rotate(90deg) scale(2, 1);<br />
+transform: translate(10, 25) rotate(90deg) scale(2, 1)}</code></p>
+<p>&nbsp; </p>
+<p>&nbsp;</p></body>
+</html>

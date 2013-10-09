@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Настройка</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Настройка: модули, типы материалов, словари, форматы ввода, производительность, локализация</h1>
+<h2>Модули</h2>
+<aside class="pull_quote right">
+<h3>Если при переустановке модулей возникает ошибка MySQL </h3>
+<ol>
+<li>Отключить модуль</li>
+<li>Деинсталлировать</li>
+<li>Удалть папку</li>
+<li>Почистить кэш</li>
+<li>Cron<br>
+(D5: http://example.com/cron.php<br>
+D7: http://example.com/admin/reports/status/run-cron) </li>
+<li>Переписать в modules новую папку</li>
+<li>Update.php.</li>
+</ol>
+</aside>
+<ol>
+<li>Временно отключить чиcтые ссылки <em>» Configuration &gt; Search and metadata &gt; Clean URLs &gt; Enable clean URLs </em></li>
+<li>Включаем не включенные модули стандартной поставки (<i>&gt; Modules</i>):
+<ul>
+<li><b>Blog</b></li>
+<li><strong>Content translation </strong> — многоязычность.</li>
+<li><strong>Locale</strong></li>
+<li><b>PHP Filter</b> — для работы PHP в инклудах</li>
+<li><strong>Trigger</strong> — позволяет другим модулям реагировать на изменения системы.</li>
+<li><strong>Update manager</strong></li>
+</ul>
+<strong>Если возникают ошибки,</strong> можно попробовать включить-отключить проблемный модуль, или отключить модуль через вкладку Uninstall («Удалить»). Если не помогает, лезть в интернет за решением.</li>
+<li>Выключаем ненужные, но включенные по умолчанию модули стандартной поставки:
+<ul>
+<li>Color</li>
+<li>Comment — если использутся соц. плагины</li>
+<li>Search.</li>
+</ul>
+</li>
+<li id="modules">Загружаем и устанавливаем — <i>&gt; Modules</i>
+<ul>
+<li><b><a href="http://drupal.org/project/ctools" target="_blank">Chaos tool suite</a></b> — обязателен для Views. Надо включить <em>Chaos tools</em> и <em>Views content panes</em>.</li>
+<li> <b><a href="http://drupal.org/project/db_maintenance" target="_blank">DB Maintenance</a></b> — автоматическая оптимизация базы данных.</li>
+<li><a href="http://drupal.org/project/devel" target="_blank"><strong>Devel</strong></a>, <strong><a href="http://drupal.org/project/simplehtmldom" target="_blank">simplehtmldom API</a></strong> и <strong><a href="http://drupal.org/project/devel_themer" target="_blank">Theme Developer</a></strong> — веб-инспектор шаблонов и функций D и необходимые расширения.</li>
+<li><a href="http://drupal.org/project/disqus" target="_blank"><b>Disqus</b></a> — платформа комментирования с интегрированной авторизацией с помощью социальных пагинов.</li>
+<li><strong><a href="http://drupal.org/project/ga_stats" target="_blank">Google Analytics Statistics</a></strong>. Если нужен блок «Самое популярное содержание» (встроенный модуль Statistics создает ненужную нагрузку на БД).</li>
+<li><strong><a href="http://drupal.org/project/imageapi" target="_blank">ImageAPI</a></strong> + <a href="http://drupal.org/project/imageapi_optimize/" target="_blank"><strong>ImageAPI Optimize</strong></a> — оптимизация картинок без потери качества.</li>
+<li><b><a href="http://drupal.org/project/imce" target="_blank">IMCE</a></b> — работа над картинками: создание миниатюр, персональный или общие папки для картинок (интересно для «Секретаря»), навигация по директориям</li>
+<li><b><a href="http://drupal.org/project/imce_wysiwyg" target="_blank">IMCE Wysiwyg bridge</a></b></li>
+<li><a href="http://drupal.org/project/node_convert" target="_blank"><strong>Node Convert</strong></a> — возможность менять тип материала.</li>
+<li><b><a href="http://drupal.org/project/metatag" target="_blank">Meta tag</a></b> — включаем Meta tags и Meta tags: Open Graph. Кроме мета-тегов заполняет &lt;title&gt;, поэтому специальный модуль для этого тега не нужен.</li>
+<li><b><a href="http://drupal.org/project/pathauto" target="_blank">Pathauto</a> и <a href="http://drupal.org/project/token" target="_blank">Token</a></b> — автоматизация составления SE-дружественных адресов страниц по определенным шаблонам.</li>
+<li><a href="http://drupal.org/project/schema" target="_blank"><strong>Schema</strong></a> — одна из функций — поиск и удаление таблиц неправильно деинсталлированных модулей.</li>
+<li><b><a href="http://drupal.org/project/scanner" target="_blank">Search and Replace</a></b> — глобальный поиск и замена.</li>
+<li> <b><a href="http://drupal.org/project/seo_checklist" target="_blank">SEO Checklist</a></b></li>
+<li><b><a href="http://drupal.org/project/video" target="_blank">Video</a></b> — позволяет пользователям и редакторам загружать видео, создает автоматические миниатюры и т.п. HTML5</li>
+<li><b><a href="http://drupal.org/project/views" target="_blank">Views</a></b> — способ составления различных каталогов (оглавлений, анонсов) сайта в виде списков или таблиц. Кроме того, можно делать традиционный блог-календарь.</li>
+<li><b><a href="http://drupal.org/project/views_slideshow" target="_blank">Views slideshow</a></b> — модуль для создания всевозможных слайдеров: биллбордов, галерей и т.д.</li>
+<li><b><a href="http://drupal.org/project/xmlsitemap" target="_blank">XML sitemap</a></b> — из всех компонентов нужны только <em>XML sitemap</em> и <em>XML sitemap engines</em>.</li>
+<li><a href="http://drupal.org/project/workbench" target="_blank"><strong>Workbench</strong></a> — упрощенный интерфейс CMS для редакторов. <a href="http://palantir.net/blog/introducing-workbench-new-approach-managing-content-management" target="_blank">Скринкаст-справка</a>; на странице модуля есть ссылки на другие справочные материалы.</li>
+<li><a href="http://drupal.org/project/wysiwyg" target="_blank"><b>Wysiwyg</b></a> — упрощает использование визуальных онлайн-редакторов (мой выбор — <a href="http://tinymce.moxiecode.com/" target="_blank">TinyMCE</a>)</li>
+</ul>
+Для каждого нового сайта проверять <a href="http://www.xmarks.com/topic/modules" target="_blank">список популярных модулей</a> и по необходимости добавлять новые. </li>
+<li>Даем администратору <a href="/pro/drupal/06-users-roles-permissions.htm#admin">все права на установленные модули</a>. </li>
+<li>После этого настраиваем некоторые из включенных модулей — со страницы модулей из колонки Operations. Все модули, в которых есть опция Configure, настраивать не надо
+<h3 id="modules-required">Для базовых сайтов</h3>
+<ul>
+<li><strong>Image.</strong> Редактируем размеры и принципы создания миниатюр.</li>
+<li><strong>Locale.</strong> Добавляем русский язык и делаем его языком по умолчанию.</li>
+<li><strong> Meta Tags</strong>. В настройках проверить и поправить шаблоны:
+<ul>
+<li>Global
+<ul>
+<li>description — краткое содержание + общее заключительное предложение в описании всех страниц. Например:  [node:summary] PR-агентства «Полилог» (маркетинговые коммуникации: пиар, корпоративные журналы и газеты etc). Затем при заполнении формы материала текст description можно будет исправить.</li>
+<li>В Open Graph должны быть настроены обязательные параметры:
+<ul>
+<li>title — [current-page:title]</li>
+<li>type — Article</li>
+<li>image — /apple-touch-icon-144x144.png</li>
+<li>url — [current-page:url:absolute]</li>
+<li>Facebook  application ID — надо <a href="http://developers.facebook.com/setup" target="_blank">создать приложение</a>, которое будет собирать статистику, и получить его id.</li>
+</ul>
+Необязательные параметры:
+<ul>
+<li>site name — [site:name]</li>
+<li>description — скопировать из основного мета-тега.</li>
+</ul>
+</li>
+<li>в Advanced
+<ul>
+<li>очистить значение Generator</li>
+<li>указать canonical link — [current-page:url:absolute]</li>
+<li>и изменить разделитель в Title [node:title] — [site:name].</li>
+</ul>
+</li>
+<li>Global: Front Page
+<ul>
+<li>изменить description и og:description</li>
+<li>og:type должен быть Website</li>
+<li>в Advanced удалить short link</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Если надо создать особые правила мета-тегов для определенного типа материалов — Add a meta tag default.</li>
+</ul>
+Этот модуль заботится о Page Title. Поэтому необходимости в специальном модуле нет.
+</li>
+<li><strong>Path.</strong>
+<ul>
+<li>Patterns
+<ul>
+<li>Очистить Default path pattern (applies…)</li>
+<li>Задать нужные шаблоны, например:<br>
+en/news/[current-date:custom:y/m-d]-[current-page:title]</li>
+<li>TAXONOMY TERM PATHS — очистить все лишние шаблоны; определить нужные: например, ru/pr-blog/[term:name]<br>
+(в шаблонах URL в D не используются ни открывающие, ни закрывающие слеши)</li>
+</ul>
+</li>
+<li>Settings
+<ul>
+<li>
+<input type="checkbox" checked="checked">
+Verbose.</li>
+<li>Maximum component length, Maximum component length — 96</li>
+<li>Update action — Do nothing. Leave the old alias intact.</li>
+<li><input type="checkbox" checked="checked">Reduce strings to letters and numbers</li>
+<li><a href="/pro/drupal/02-modules-path-strings-to-remove.htm">Strings to remove</a>.</li>
+<li>Punctuation: заменить стандартную команду Remove на Replace with separator для:
+<ul>
+<li>Back tick (`)</li>
+<li>Comma (,)</li>
+<li>Period (.)</li>
+<li>Underscore (_)</li>
+<li>Colon (:)</li>
+<li>Semicolon (;)</li>
+<li>Vertical bar (pipe) (|)</li>
+<li>Equal sign (=)</li>
+<li>Ampersand (&amp;)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Taxonomy</strong>. Создание словарей тегов — языки, годы, темы блога — для фильтров и каталогизации архивов.</li>
+<li><strong>Node (Content types)</strong> — добавить нужные типы материалов: новости, видео.<br>
+В Submission form settings можно установить ограничение по длине основного текста и предупреждение (например, для заметок микроблоггинга). В Publishing options — отключить Promoted to front page. В Display settings — отключить Display author and date information. В Page Title Settings — включить/выключить поле Page Title (Заголовок окна браузера) и создать для него шаблон — !page_title | !site_name.<em> В Manage Fields</em> можно изменить порядок полей формы ввода, добавить новые поля, в свойствах поля Body отключить summary, выбрать формат ввода и сделать поле обязательным. <em>В Manage Display</em> можно изменить способ вывода названий полей — сверху, внутри поля, без названия.</li>
+<li><strong>Update manager</strong> — сменить частоту проверки обновлений на weekly.</li>
+<li><strong>Views</strong> — добавить необходимые виды.<br>
+</li>
+</ul>
+<h3>Для более сложных сайтов</h3>
+<ul>
+<li><strong>Dashboard</strong>. Выбрать, какие блоки будут показываться в панели — колонка Region, пункты меню None, Main, Sidebar. В большинстве случаев достаточно оставить Recent content. Если сайт не предполагает активного участия пользователей, <em>Dashboard</em> можно отключить вовсе.</li>
+<li><strong>Disqus.</strong> Для начала надо подключить сайт к <a href="https://disqus.com/admin/signup/" target="_blank">Disqus</a>, и настроить комментарии (settings): включить язык, выключить Media Attachments, Discovery, установить <a href="http://sms-roman.disqus.com/admin/settings/access/#!/?l=blacklist" target="_blank">фильтры для матов и ссылок</a>.<br>
+В D, на странице настроек модуля ввести короткое имя сайта, выбрать Location (обычно — Block, чтобы можно было поставить его в любое место макета) и включить локализацию (Behavior &gt; Localization support)</li>
+<li><strong>Menus</strong> — можно отключить ссылки, которые клиенту совсем не нужны: Dashboard (если сайт не предполагает активного участия пользователей), Content (есть во второй строке меню — строке быстрых ссылок), Structure, Appearance, Modules, Configuration. Если клиенту позволительно менять меню, вынести на верхний уровень Menus.</li>
+<li><strong>Multilingual - Internationalization.</strong> Если включена система i18n, в Multilingual content поставить флаг Hide content translation links.</li>
+<li><strong>Google Analytics Statistics</strong>. Если нужен блок «Самое популярное содержание».</li>
+<li><strong>Triggers.</strong> Настройка реакции системы на определенные действия пользователя: CRUD. Обычно используется для борьбы с хакерами — в большинстве случаев реакция сводится к блокированию IP (см. admin/config/system/actions/) </li>
+<li><strong>Users.</strong> Account settings &gt; правила регистрации, письмо подтверждающее регистрацию и т.д. IP address blocking &gt; Форма блокирования нежелательных IP-адресов.</li>
+</ul>
+</li>
+<li>Чтобы проверить, всё ли настроено, смотрим отчеты <i><a href="/admin/reports/status">&gt; Reports &gt; Status report</a></i></li>
+<li>Если модуль использует собственные стили и/или скрипты, включаем их в общие файлы через модуль min (добавить в tpl-html5 в папки js и css вложенные папки drupal).</li>
+<li>Если сайт использует поиск D, а не Googl-а, надо его настроит<br>
+<i>&gt; Configuration &gt; Search</i></li>
+</ol>
+<h2>Форматы ввода</h2>
+<ol>
+<li><a href="?q=admin/config/content/formats/">Назначить администратору Full HTML</a>.</li>
+<li>Если требуется добавить или сократить словарь Filtered HTML.</li>
+</ol>
+<h2>Производительность</h2>
+<p><i>&gt; Configuration  &gt; Perfomance </i><br>
+Флаги на <i>Cache pages for anonymous users </i> и <i>Cache blocks </i><br>
+<i>Minimum cache lifetime </i> — 1 hour</p>
+<h2>Локализация интерфейса и региональные настройки</h2>
+<h3>&gt; Configuration &gt; Regional and language</h3>
+<ol>
+<li><a href="http://localize.drupal.org/translate/languages/ru" target="_blank">Скачиваем пакет русской локализации</a> (не только ядро, но также и используемые модули) во временную директорию.</li>
+<li><i> &gt; Languages → Add language </i>Добавляем русский, делаем его языком по умолчанию, сохраняем.</li>
+<li><i>&gt; Translate interface → Import</i><br>
+Добавляем скаченные файлы в систему.</li>
+<li>Если какой-тот строки нет в файле перевода, ее можно перевести самостоятельно<br>
+<i>&gt; Translate interface → Translate</i></li>
+<li>Измененные файлы можно экспортировать для использования в новых проектах<br>
+<i>&gt; Translate interface → Export</i></li>
+<li><i>&gt; Languages → Detection and selection</i><br>
+Ставим флаги<br>
+<i>Determine the language from the URL (Path prefix or domain). <br>
+Follow the user's language preference. <br>
+</i></li>
+<li><i>&gt; Languages → Detection and selection → URL language detection configuration → Configure</i><br>
+Выбираем <i>Path prefix</i>, сохраняем </li>
+<li><i>&gt; Regional settings</i><br>
+Меняем первый день недели на понедельник.</li>
+</ol>
+<h2>Перевод содержания</h2>
+<ol>
+<li><i>&gt; Structure → Content types →</i> нужный тип содержания <i>→ Edit → Publishing options → Multilingual support → Enabled, with translation</i>. Сохраняем.</li>
+<li>При создании/редактировании материала выбираем язык в выпадающем меню.</li>
+<li>В последствии в списке содержания &gt; Content материалы будут помечаться как переведенные/непереведенные/с устаревшим переводом. Также материалы можно будет сортировать по языку.</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

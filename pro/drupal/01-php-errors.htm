@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Ошибки PHP</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Ошибки PHP</h1>
+<p>На хостинге обычно ошибки PHP отключают и тогда появляются пустые страницы, полупустые страницы или страницы ошибки 500.</p>
+<p>Можно спросить на хостинге, где найти лог ошбок php. Если такого нет, нужно</p>
+<ol>
+<li> создать на сайте каталог errors</li>
+<li>в .htaccess добавить
+<pre>
+php_flag  log_errors on
+php_flag display_errors off
+php_value error_log  /errors/php_error.log
+</pre>
+</li>
+<li>в каталоге errors завести собственный .htaccess, запрещающий доступ к нему
+<pre>Order allow,deny
+Deny from all</pre>
+</li>
+</ol>
+<p>В PHP поимо ошибок (скрипт не может работать) встречаются предупреждения (скрипт попытается продолжить свои операции, но гарантий нет) и замечания (то-то и то-то лучше исправить, пока не поздно).</p>
+<p><strong>Как правило первая ошибка — самая важная. И исправив ее можно исправить сразу все.</strong></p>
+<h2>Ошибки, связанные с подключением к БД</h2>
+<p>Ошибки возникают по трем причинам:</p>
+<ul>
+<li>Пользователь ошибся <strong>в имени сервера MySQL</strong>. Обычно в настройках указывается localhost, что означает тот же сервер, что и веб-сайт. Но при вызове базы нужно обращаться по URL или IP-адресу.</li>
+<li>Пользователь ошибся <strong>в имени пользователя</strong>. Это может случится из-за префиксов, которые cPanel добавляет к пользовательским данным.</li>
+<li>Пользователь <strong>ошибся в названии базы</strong>. Тоже случается из-за префиксов cPanel.</li>
+<li>У пользователя <strong>нет прав для изменения таблиц</strong>. Эти права надо дать через cPanel, phpMyadmin или обратившись в службу поддержки.</li>
+</ul>
+<h2>Ошибки собственно PHP</h2>
+<ol>
+<li><strong>Fatal error: Call to undefined function … in …php on line …</strong><br />
+Функция, которая вызывается в скрипте, не находится. Это происходит потому что
+<ul>
+<li>на сервер не переписаны все файлы — стоит попробовать другой ftp-менеджер</li>
+<li>не добавлен нужный PHP-инклуд или в файле настроек неправильно прописан путь к нему</li>
+<li>на сервере установлена более поздняя версия PHP или нет нужной библиотеки</li>
+</ul>
+С такими ошибками надо сначала обращаться к программисту, затем в хостинг.
+</li>
+<li><strong>Fatal error: Cannot redeclare … (previously declared in …php…) in …php on line…</strong><br />
+Обычно это значит, что один и тот же инклуд вызывается дважды — следует проверит в тех местах, которые указаны в сообщении об ошибке, и удалить дубликат.</li>
+<li id="php_ini"><strong>Fatal error:  Allowed memory size of … bytes exhausted.</strong> Надо в /Applications/XAMPP/etc/php.ini увеличить значение настройки:<br />
+memory_limit = 128M</li>
+<li><strong>Модули Drupal-а ограничивают максимальный размер файла.</strong> Надо в /Applications/XAMPP/etc/php.ini увеличить значение настроек:
+</li>
+<ul>
+<li>upload_max_filesize = 128M</li>
+<li>post_max_size = 128M</li>
+</ul>
+<li><strong>Permission denied</strong><br /> 
+Пример: Warning: move_uploaded_file(/home/mysite/public_html/upload/my_cat.jpg) [function.move-uploaded-file]: failed to open stream: Permission denied in /home/mysite/public_html/upload.php on line 49<br /> 
+Обычно лечится простой сменой прав для папки. Если администратор сайта не может это сделать самостоятельно, нужно обратиться в службу поддержки хостинга.</li>
+<li><strong>PHP Warning: Include</strong><br />
+Пример: PHP Warning:  include(foo.php): failed to open stream: No such file or directory in /home/mysite/public_html/test.php on line 2<br /> 
+Инклуды (включения) могут вызываться конструкциями include() или require(). Если испольуется require(). Require означает критическую важность включения, и если скрипт не находит указанный файл, прекращает выполняться. Следует проверить пути во включениях — они должны быть относительными к документу.</li>
+<li><strong><a href="http://wiki.smithwebapps.net/DrupalFunctionEregIsDeprecatedInFileIncOnLine646" target="_blank">Drupal Function Ereg Is Deprecated In File Inc On Line 646<br />
+</a></strong></li>
+</ol>
+</body>
+</html>

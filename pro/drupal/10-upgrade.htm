@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Обновления</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Обновления</h1>
+<p>Обновления локального и удаленного сервера фаткически ничем не отличаются. Только прежде чем обновлять Drupal на удаленном сервере, следует перевести сайт в режим профилактических работ: <code>» Configuration &gt; Development &gt; Maintenance mode</code></p>
+<h2>Обновление в рамках одной версии</h2>
+<p>Чтобы обновить Drupal в рамках одной версии — <strong>например, с  D 6.0 до D 6.19</strong> — не нужно устанавливать все пропущенные редакции (в данном случае — 6.1, 6.13). </p>
+<ol>
+<li>Сделать резервную копию файлов, в которые вносились изменения (в общем случае — это .htaccess и robots.txt).</li>
+<li>Сделать резервную копию settings.php под неовым именем.Сделать копию нового default.settings.php, переименовать в settings.php. Переписать из резервной копии фрагменты кода для данного сайта. Обычно это:
+<pre>
+$databases = array (
+  'default' => 
+  array (
+    'default' => 
+    array (
+      'database' => 'polylog_v4',
+      'username' => 'root',
+      'password' => '',
+      'host' => 'localhost',
+      'port' => '',
+      'driver' => 'mysql',
+      'prefix' => '',
+    ),
+  ),
+);
+</pre>
+А также код для модуля Facebook-а (внизу) и, может быть, какие-то <a href="/pro/des-n-dev/17-security.htm">собственные правки, внесенные, например, в целях безопасности</a>. </li>
+<li>Удалить все файлы и директории из папки drupal, кроме папки sites (и modules ?).</li>
+<li>Переписать в папку Drupal новый сайт.</li>
+<li>Переписать поверх новых .htaccess и robots.txt файлы из резервной копии.</li>
+<li>Запустить update.php, открыв http://www.mysite.com/update.php.<br />
+Если этого сделать не удается, нужно открыть settings.php в текстовом редакторе и заменить <code>$update_free_access = FALSE</code>; на <code>$update_free_access = TRUE;</code></li>
+<li>После обновления нужно  опять выключить в settings.php функцию свободного обновления: <code>$update_free_access = FALSE</code>;.</li>
+<li>Выввести сайт из режима профилактических работ.</li>
+</ol>
+<h2>Капитальное обновление </h2>
+<ol>
+<li>Чтобы перенести сложный сайт со старой версии на новую (<strong>например, с D5 на D7</strong>), минуя промежуточные обновления, надо установить Drupal по новой, и затем импортировать содержание с помощью <b><a href="http://drupal.org/project/backup_migrate" target="_blank">Backup and Migrate</a></b>.</li>
+<li>Чтобы перейти со старой версии, сначала нужно обновить ее до последней редакции  (например, обновить D 6.13 до D 6.19), а затем обновить до новой версии (<strong>например, с D 6.19 до версии 7.2</strong>) и следовать инструкциям из файла UPDATE.TXT из папки новой версии.</li>
+</ol>
+</body>
+</html>

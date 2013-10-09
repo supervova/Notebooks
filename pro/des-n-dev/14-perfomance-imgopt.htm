@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Модуль imgopt: оптимизация картинок без потери качества</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Модуль imgopt: оптимизация картинок без потери качества</h1>
+<h2>Оптимизация</h2>
+<ol>
+<li>Manage Sites &gt; [ сайт ] &gt; [ редактировать ] &gt; Advanced Settings &gt; Design Notes &gt; Clean Up Design Notes</li>
+<li>Переход к папке с файлами. Например, 
+<br />
+<code>cd /Users/vova/Sites/polylog-old/a/img</code><br />
+Оптимизировать все файлы в выбранной директории и поддиректориях<br />
+<code>imgopt .</code><br />
+Оптимизировать только файлы одного типа только в выбранной директории<br />
+<code>imgopt *.png</code><br />
+Оптимизировать один файл<br />
+<code>imgopt girl.png</code><br />
+<strong>Оптимизация может занять несколько часов</strong> </li>
+</ol>
+<h2>Установка</h2>
+<ol>
+<li>Finder: переход к папке /usr/local/bin</li>
+<li>Переписать туда <a href="http://lyncd.com/2009/03/imgopt-lossless-optimize-png-jpeg/" target="_blank">imgopt</a></li>
+<li>Установить нужные права (здесь и далее — команды в Терминале)<br />
+<code> chmod a+x /usr/local/bin/imgopt</code></li>
+<li>Компилировать программу jfifremove и переместить ее в ту же папку<br />
+<code>cd</code> [путь к папке, куда был скачен jfifremove]<br />
+<code>gcc -o jfifremove jfifremove.c<br />
+sudo mv jfifremove /usr/local/bin/</code></li>
+<li>Finder: переход к папке /usr/local/lib. Если там нет файлов libjpeg*, установить эту библиотеку (см. soft/web-development/optimg/</li>
+<li>Проверить в терминале, установлена ли коллекция утилит AdvanceCOMP:<br />
+<code>advdef</code><br />
+Если нет, <a href="http://advancemame.sourceforge.net/comp-download.html" target="_blank">скачать коллекцию</a>, разархивиаровать и установить<br />
+<code>cd</code> [путь к папке с разархивированной коллекцией/]<br />
+<code>sudo ./configure<br />
+sudo make install</code><br />
+</li>
+<li>Проверить в терминале, установлена ли утилита OptiPNG:<br />
+<code>optipng</code><br />
+Если нет, <a href="http://http://optipng.sourceforge.net//comp-download.html" target="_blank">скачать</a>, разархивиаровать и установить<br />
+<code>cd</code> [путь к папке с разархивированной утилитой/]<br />
+<code>sudo ./configure<br />
+sudo make install</code></li>
+<li>Проверить в терминале, установлена ли утилита PNGout:<br />
+<code>pngout</code><br />
+Если нет, <a href="http://www.jonof.id.au/kenutils" target="_blank">скачать</a>, разархивиаровать, скопировать исполняемый файл pngout<br />
+Finder: переход к папке /usr/local/bin<br />
+Вставить pngout</li></ol>
+</body>
+</html>

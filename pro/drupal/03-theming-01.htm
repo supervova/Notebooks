@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Разработка шаблонов</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Разработка шаблонов</h1>
+<p>Для блога лучше перевести эти две статьи:</p>
+<ul>
+<li><a href="http://www.apaddedcell.com/how-create-drupal-7-theme-scratch" target="_blank">How to create a simple Drupal 7 theme from scratch</a></li>
+<li><a href="http://www.apaddedcell.com/change-html-output-drupal-7" target="_blank">Drupal theming next steps: Overriding HTML output</a></li>
+</ul>
+<ol>
+<li>В папке <code>sites/all/themes</code> создаем новую папку темы: например, <code>newsite_2013</code> (<strong>важно</strong> — в названии темы и ее info-файла использовать нижнее подчеркивание, а не дефис в качестве разделителя — иначе D не понимает).</li>
+<li>В эту папку копируем заранее подготовленные <a href="/Sites/templates/drupal/sites/all/themes/newsite/лы">файлы темы</a>. </li>
+<li>Переименовываем файл .info (например, <code>newsite_2013.info</code>) и редактируем. В этом файле определяются название темы, путь к снимку экрана, регионы и свойства, которыми можно управлять из административной панели: название сайта, логотип и т.п. Строгих правил нет. <br>
+<img src="/a/img/design-n-development/drupal-theme-anatomy.png" alt=""></li>
+<li>Делаем снимок экрана 294x219, переписываем его в папку новой темы.</li>
+<li>Открываем в браузере сайт. В разделе Appearance устанавливаем новую тему. Делаем ее темой по умолчанию. Темой административного раздела оставляем Seven. </li>
+<li>Возвращаемся в папку темы. Меняем html  больших и общих матрёшек: html.tpl.php, page.tpl.php, maintenance-page.tpl.php (другие шаблоны уже готовы к использованию: comment-wrapper.tpl.php, comment.tpl.php, region.tpl.php, block.tpl.php). <a href="http://drupal.org/node/190815" target="_blank">Полный список всех шаблонов Drupal</a> — их предназначение, переменные, и папки, в которых их можно найти.</li>
+<li>Чтобы изменить html отдельных страниц, видов содержания, регионов или блоков, в папке <code>sites/all/themes/newsite_2013/templates</code> дублируем нужный базовый шаблон и соответственно переименовываем. Например, <code>page--front.tpl.php, node--blog.tpl.php</code>, <code>region--sidebar.tpl.php</code>, <code>block--sidebar.tpl.php</code>. Правим html: к примеру, в шаблоне колонки заменяем <code>&lt;div&gt;</code> на <code>&lt;aside&gt;</code>. <a href="http://drupal.org/node/1089656" target="_blank">Полный список возможных вариантов шаблонов</a>.</li>
+<li>Переменные, которые получает шаблон описываются в комментариях шаблона. Чтобы получить составные блоки, надо ввверху шаблона написать временный фрагмент кода:<br>
+<code>&lt;?php print_r(array_keys($content)); ?&gt;</code><br>
+перегрузить страницу (если не обновляется —<i> &gt; Perfomance &gt; Clear All Caches</i>)<br>
+выписать появившиеся названия.
+<p>Затем их можно вставлять в шаблон за пределами родительского блока.</p>
+<ul>
+<li> Если нужно вывести составной блок до его родительского блока, используется функция <code>render</code> и обращение к ассоциативному массиву:<br>
+<code>&lt;?php print render($content['taxonomy_tags']); ?&gt;<br>
+[...]</code><br>
+<code>&lt;?php print render($content); ?&gt;</code> </li>
+<li>Последующие составные блоки выводятся с помощью функции show:<br>
+<code>&lt;?php show($content['taxonomy_tags']);</code><br>
+<code>print render($content); ?&gt;</code></li>
+<li> Если нужно вывести составной блок после его родительского блока, используются две функции — hide и show:<br>
+</li>
+<li><code>&lt;?php hide($content['taxonomy_tags']);</code><br>
+<code>print render($content); ?&gt;</code><br>
+<code>[...]</code><br>
+<code>&lt;?php show($content['taxonomy_tags']);</code> ?&gt;</li>
+<li>Чтобы код показывался только в том случае, если странице передана определенная D-переменная используем оператор <code>if</code>.
+<pre>&lt;?php if ($teaser): ?&gt;
+&lt;span class=&quot;summary&quot;&gt;&lt;?php print t('Summary: '); ?&gt;&lt;/span&gt;
+&lt;?php endif; ?&gt; </pre>
+</li>
+</ul>
+</li>
+<li>Чтобы изменить html отдельных элементов (предположим тегов статьи)
+</li>
+<ul><li>
+<p><i>&gt; Structure &gt; Content types &gt; нужный тип материала (в нашем случае — Article) &gt; manage fields</i></p>
+<p>Смотрим кодовое название этого элемента (в нашем случае — <i>field_tags</i>).</p>
+<p>Копируем из папки <code>modules/field/theme/</code> файл <code>field.tpl.php</code> в папку <code>sites/all/themes/newsite_2013/templates</code>.</p>
+<p>Переименовываем его по правилам D — [field, двойной дефис, еще раз field, нижнее подчеркивание, кодовое название элемента] — <code>field--field_field_tags.tpl.php</code></p>
+</li>
+<li>Чтобы изменить html отдельного элемента определенного типа содержания, также дублируем <code>field.tpl.php</code> и переименовываем его по правилу — [field, двойной дефис, кодовое название элемента, еще раз двойной дефис, кодовое название типа материала]</li>
+<li><strong>Нужны испытания и <a href="http://drupal.org/theme-guide/6-7" target="_blank">справка</a>. Чтобы изменить html элемента формы,</strong> залезть в <code>modules/field/field.form.inc</code> и исправить строки <code>$output =</code> (можно сначала попробовать написать шаблон для элемента по инструкции из предыдущего пункта: кодовые названия двух элементов формы —<i></i> <cite>author</cite> и <cite>subject</cite>) </li>
+</ul>
+<li><a href="http://drupal.org/node/173880" target="_blank">Подробнее об изменении выводимой разметки</a>.</li>
+</ol>
+<h2>Dreamweaver</h2>
+<ol>
+<li>В DW устанавливается подсказки кода для D:<br>
+Site &gt; Site Specific Code Hints (D определяется автоматически, поэтому ничего менять не надо — просто нажать OK)</li>
+<li>Открыть через Spotlight настройки брандмауэра (Little Snitch Configuration). Проверить разрешен ли DW доступ к «локальному хосту» — 127.0.0.1. Если нет, разрешаем.</li>
+<li>Открываем в DW шаблон или готовую страницу в режиме  Live View. Вверху возможно появится сообщение, что DW может найти все связанные файлы. Нажимаем <code>Discover</code>. Когда появится подсказка начать процессинг всех динамических файлов, соглашаемся.
+<p>В верху появится панель связанных файлов. <strong>С этого момента можно редактировать D- шаблоны в DW и тут же видеть результат.</strong> Перемещаться по страницам в Live View можно щелкая по ссылкам с нажатой клавишой <em>Cmd</em>. Чтобы найти в Live View стили для определенного элемента, надо нажать кнопку Inspect (следующая после <em><em>Live View</em></em>) и выбрать нужный элемент — аналогично команде Inspect Element в Firebug. Через несколько секунд рядом с выбранным элементом появляется пиктограмма «штурвал». Щелчок по значку открывает панель со всеми стилями, примененными к элементу (также эту панель можно щелкнув по элементу с нажатыми клавишами <em>Alt</em>+<em>Cmd</em>). Щелчок на селекторе или свойстве в панели открывает соотвествующее правило в файле стилей. А в панели CSS Styles (у меня — справа вверху) можно временно отключать свойства: когда курсор справа от названия, появляется иконка disabled — щелчок по ней отключает (комментирует) свойство.</p>
+</li>
+</ol>
+</body>
+</html>

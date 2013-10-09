@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Апгрейд</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Апгрейд </h1>
+<ol>
+<li>Чтобы обновить Drupal c предыдущей версии на текущую (например, с 5-й на 7-ю), нужно последовательно обновить версии до их последних вариантов. Например, с 5.1 до 5.3. С 5.3 до 6.9. С 6.9 до 7.8.</li>
+<li>Сохранить резервную копию БД <strong>и всех файлов</strong> сайта.</li>
+<li>Войти в систему под ID 1 (администратор).</li>
+<li>Сonfiguration &gt; Maintenance mode &gt; 
+<label for="edit-maintenance-mode">Put site into maintenance mode</label>
+</li>
+<li><strong>Site building &gt; Modules. Выключить все модули, кроме групп Core. Может потребоваться повторить процедуру несколько раз.</strong></li>
+<li>Удалить  старые файлы, кроме:</li>
+<ul>
+<li>файлов настроек среды разработки: .git, .gitignore, .htaccess, .nojekyll, Drupal.sublime-projectcompletions, polylog.sublime-project, polylog.sublime-workspace, README.md</li>
+<li>каталогов и файлов, которые добавлял самостоятельно: _snips, _tmp, a, ru, index.htm</li>
+<li>пиктограмм apple-touch-icon, favicon</li>
+<li>файлов центров веб-мастеров: BingSiteAuth.xml, google…html, yandex…html</li>
+<li>robots.txt.</li>
+</ul>
+<li>Разархивировать Drupal во временную папку.</li>
+<li>Удалить избыточную информацию и дубликаты:
+</li>
+<ul>
+<li><code> .gitignore</code></li>
+<li><code>CHANGELOG.txt</code></li>
+<li><code>COPYRIGHT.txt</code></li>
+<li><code>INSTALL.mysql.txt</code></li>
+<li><code>INSTALL.pgsql.txt</code></li>
+<li><code>INSTALL.sqlite.txt</code></li>
+<li><code>MAINTAINERS.txt</code></li>
+<li><code>README.txt</code></li>
+</ul>
+
+<li>Переписать Drupal в основной каталог проекта и удалить временную папку.</li>
+<li>Настройки базы: переписать поверх новой папки из резервной копии /sites/ или заново настроить. <code>Sites &gt; default</code> Дублируем <code>default.settings.php</code>, переименовываем в <code>settings.php</code>.  
+Проверить свойства — должно быть разрешено редактирование. Прописать объект базы. Что-то вроде:
+<pre>$databases = array (<br />  'default' =&gt; <br />  array (<br />    'default' =&gt; <br />    array (<br />      'database' =&gt; 'polylog',<br />      'username' =&gt; 'root',<br />      'password' =&gt; '',<br />      'host' =&gt; 'localhost',<br />      'port' =&gt; '',<br />      'driver' =&gt; 'mysql',<br />      'prefix' =&gt; '',<br />    ),<br />  ),<br />);</pre>
+</li>
+<li><a href="/pro/drupal/01-php-errors.htm#php_ini">Проверить настройки php.ini</a></li>
+<li>Открыть в браузере http://www.example.com/update.php — этот скрипт обновит нужные таблицы в БД. Если процесс не запускается, надо открыть settings.php и обменять $update_free_access = FALSE на $update_free_access = TRUE.</li>
+<li>Сделать бэкап базы.</li>
+<li><strong>Переписать (но пока не включать) модули для новой версии. Перезапустить http://www.example.com/update.php — этот шаг нельзя пропускать.</strong></li>
+<li><strong>Временно отключить чистые сылки</strong>, <a href="/pro/drupal/02-settings.htm#modules">заново включить</a> и <a href="/pro/drupal/02-settings.htm#modules-required">настроить модули</a>, включить чистые ссылки.</li>
+<li>Reports &gt; Status report. Посмотреть всё ли правильно работает.</li>
+<li> В settings.php  вернуть  настройке $update_free_access значение FALSE.</li>
+<li>Configuration &gt; Development &gt; Maintenance mode. Снять флаг с &quot;Put site into maintenance mode&quot;.</li>
+</ol>
+<p><a href="/pro/drupal/01-troubleshooting.htm">Возможные ошибки</a>.</p>
+</body>
+</html>

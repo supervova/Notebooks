@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Элементарная компьютерная безопасность</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Элементарная компьютерная безопасность</h1>
+<p>Если есть доступ к файлам настройки php, желательно установаить проверить  и, если потребуется, установить безопасные настройки.</p>
+<p>Некоторые провайдеры разрешают клиентам, пользующимся виртуальным хостингом? редактировать файлзhp.ini.</p>
+<p>Например, в компании  RU-CENTER для этого необходимо:</p>
+<blockquote>
+<ul>
+<li>загрузить на Ваш компьютер файл <strong>php4.ini</strong> или <strong>php5.ini</strong> из директории <strong>/home/login/etc</strong>;</li>
+<li>отредактировать полученный файл и сохранить его как <strong>php.ini</strong>;</li>
+<li>выложить отредактированную версию в домашнюю директорию <strong>/home/login</strong>;</li>
+<li>перейти в раздел «Веб-сервер»  панели управления хостингом и выполнить перезапуск сервера.</li>
+</ul>
+<p>При использовании собственного <strong>php.ini</strong> настройки  PHP из панели управления хостингом работать не будут. Чтобы вернуться к  автоматическим настройкам нужно удалить php.ini из директории <strong>/home/login/</strong> и перезапустить веб-сервер.</p></blockquote>
+<p>Еще одно решение для хостинга с CPANEL</p>
+<blockquote>
+<p>Создать файл <br />
+<code>/public_html/.htaccess<br />
+</code>содержимое:<br />
+<code>AddHandler php5-fastcgi .php<br />
+Action php5-fastcgi /cgi-bin/php5.fcgi</code></p>
+<p>Создать файл<br />
+<code>/public_html/cgi-bin/php5.fcgi</code><br />
+содержимое:<br />
+<code>#!/bin/sh<br />
+exec /usr/local/cpanel/cgi-sys/php5 -c /home/USERNAME/public_html/cgi-bin/php.ini</code></p>
+<p>В папку<code> /public_html/cgi-bin/</code> поместить <code>php.ini</code><br />
+<br />
+Задать права  755 для <code>/public_html/cgi-bin/php5.fcgi</code><br />
+<br />
+Все операции рекомендуется делать с помощью SSH консоли, в противном случае возможны проблемы с лишними символами (перевод строки) и, как следствие, ошибка 500 при запуске php.</p>
+</blockquote>
+<h2>Безопасные настройки в файле php.ini (см. на сервере папку /etc/)</h2>
+<ul>
+<li><code>allow_url_fopen = Off ;</code></li>
+<li><code>register_globals = Off ;</code></li>
+<li><code>open_basedir = /var/www/htdocs/files;</code> <span class="note">Путь может быть другим  —  нужно знать, где лежат скрипты.</span></li>
+<li><code>safe_mode = Off;</code> <span class="note">Вместо этого используется следующая настройка.</span></li>
+<li><code>safe_mode_gid = On;</code></li>
+<li><code>safe_mode_exec_dir = /var/www/binaries;</code> <span class="note">Если требуется запускать какие-то программы, их следует выложить в отдельную папку и дать соответствующее разрешение.</span></li>
+<li><code>safe_mode_allowed_env_vars = PHP_;</code> <span class="note">Через запятую можно добавить другие  приемлемые происхождения переменных.</span></li>
+<li><code>max_execution_time = 30;</code> <span class="note">Это и последующие ограничения, разумеется, можно настраивать.</span></li>
+<li><code>max_input_time = 60; </code></li>
+<li><code>memory_limit = 16M;</code></li>
+<li><code>upload_max_filesize = 2M;</code></li>
+<li><code>post_max_size = 8M; </code></li>
+<li><code>display_errors = Off ;</code></li>
+<li><code>log_errors = On;</code></li>
+<li><code>expose_php = Off;</code></li>
+<li><code>session.cookie_httponly = True;</code></li>
+</ul>
+<h2>.htaccess</h2>
+<ul>
+<li><code>&lt;filesmatch&gt;<br />
+Order allow,deny<br />
+Deny from all<br />
+&lt;/filesmatch&gt;</code></li>
+</ul>
+</body>
+</html>

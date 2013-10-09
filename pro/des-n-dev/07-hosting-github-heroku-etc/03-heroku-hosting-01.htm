@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Настройка хостинга heroku.com + custom domain name</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1> <span>Настройка хостинга heroku.com + custom domain name</span></h1>
+<ol>
+<li> Зарегестрироваться <a href="http://heroku.com/signup">на Heroku.com</a>. </li>
+<li>Установить git. </li>
+<li>Установить gem heroku командой (<i>sudo</i>) <b>gem install heroku</b> у него есть зависимости с другими гемами, вообще они сами установятся автоматически, ну а если нет, то вот ссылки для них: <a href="http://rubyforge.org/frs/?group_id=5752&amp;release_id=32186">rest-client</a>, <a href="http://copiousfreetime.rubyforge.org/launchy/">launchy</a>, <a href="http://rubyforge.org/frs/?group_id=953">json</a>. </li>
+<li>Создать сайт/приложение. Я создал простейшее rack-приложение (rack автоматически устанавливается когда ставим гем heroku, ну а если нет то (<i>sudo</i>) <b>gem install rack</b> ), ну а вы естественно можете создать что вам угодно, помещаем в любую папку файлик <b>config.ru</b> со следующим содержанием: <br/>
+<pre>run lambda { |env| [
+	200,
+	{&quot;content-type&quot; =&gt; &quot;text/html&quot;},
+	&quot;hello from russia, time is now #{ Time.now }&quot;
+	] }</pre></li>
+<li>Переходим в папку с приложением, инициализируем командой <b>git init</b>, добавляем <b>git add .</b>, подписываем <b>git commit -m 'new Rack app'</b>. </li>
+<li> Создаем приложение на heroku командой <b>heroku create любое-название-на-английском</b> (если не установите последний параметр, то он назовет приложение от балды, типа blooming-cloud-48), он попросит ввести email и пароль, и потом сгенерирует RSA ключики. <b>git remote</b> автоматически добавит! </li>
+<li> Заливаем наше приложение на heroku командой <b>git push heroku master</b>. </li>
+<li> Heroku <a href="http://docs.heroku.com/custom-domains">Поддерживает пользовательские домены, DNS в формате CNAME, это условие их архитектуры</a>. Мной был приобретен домен <a href="http://www.mnogodomenov.biz/">тут</a>, за 85 р. в зоне .ru, пополнял баланс через yandex money, но сразу они не пришли — пришлось написать в поддержку, после этого деньги зачислили. Здесь поддерживается управление DNS записями типа CNAME, если же у вашей панели управления доменом не поддерживается эта функция, то можете <a href="http://rails.vsevteme.ru/posts/show?id=6015">посмотреть</a>, как решается эта проблема посредством бесплатных DNS-сервисов. </li>
+<li> Покупаем домен (<i>если же у вас нет</i>), там все элементарно. </li>
+<li> Выбираем пункт «использовать сервера регистратора», жмем изменить, и теперь доступно управление зоной<img src="/a/img/design-n-development/zone-control.jpeg" alt="image"/></li>
+<li> Ну тут, думаю, тоже все интуитивно понятно, в первой строчке стоит @ для того, чтобы мы могли зайти на домен без префикса <b>www</b>, а во второй строчке с ним. <br/>
+<img src="/a/img/design-n-development/cname.png" alt="image"/></li>
+<li> Проверяем, работает ли DNS и наш домен командой <b>host www.example.com</b>, ответ должен быть примерно такого содержания (я воспользовался SSH доступом к своему приложению, и проверил оттуда) <img src="/a/img/design-n-development/check-dns.jpeg" alt="" /> <br/>
+если же пишет что-то типа «not found», проверьте настройки DNS, попросите пусть кто-нибудь еще проверит, или создайте соединение GRPS и проверьте через него. </li>
+<li> Перейдите в папку с вашим приложением на локальном компе, командой <b>heroku domains:add www.somedomainname.com</b>, привяжите домен к вашему приложению, результат примерно такой <br/>
+<img src="/a/img/design-n-development/heroku-domains.png" alt="image"/> <br/>
+</li>
+<li> Переходим по адресу домена и все сразу должно заработать (<i>у меня заработало мгновенно</i>). </li>
+</ol>
+<p>Приложение, по умолчанию работает в режиме <b>production</b></p>
+</body>
+</html>

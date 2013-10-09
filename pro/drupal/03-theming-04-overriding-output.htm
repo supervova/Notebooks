@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Разработка шаблонов</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Изменение программного HTML</h1>
+<p>HTML различных функциональных элементов в D генерируется модулями. Технически возможно изменить разметку непосредственно в модулях, но это сильно затруднит поддержку сайта. Поэтому применяется другой подход.</p>
+<p>Процедура.</p>
+<ol>
+<li>Определяем модуль, генерирующий HTML</li>
+<li>Если HTML модуля определяется в собственном шаблоне (tpl.php), переписываем шаблон в папаку шаблонов темы, правим.</li>
+<li>Если модуль не имеет собственного шаблона, в файлах .module или .inc находим функцию, которая генерирует разметку и копируем ее в свой <code>template.php</code>. Меняем префиксы <code>theme_</code> или  <code>template_</code> на название темы. Редактируем HTML в функции.</li>
+<li>Чистим кэш темы.</li>
+</ol>
+</body>
+</html>

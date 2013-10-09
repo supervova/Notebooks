@@ -1,0 +1,840 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Экспорт/импорт бызы</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+BODY { width: 760px}
+H1, H2, H3, P, PRE, UL { margin-right: auto; margin-left: auto; text-align: left; max-width: 540px}
+TR:nth-child(even) { background: #FFF}
+TR:nth-child(odd) { background: #ECEFF3}
+</style>
+</head>
+
+<body>
+<h1>Свой шаблон для tumblr-блога. Базовая техника</h1>
+<h2>Два вида специальных операторов</h2>
+<p><b>Переменные</b>. Используются для отображения динамической или пользовательской информации, вводимой в формах настроек.</p>
+<pre>&lt;title&gt;<b>{Title}</b>&lt;/title&gt;</pre>
+<p><b>Блоки.</b> Используются для отображения комплектов информации (например, заметок) или html-блоков, появляющихся при определенных условиях (ссылка на предыдущую страницу):</p>
+<pre>
+&lt;ol id=&quot;posts&quot;&gt;
+<b>{block:Posts}</b>
+&lt;li&gt; ... &lt;/li&gt;
+<b>{/block:Posts}</b>
+&lt;/ol&gt;</pre>
+<p><a href="/pro/business/_website/01-tumblr-theming-02-example.htm">Пример полного шаблона</a></p>
+<h2 id="basic-variables">Переменные общего назначения</h2>
+<p>В принципе, тему можно выложить в <a href="http://www.tumblr.com/themes/manage" target="_blank">Theme Garden</a> — как дополнительный промо-материал. Поэтому лучше использовать все переменные.</p>
+<table>
+<tbody>
+<tr>
+<th>{Title}</th>
+<td>Заголовок окна браузера</td>
+</tr>
+<tr>
+<th>{MetaDescription}</th>
+<td>Описание в мета-теге</td>
+</tr>
+<tr>
+<th>{RSS}</th>
+<td>URL RSS-ленты блога</td>
+</tr>
+<tr>
+<th>{Favicon}</th>
+<td>URL «фавиконки»</td>
+</tr>
+<tr>
+<th>{CustomCSS}</th>
+<td>Any custom CSS code added on your «Customize Theme&quot; screen.</td>
+</tr>
+<tr>
+<th>{Description}</th>
+<td>Описание блога  на странице</td>
+</tr>
+<tr>
+<th>{block:PermalinkPage} {/block:PermalinkPage}</th>
+<td>Блок, отображаемый только на страницах отдельгых заметок. Полезно для виджетов комментариев сторонних сервисов вроде Disques</td>
+</tr>
+<tr>
+<th>{block:IndexPage} {/block:IndexPage}</th>
+<td>Блок, отображаемый только на первой странице.</td>
+</tr>
+<tr>
+<th>{block:PostTitle}<br />
+{PostTitle}<br />
+{/block:PostTitle}</th>
+<td>Блок, отображаемый только на страницах отдельгых заметок. Полезено для отображения заголовка окна браузера отдельной заметки. (Пока непонятно, есть ли поле ввода для него, или же в качестве title берется тот заголовок, который появляется и на странице)<br />
+<br />&lt;title&gt;{Title}{block:PostTitle} —  {PostTitle}{/block:PostTitle}&lt;/title&gt; </td>
+</tr>
+<tr>
+<th>{block:PostSummary}<br />
+{PostSummary}<br />
+{/block:PostSummary}</th>
+<td>Аналогичен {PostTitle}, но краткое изложение заметки составляется автоматически — если не определен title. </td>
+</tr>
+<tr>
+<th>{PortraitURL-16}<br />
+[24-30-40-48-64-96-128]</th>
+<td>URL аватара разных размеров</td>
+</tr>
+</tbody>
+</table>
+<h2 id="navigation">Навигация</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:Pagination} {/block:Pagination}</th>
+<td>Блок отображается  в том случае, если есть предыдущие и/или следущие страницы.</td>
+</tr>
+<tr>
+<th>{block:PreviousPage} {/block:PreviousPage}</th>
+<td>Блок отображается  в том случае, если есть предыдущие страницы (более свежие записи).</td>
+</tr>
+<tr>
+<th>{block:NextPage} {/block:NextPage}</th>
+<td>Блок отображается  в том случае, если есть следующие страницы (более ранние записи).</td>
+</tr>
+<tr>
+<th>{PreviousPage}</th>
+<td>URL предыдущей страницы (более свежие записи).</td>
+</tr>
+<tr>
+<th>{NextPage}</th>
+<td>URL следующей страницы (более ранние записи).</td>
+</tr>
+<tr>
+<th>{CurrentPage}</th>
+<td>Номер текущей страницы</td>
+</tr>
+<tr>
+<th>{TotalPages}</th>
+<td>Общее число страниц</td>
+</tr>
+<tr>
+<th>{block:SubmissionsEnabled} {/block:SubmissionsEnabled}</th>
+<td>Блок отображается  в том случае, если в настройках разрешены подписки.</td>
+</tr>
+<tr>
+<th>{block:AskEnabled} {/block:AskEnabled}</th>
+<td>Блок отображается  в том случае, если в настройках разрешена форма вопроса.</td>
+</tr>
+<tr>
+<th>{AskLabel}</th>
+<td>Надпись к ссылке/форму вопроса (например, Ask me anything)</td>
+</tr>
+<tr>
+<th>{block:PermalinkPagination} {/block:PermalinkPagination}</th>
+<td>Блок отображается на странице записи для перехода к предыдущим и следующим записям</td>
+</tr>
+<tr>
+<th>{block:PreviousPost} {/block:PreviousPost}</th>
+<td>Блок отображается  на странице записи в том случае, если есть страница предыдущей (более свежой) записи — «Более свежее».</td>
+</tr>
+<tr>
+<th>{block:NextPost} {/block:NextPost}</th>
+<td>Блок отображается  на странице записи в том случае, если есть страница следующей (более ранней) записи — «Ранее».</td>
+</tr>
+<tr>
+<th>{PreviousPost}</th>
+<td>URL предыдущей (более свежой) записи</td>
+</tr>
+<tr>
+<th>{NextPost}</th>
+<td>URL следующей (более ранней) записи</td>
+</tr>
+</tbody>
+</table>
+<h2 id="posts">Записи</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:Posts} {/block:Posts}</th>
+<td>Блок записей на одной странице в обратной хронологической последовательности. Количество записей можно регулировать в разделе Customize, подраздел Advanced. </td>
+<td><code></code></td>
+</tr>
+<tr>
+<th><b>{block:Text} {/block:Text}</b></th>
+<td><b>Текстовая запись</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Title} {/block:Title}</th>
+<td>Блок, в котором отображается заголовок заметки.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Title}</th>
+<td>Заголовок заметки.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Body}</th>
+<td>Текст заметки.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th><b>{block:Photo} {/block:Photo}</b></th>
+<td><b>Фото</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{PhotoAlt}</th>
+<td>Alt-атрибут снимка. Совпадает с названием снимка.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Caption} {/block:Caption}</th>
+<td>Блок, в котором отображается название снимка.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Caption}</th>
+<td>Название снимка.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{LinkURL}</th>
+<td>Установленная на фото ссылка.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{LinkOpenTag}</th>
+<td>Открывающий тег ссылки, которая кроме фото, включает в себя еще что-то  (&lt;a href=&quot;http://...&quot;&gt;)</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{LinkCloseTag}</th>
+<td>Закрывающий тег ссылки, которая кроме фото, включает в себя еще что-то  (Example: &lt;/a&gt;)</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{PhotoURL-500}<br />
+[400-250-100]</th>
+<td>URL снимка. Не шире определенного размера</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{PhotoURL-75sq}</th>
+<td>URL квадратной версии снимка. 75x75.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{PhotoURL-HighRes}</th>
+<td>URL снимка максимального разрешения.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:HighRes} {/block:HighRes}</th>
+<td>Блок, в котором отображается снимок максимального разрешения.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th><b>{block:Photoset} {/block:Photoset}</b></th>
+<td><b>Слайдшоу</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Caption} {/block:Caption}</th>
+<td>Блок, в котором отображается название слайдшоу.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Caption}</th>
+<td>Название слайдшоу.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Photoset-500}<br />
+[400-250]</th>
+<td>Embed-код слайдшоу определенного размера.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th><b>{block:Quote} {/block:Quote}</b></th>
+<td><b>Запись-цитата</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Quote}</th>
+<td>Собственно цитата.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Source} {/block:Source}</th>
+<td>Блок, в котором отображается автор цитаты.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Source}</th>
+<td>Автор цитаты.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Length}</th>
+<td>Длина (не совсем понятна, где указывается, как определяется и на что влияет). Может иметь значения «short&quot;, «medium&quot; или «long&quot;.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th><b>{block:Link} {/block:Link}</b></th>
+<td><b>Запись-ссылка</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{URL}</th>
+<td>URL ссылки.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Name}</th>
+<td>Текст ссылки. Если текст не введен, используется URL.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Target}</th>
+<td>Значение атрибута target. Если в настройках указано открывать ссылки в новых окнах значения атрибута будет<code> _blank</code></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Description} {/block:Description}</th>
+<td>Блок, в котором отображается пояснительный текст.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Description}</th>
+<td>Пояснительный текст.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th><b>{block:Chat} {/block:Chat}</b></th>
+<td><b>Запись-диалог</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Title} {/block:Title}</th>
+<td>Блок, в котором отображается заголовок диалога.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Title}</th>
+<td>Заголовок диалога.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Lines} {/block:Lines}</th>
+<td>Блок, создаваемый для каждой реплики.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Label} {/block:Label}</th>
+<td>Блок, в котором отображается примечание к реплике.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Label}</th>
+<td>Примечание к реплике (если есть).</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Name}</th>
+<td>Автор реплики (если указан).</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Line}</th>
+<td>Реплика</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{UserNumber}</th>
+<td>Порядковый номер автора реплики.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Alt}</th>
+<td>Атрибут реплики (пока непонятный). Может принимать значения odd или even</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th><b>{block:Audio} {/block:Audio}</b></th>
+<td><b>Аудиозапись</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Caption} {/block:Caption}</th>
+<td>Блок, в котором отображается название аудиозаписи.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Caption}</th>
+<td>Название аудиозаписи.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{AudioPlayer}</th>
+<td>Плэйер по умолчанию.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{AudioPlayerWhite}</th>
+<td>Белый плейер.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{AudioPlayerGrey}</th>
+<td>Серый плейер.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{AudioPlayerBlack}</th>
+<td>Черный плейер.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{PlayCount}</th>
+<td>Количество прослушиваний.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{FormattedPlayCount}</th>
+<td>Количество прослушиваний, отформатированное по-американски, с запятыми между порядками: 12,309</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:ExternalAudio} {/block:ExternalAudio}</th>
+<td>Блок отображается в том случае, если mp3-файл лежит на стороннем хостинге. Полезно для добавления ссылки «Скачать»</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{ExternalAudioURL}</th>
+<td>URL mp3-файла на стороннем хостинге</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:AlbumArt}<br />
+{AlbumArtURL}<br />
+{/block:AlbumArt}</th>
+<td>Блок отображается, если запись содержит обложку альбома.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Artist}<br />
+{Artist}<br />
+{/block:Artist}</th>
+<td>Блок отображается, если запись содержит имя исполнителя.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Album}<br />
+{Album}<br />
+{/block:Album}</th>
+<td>Блок отображается, если запись содержит название альбома.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:TrackName}<br />
+{TrackName}<br />
+{/block:TrackName}</th>
+<td>Блок отображается, если запись содержит название композиции.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th><b>{block:Video} {/block:Video}</b></th>
+<td><b>Видеозапись</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Caption} {/block:Caption}</th>
+<td>Блок, в котором отображается название видеозаписи.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Caption}</th>
+<td>Название видеозаписи.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Video-500}<br />
+[400-250]</th>
+<td>Embed-код видеозаписи определенного размера.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th><b>{block:Answer} {/block:Answer}</b></th>
+<td><b>Запись-ответ</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Question}</th>
+<td>Вопрос.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Answer}</th>
+<td>Ответ.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{Asker}</th>
+<td>Имя спрашивающего со ссылкой на его tumblr-блог или слово Anonymous.</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{AskerPortraitURL-16}<br />
+[24-30-40-48-64-96-128]<br /></th>
+<td>URL аватара спрашивающего разных размеров</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th colspan="3"><b>Общие элементы записей</b></th>
+</tr>
+<tr>
+<th>{Permalink}</th>
+<td>Ссылка на страницу записи</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{ShortURL}</th>
+<td>Корткий URL страницы записи. (Например:  «http://tumblr.com/xpv5qtavm&quot;)</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{PostID}</th>
+<td>ID записи. (Например: 1234567)</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{TagsAsClasses}</th>
+<td>Набор СSS-классов записи, составляемый из ее тегов. Пробелы и точки заменяются нижним подчеркиванием. (Например:  «humor office new_york_city&quot;).<br />
+<br />
+По умолчанию в список классов добавляются классы источника перепечатки (&quot;twitter_com&quot;, «digg_com&quot;, etc.) и класс reblog, если перепечатка сделана из другого tumblr-блога. </td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Post<i>[1-15]</i>} {/block:Post<i>[1-15]</i>}</th>
+<td>Запись на странице отображается в установленном порядке. Полезно для постоянных блоков рекламы или элементов дизайна в ленте. <br />
+<br />
+Например: <b>{block:Post4}</b>я всегда буду отображаться на странице четвертым сверху<b>{/block:Post4}</b></td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Odd} {/block:Odd}</th>
+<td>Блок отображается для каждой нечетной записи в ленте</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:Even} {/block:Even}</th>
+<td>Блок отображается для каждой четной записи в ленте</td>
+<td><code></code></td>
+</tr>
+<tr>
+<th>{block:More} {/block:More}</th>
+<td>Отображается для длинных записей, если при публкации выбрана опция зсокращения записи в ленте до анонса</td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="reblogs">Перепечатки из tumblr</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:RebloggedFrom} {/block:RebloggedFrom}</th>
+<td>Блок отображается  в том случае, если в заметка перепечатана из другого tumblr-блога.</td>
+</tr>
+<tr>
+<th>{ReblogParentName}</th>
+<td>Имя автора источника.</td>
+</tr>
+<tr>
+<th>{ReblogParentTitle}</th>
+<td>Название перепечатанной заметки.</td>
+</tr>
+<tr>
+<th>{ReblogParentURL}</th>
+<td>URL перепечатанной заметки.</td>
+</tr>
+<tr>
+<th>{ReblogParentPortraitURL-16}<br />
+[24-30-40-48-64-96-128]</th>
+<td>URL аватара автора источника разных размеров</td>
+</tr>
+<tr>
+<th>{ReblogRootName}</th>
+<td>Имя автора первоисточника.</td>
+</tr>
+<tr>
+<th>{ReblogRootTitle}</th>
+<td>Название перепечатанной заметки-первоисточника.</td>
+</tr>
+<tr>
+<th>{ReblogRootURL}</th>
+<td>URL перепечатанной заметки-первоисточника.</td>
+</tr>
+<tr>
+<th>{ReblogRootPortraitURL-16}<br />
+[24-30-40-48-64-96-128]</th>
+<td>URL аватара автора первоисточника разных размеров</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dates">Даты</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:Date} {/block:Date}</th>
+<td>Отображается для всех записей. Следует всегда вкладывать в какой-нибудь тег, который можно при необходимости скрывать.</td>
+</tr>
+<tr>
+<th>{block:NewDayDate} {/block:NewDayDate}</th>
+<td>Отображается для первой записи в тот или иной день.</td>
+</tr>
+<tr>
+<th>{block:SameDayDate} {/block:SameDayDate}</th>
+<td>Отображается для последующих записей в тот или иной день.</td>
+</tr>
+<tr>
+<th>{DayOfMonth}</th>
+<td>День месяца: с 1 по 31</td>
+</tr>
+<tr>
+<th>{DayOfMonthWithZero}</th>
+<td>День месяца: с 01 по 31</td>
+</tr>
+<tr>
+<th>{DayOfWeek}</th>
+<td>с Monday по Sunday</td>
+</tr>
+<tr>
+<th>{ShortDayOfWeek}</th>
+<td>с Mon по Sun</td>
+</tr>
+<tr>
+<th>{DayOfWeekNumber}</th>
+<td>Порядковый номер дня недели: с 1 по 7</td>
+</tr>
+<tr>
+<th>{DayOfMonthSuffix}</th>
+<td>Суффикс номера месяца: «st&quot;, «nd&quot;, «rd&quot;, «th&quot;</td>
+</tr>
+<tr>
+<th>{DayOfYear}</th>
+<td>День в году: с 1 по 365</td>
+</tr>
+<tr>
+<th>{WeekOfYear}</th>
+<td>Неделя в году: с 1 по 52</td>
+</tr>
+<tr>
+<th>{Month}</th>
+<td>Месяц: с January по December</td>
+</tr>
+<tr>
+<th>{ShortMonth}</th>
+<td>Короткая форма месяца: с Jan по Dec</td>
+</tr>
+<tr>
+<th>{MonthNumber}</th>
+<td>Порядковый номер месяца: с 1 по 12</td>
+</tr>
+<tr>
+<th>{MonthNumberWithZero}</th>
+<td>Порядковый номер месяца: с 01 по 12</td>
+</tr>
+<tr>
+<th>{Year}</th>
+<td>2007</td>
+</tr>
+<tr>
+<th>{ShortYear}</th>
+<td>07</td>
+</tr>
+<tr>
+<th>{AmPm}</th>
+<td>Утра или вечера — am или pm</td>
+</tr>
+<tr>
+<th>{CapitalAmPm}</th>
+<td>Утра или вечера прописными — AM или PM</td>
+</tr>
+<tr>
+<th>{12Hour}</th>
+<td>Часы: с 1 по 12</td>
+</tr>
+<tr>
+<th>{24Hour}</th>
+<td>Часы: с 0 по 24</td>
+</tr>
+<tr>
+<th>{12HourWithZero}</th>
+<td>Часы: с 1 по 12</td>
+</tr>
+<tr>
+<th>{24HourWithZero}</th>
+<td>Часы: с 00 по 23</td>
+</tr>
+<tr>
+<th>{Minutes}</th>
+<td>Минуты: с 00 по 59</td>
+</tr>
+<tr>
+<th>{Seconds}</th>
+<td>Секунды: с 00 по 59</td>
+</tr>
+<tr>
+<th>{Beats}</th>
+<td>Такты: с 000 по 999</td>
+</tr>
+<tr>
+<th>{Timestamp}</th>
+<td>Временной код: 1172705619</td>
+</tr>
+<tr>
+<th>{TimeAgo}</th>
+<td>Столько-то времени назад: 1 minute ago, 2 hours ago, 3 weeks ago и т.д.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes: перепечатки, «лайки» и ответы</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:PostNotes} {/block:PostNotes}</th>
+<td>Блок в котором отображаются notes на странице записи.</td>
+</tr>
+<tr>
+<th>{PostNotes}</th>
+<td>Notes на странице записи.</td>
+</tr>
+<tr>
+<th>{block:NoteCount} {/block:NoteCount}</th>
+<td>Блок в котором отображаются количество notes. Следует всегда вкладывать в какой-нибудь тег, который можно при необходимости скрывать.</td>
+</tr>
+<tr>
+<th>{NoteCount}</th>
+<td>Количество notes</td>
+</tr>
+<tr>
+<th>{NoteCountWithLabel}</th>
+<td>Полная форма количество notes: например, 24  notes</td>
+</tr>
+</tbody>
+</table>
+<h3>Пример</h3>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+OL.notes { padding: 0; margin: 25px 0; list-style-type: none; border-bottom: solid 1px #ccc}
+    .notes LI.note { border-top: solid 1px #ccc; padding: 10px}
+        .note IMG.avatar { vertical-align: -4px; margin-right: 10px; width: 16px; height: 16px}
+        .note SPAN.action { font-weight: bold}
+        .note .answer_content { font-weight: normal}
+        .note BLOCKQUOTE { border-color: #eee; padding: 4px 10px; margin: 10px 0 0 25px}
+        .note BLOCKQUOTE A { text-decoration: none}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+<b>{block:Posts}
+...
+{PostNotes}
+{/block:Posts}</b><b>
+...</b></pre>
+<h2 id="tags">Теги и страницы тегов</h2>
+<table>
+<tbody>
+<tr>
+<th>{block:HasTags} {/block:HasTags}</th>
+<td>Блок отображается внутри {block:Posts}, если запись имеет теги.</td>
+</tr>
+<tr>
+<th>{block:Tags} {/block:Tags}</th>
+<td>Rendered for each of a post's tags.</td>
+</tr>
+<tr>
+<th>{Tag}</th>
+<td>Собственно тег.</td>
+</tr>
+<tr>
+<th>{URLSafeTag}</th>
+<td>«Безопасная» версия URL тега (возможно, «безопасный» означает страницу исключительно данного тега; записи под несколькими тегами сюда уже не попадают)</td>
+</tr>
+<tr>
+<th>{TagURL}</th>
+<td>URL тега. Возможно такая страница, на которой отображаются записи и под одним и под несколькими тегами.</td>
+</tr>
+<tr>
+<th>{TagURLChrono}</th>
+<td>URL тега. На странице тега записи собраны в хронологическом порядке.</td>
+</tr>
+<tr>
+<th>{block:TagPage} {/block:TagPage}</th>
+<td>Блок отображается на странице тега.</td>
+</tr>
+</tbody>
+</table>
+<h3>Примеры</h3>
+<pre>&lt;html&gt;
+&lt;body&gt;
+{block:Posts}
+&lt;div class=&quot;post&quot;&gt;
+{block:Text}...{/block:Text}<br />{block:Photo}...{/block:Photo}
+...
+<br />{block:HasTags}
+<b>&lt;ul class=&quot;tags&quot;&gt;
+{block:Tags}
+&lt;li&gt;
+&lt;a href=&quot;{TagURL}&quot;&gt;{Tag}&lt;/a&gt;
+&lt;/li&gt;
+{/block:Tags}
+&lt;/ul&gt;</b>
+{/block:HasTags}
+<br />&lt;/div&gt;
+{/block:Posts}
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;html&gt;
+&lt;body&gt;
+<b>{block:TagPage}</b>
+<br />&lt;h2&gt;Posts tagged «<b>{Tag}</b>&quot;&lt;/h2&gt;
+
+<b>{/block:TagPage}</b>
+<b>{block:Posts}</b>
+&lt;!--Непонятно почему записи вынесены за пределы block:TagPage — ошибка, наверное --&gt;
+<b>{/block:Posts}</b>
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<h2 id="tag-pages">Поиск</h2>
+<table>
+<tbody>
+<tr>
+<th>{SearchQuery}</th>
+<td>Поисковый запрос</td>
+</tr>
+<tr>
+<th>{URLSafeSearchQuery}</th>
+<td>Поисковый запрос, который можно использовать в URL</td>
+</tr>
+<tr>
+<th>{block:SearchPage}</th>
+<td>Отображается на странице результатов</td>
+</tr>
+<tr>
+<th>{SearchResultCount}</th>
+<td>Количество результатов</td>
+</tr>
+<tr>
+<th>{block:NoSearchResults}</th>
+<td>Блок отображается, если ничего не найдено.</td>
+</tr>
+</tbody>
+</table>
+<h3>Пример</h3>
+<pre>&lt;form action=&quot;/search&quot; method=&quot;get&quot;&gt;
+&lt;input type=&quot;text&quot; name=&quot;q&quot; value=&quot;<b>{SearchQuery}</b>&quot;/&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Search&quot;/&gt;
+&lt;/form&gt;
+</pre>
+</body>
+</html>

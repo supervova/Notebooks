@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>CSS3</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>CSS3. <a href="#selectors">Селекторы см. ниже</a></h1>
+<p>Общие принципы записи: сначала — правило для старых браузеров (<code>backgraund: #FCC</code>); затем — правила с префиксами браузеров (<code>-moz-border-radius: 3px</code>); в последнюю очередь — стандартное правило (<code>backgraund: rgba(255, 255, 255, 0.3); border-radius: 4px</code>)</p>
+<ol>
+<li><b>Медиа-запросы</b> (<a href="/pro/des-n-dev/06-mobile/05-technics.htm#media_queries">media quories</a>)</li>
+<li><b>Закругленные углы.</b> Свойство нуждается в префиксах браузеров. Можно закруглить сразу все углу, а можно выборочно.<br />
+<code>H2 SPAN { -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px}<br />
+DIV { -moz-border-radius-topright: 4px; -moz-border-radius-bottomleft: 4px; -webkit-border-top-right-radius: 4px; -webkit-border-bottom-left-radius: 4px; border-top-right-radius: 4px; border-bottom-left-radius: 4px}</code><br />
+<a href="http://www.stunningcss3.com/"><img alt="" src="/a/img/design-n-development/part2_borderradius.jpg" /></a><br />
+<br />
+<code>border-radius</code> может использоваться для создания css-окружностей</li>
+<li><b>Тени.</b><br />
+<code>H1 { text-shadow:  0 3px 2px #000; <span class="note">/* по горизонтали не смещается, 3 пикселя вниз; размытие — 2 пикселя; черного цвета*/</span><br />
+filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0, OffY=3, Color='#000', Positive='0') <span class="note">/*IE*/</span>}<br />
+DIV { -moz-box-shadow: 4px 3px 1px #000; -webkit-box-shadow: 4px 3px 0 #000;<br />
+box-shadow: 4px 3px 1px #000; <span class="note">/*4 пикселя вправо, 3 вниз; размытие — 1пиксель; черного цвета; </span><span class="note">кроме того, можно использовать свойство inset для создания внутренней тени<br />
+box-shadow: inset 0 -10px 20px 0 rgba(0, 0, 0, .5);<br />
+и отрицательные значения для смещения вверх и влево, а также уменьшения площади тени (отрицательное значение для размытия) */</span><br />
+filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=4, OffY=3, Color='#000', Positive='true') <span class="note">/*IE*/</span>}</code></li>
+<li><b>Фоновые градиенты.</b> Можно использовать для одного фона несколько, начиная тот или иной не с верхнего левого угла. Правила нуждаются в браузерных префиксах:<br />
+<code>background: -webkit-gradient(linear, 0 0, 0 100%, from(#EEF), to(#000)) 300px 50px no-repeat, -webkit-gradient(linear, 0 0, 0 100%, from(#EFE), to(#000)) 0 0 no-repeat;<br />
+background: -moz-linear-gradient(#EEF, rgba(0,0,0,1)) 300px 50px no-repeat, -moz-linear-gradient(#EFE, rgba(0,0,0,1)) 0 0 no-repeat;<br />
+filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEF', endColorstr='#000'); /*IE6-7*/ -ms-filter: &quot;progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEF', endColorstr='#000')&quot;; /*IE8*/</code><br /> 
+Радиальные градиенты
+<br />
+<code>background-image: -moz-radial-gradient(50% 50%, farthest-side,<br />
+#FFF, #000);<br />
+background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350,<br />
+from(#FFF), to(#000));<br />
+background-image: -webkit-radial-gradient(50% 50%, 0, 50% 50%, 350,<br />
+from(#FFF), to(#000)); /*Для Webkit-браузеров нужно два раза определить правила*/<br />
+background-image: radial-gradient(50% 50%, farthest-side,<br />
+#FFF, #000)</code></li>
+<li><b>Выборочная прозрачность</b><br />
+<code>DIV { border-color: #FFF; /*сначала определяем непрозрачный цвет для старых браузеров*/ border: 10px solid rgba(255, 255, 255, 0.3); color: #808080; color: rgba(0, 0, 0, 0.5)}</code></li>
+<li><b>Многоколонный макет</b><br />
+<code>{ -moz-column-count: 4; -webkit-column-count: 4; column-count: 4; <span class="note">/*если такое количество колонок определенной ширины не влезает в контейнер, текст делится на меньшее количество колонок*/</span><br />
+-moz-column-gap: 20px; -webkit-column-gap: 20px; column-gap: 20px; <span class="note">/*средник*/</span><br />
+-moz-column-rule: 1px solid #000; -webkit-column-rule: 1px solid #000; column-rule: 1px solid #000; <span class="note">/*линейка*/</span><br />
+-moz-column-width: 200px; -webkit-column-width: 200px; column-width: 200px; <span class="note">/*ширина; лишнее, если указано количество колонок; если ширина блока или картинки внутри текста больше ширины колонки, следующая колонка не обтекает выступ */</span><br />
+}</code><br />
+Дополнительные свойства: <code>column-break-after</code>, <code>column-break-before</code>, <code>column-span</code>, <code>column-fill</code>. </li>
+<li><b>Веб-шрифты.</b>
+<pre>
+@font-face { font-family: &quot;My typeface&quot;;<br />src: url(&quot;mytypeface.eot&quot;); <span class="note">/* IE9 Compatibility Modes */</span><br />src: url(&quot;mytypeface.eot?&quot;) format(&quot;eot&quot;),  <span class="note">/* IE6-IE8 */</span><br />url(&quot;/a/type/mytypeface.woff&quot;) format(&quot;woff&quot;), <span class="note">/* Modern Browsers */</span><br />url(&quot;/a/type/mytypeface.ttf&quot;)  format(&quot;truetype&quot;), <span class="note">/* Safari, Android, iOS */</span><br /><span class="note">/*используемый некоторыми формат svg очень больших файловых размеров, был нужен для отображения в старых iOs, а теперь потихоньку отмирает*/</span><br />}<br />
+h2 { font-family: &quot;My typeface&quot;, Georgia, serif}
+h2 em { font-family: &quot;My italic typeface&quot;, Georgia, serif; font-style: italic} </pre>
+<p><b>Если использовать свой шрифт, а не из библиотек, то хранить его в /a/type/, а ссылки в css делать локальными, чтобы браузер сначал искал шрифт на компьютере пользователя.</b> Библиотеки шрифтов: <a href="http://code.google.com/webfonts?subset=cyrillic" target="_blank">Google</a> (бесплатные), <a href="http://www.kernest.com/" target="_blank">Kernest</a> (много бесплатных русских), <a href="http://typekit.com/libraries/full?languages=russian" target="_blank">typekit</a> (много).</p>
+<p><b><a href="http://www.fontsquirrel.com/fontface/generator">Конвертер форматов</a></b> fontsquirrel в режиме Expert позволяет улучшать качество отображения шрифта в Windows (Add Hinting) и защищать шрифт от незаконного использования (WebOnly).</p>
+</li>
+<li><a href="/pro/des-n-dev/05-html-css-jquery/css3-animation.htm#transform"><b>Перемещение, вращение, масштабирование, перекашивание.</b></a></li>
+<li> <b><a href="/pro/des-n-dev/05-html-css-jquery/css3-animation.htm">Анимация</a> (в том числе — с использованием ключевых кадров).</b><br />
+</li>
+<li><b>Контроль над длинными строками.<br />
+</b><b><code>text-overflow: ellipsis</code></b> <span class="note">/*Со свойствами white-space: nowrap и overflow: hidden текст обрезается, и к концу строки добавляется многоточие*/</span><br />
+<code>text-overflow: clip</code> <span class="note">/*Со свойствами white-space: nowrap и overflow: hidden текст обрезается по размеру области */</span><b><code><br />
+<img src="/a/img/design-n-development/textoverflow.jpg" alt="" /><br />
+word-wrap: break-word</code></b> <span class="note">/* слово длинее контейнера частями переносится на новые строки (без знака переноса) */</span><br />
+<code>white-space-collapse: collapse discard preserve preserve-breaks</code> <span class="note">/*Свойство  white-space теперь включает в себя составные свойства. <a href="http://www.w3.org/TR/2010/WD-css3-text-20101005/#wrapping" target="_blank">Пока не очень понятные</a> — может быть, когда-нибудь разберусь */</span><br />
+<code>text-wrap: normal supress unrestricted</code><br />
+<img src="/a/img/design-n-development/wordwrap.jpg" alt="" /></li>
+<li><b>Cчётчики, псевдо-списки: counter-reset / counter-increment </b>
+<pre>BODY { counter-reset: section} /*Создаем счётчик section — части. После названия счетчика
+можно установить «точку отсчета». Например, если в данном случае после section написать
+4, счетчик начнется с 5 */
+H1 { counter-reset: subsection} /*Создаем счётчик subsection — главы*/<br />H1:before { counter-increment: section; content: &quot;Часть &quot; counter(section) &quot;. &quot;}
+/* Добавляем перед H1 слово «Часть», её порядковый номер и точку. В свойстве
+counter-increment можно указать на сколько увеличивать счетчик — это, может быть
+даже отрицательное число */
+H2:before { counter-increment: subsection; content: counter(section) &quot;.&quot; counter(subsection) &quot; &quot;}
+/* Добавляем перед H2 номер части, точку, номер главы и пробел*/
+</pre>
+Еще пример:
+<pre>BODY { counter-reset: section}
+H2 { counter-increment: section; counter-reset: sub-section}
+H2:before, H3:before  { content: counter(section) &ldquo;.&ldquo; counter(sub-section) &ldquo; &ldquo;}
+H3:before  { counter-increment: sub-section}</pre>
+<a href="/pro/marketing/digital/seo/index.htm" target="_blank">Cм. также OL.chapter</a>. </li>
+<li><b>Граница-изображение.</b><br />
+<code>DIV.border {<br />
+border: 5px solid #feb515; <span class="note">/*сначала определяем толщину границы и ее стиль для старых браузеров*/</span><br />
+<span class="note">/*затем &quot;рассекаем&quot; изображение на девять частей четырьмя линиями: первая отмеряется от верхнего края изображения и далее по часовой стрелке, как обычно; 8 полученных частей изображения используются, как части графической границы: левый верхний кусок — для левого верхнего угла и далее по часовой стрелке*/</span><br />
+-moz-border-image: url(/playground/awesome-overlays/border-image.png) 5px  stretch; <span class="note">/*наконец, определяем, как мы используем полученные фрагменты изображения: stretch — фрагмент растягивается (значение по умолчанию, можно не писать); repeat — фрагмент повторяется; rounded (округялем) — фрагмент повторяется только целое количество раз*/</span><br />
+-webkit-border-image: url(/playground/awesome-overlays/border-image.png) 5px  stretch;<br />
+-border-image: url(/a/border-image.png) 18px 25px 25px 18px stretch}</code><br />
+<img src="/a/img/design-n-development/css3-border-image.png" alt="" /><br />
+</li>
+<li><b>Выбор: включаются или исключаются внутренние поля</b> и границы из ширины блока<br />
+<code>box-sizing: content-box</code> или <code>box-sizing: border-box</code><br />
+<code>content-box</code> — ширина/высота не включает ширину полей и границ; <code>border-box</code> — включает; это позволяет, например, задавать 100-процентную ширину, и вместе с тем, задавать внутренние поля и границы /*Пока почему-то не работает*/</li>
+<li><b>Одновременное использование нескольких фоновых изображений.</b><br />
+<code>DIV { background: url(/a/sky.png) repeat 0 0; /*<span class="note">сначала назначаем одно фоновое изображение для старых браузеров</span>*/<br />
+background: url(/a/rose.png) 0 0, <span class="note">/*чем меньше поряковый номер порядковый номер свойства, тем выше изображение в стопке слоев*/</span><br />
+url(/a/flower.png) top left (100% 2em) no-repeat, <span class="note">/*здесь используется свойство background-size — цветок будет помещен в верхний левый угол div-a, растянут на всю его ширину, а по высоте вытянут на 2em; однако в сокращенном правиле это свойство почти нигде не работае; его лучше записывать отдельно с префиксами браузера: -o-background-size, -moz-background-size, -webkit-background-size*/</span><br />
+url(/a/sky.png) 5px 5px repeat-x #FFF <span class="note">/*цвет надо писать последним*/</span>;<br />
+} </code><br />
+<img src="/a/img/design-n-development/css3-multiple-backgrounds.png" alt="" /><br />
+Кроме того, можно указать точное положение изображения по отношению к блоку.<br />
+Свойство <a href="http://www.w3.org/TR/css3-background/#the-background-clip"><code>background-clip</code></a> указывает распространяется ли фон на границу (по умолчанию, значение border-box — да, распространяется; при значении padding-box не распространяется).<br />
+Background-origin. Почти тоже самое, но касается только изображения, не фонового цвета.</li>
+<li><strong>Новый способ многоколонной верстки</strong> (в сентябре 2011 еще не подходящий для коммерческих сайтов — экспериментальный, очень сырой, неопределенным в лексике, поддерживался  малым количеством браузеров: даже в FF5 были ошибки, для поддержки IE использовался полифил <a href="http://flexiejs.com/" target="_blank">FlexIE.js</a>). Вместо того, чтобы использовать <code>float</code> и <code>cfx</code> родителю задается свойство <code>display: flexbox</code>, а потомкам <code>flex-shrink</code> или <code>flex-grow</code>. Потомки будут выровнены по ширине родителя. Если объем элементов-потомков в сумме превышает объем элемента родителя,  то расстояния между ними будут  уменьшатся: равномерно, если значения <code>box-flex</code> равны, и неравномерно, если отличаются, — например, значение 2 сделает потомка вдвое шире прочих).
+<p><strong>Колонки в такой модели всегда одинаковой высоты — как ячейки таблицы.</strong></p>
+Другие свойства этой модели:
+<ul>
+<li><code>flex-direction</code>. Значения по умолчанию <code>lr</code>, <code>inline</code> — блоки выстраиваются по горизонтали слева направо, в том порядке, в котором они следуют в коде. Другие значения меняют выравнивание в строку на выравнивание в колонку (чаще всего это требуется для мобильной версии) и меняют порядок:  <code>block</code>, <code>block-reverse</code>, <code>inline-reverse</code>, <code>rl</code>, <code>tb</code> (сверху вниз) и <code>bt</code>.</li>
+<li><code>flex-ordinal-group</code>. Значения — порядковый номер. Потомку можно указать, каким по очереди он будет выводится на экран. Полезно для перестройки элементов в <strong>мобильной версии, для SEO</strong> и для закрепления заметок вверху ленты.</li>
+<li><code>flex-align</code>. Значение по умолчанию — <code>stretch</code> (заполнение). Другие значения — <code>start, center, end, baseline</code> — выравнивает потомка по вертикали или горизонтали.
+<pre>
+header { display: flexbox; flex-align: center}
+header #search { display: flexbox; flex-shrink: 1}
+</pre>
+Поле поиска будет выравнено по вертикали.
+</li>
+<li><code>flex-pack</code>. Другой способ выравнивания. Значения: start, center, end, justify. Например, если задать это свойство родителю с единственным потомком, последний будет выравнен по центру (аналогично <code>margin: 0 auto</code>, только без обязательной ширины потомка). Значение <code>justify</code> выравниваетп отомков по всей оси родителя, удаляя ненужные <code>margin</code> у первого и последнего элемента.</li>
+<li><code>flex-lines</code>. Если задать значение <code>multiple</code>, потомки не помещающиеся в одну линию / колонку, будут переносится на новую.</li>
+</ul>
+Префиксы
+<pre>
+#parent {
+display: -webkit-flexbox;
+display: -moz-flexbox;
+display: -ms-flexbox;
+display: -o-flexbox;
+display: flexbox;
+}
+
+#child {
+-webkit-flex-shrink: 1;
+-moz-flex-shrink: 1;
+-ms-flex-shrink: 1;
+-o-flex-shrink: 1;
+flex-shrink: 1;
+}
+</pre>
+Чтобы сократить бесконечное количество свойств с префиксами, можно использовать вспомогательные классы.
+<pre>
+.box {
+display: -webkit-flexbox;
+display: -moz-flexbox;
+display: -ms-flexbox;
+display: -o-flexbox;
+display: flexbox;
+}
+
+.flex1 {
+-webkit-flex-shrink: 1;
+-moz-flex-shrink: 1;
+-ms-flex-shrink: 1;
+-o-flex-shrink: 1;
+flex-shrink: 1;
+}
+
+.flex2 {
+-webkit-flex-shrink: 2;
+-moz-flex-shrink: 2;
+-ms-flex-shrink: 2;
+-o-flex-shrink: 2;
+flex-shrink: 2;
+}
+</pre>
+</li>
+</ol>
+<h2><a href="http://reference.sitepoint.com/css/css3psuedoclasses" target="_blank">Селекторы (IE7+)</a></h2>
+<ol>
+<li>UL + P { background: #F00} /*Сосед снизу.  В данном случае — выбираются <b>только первые</b> параграфы, записанные в коде ближе всего к каждым из немаркированных списков*/</li>
+<li>UL ~ P { background: #F00} /*Соседи снизу.  В данном случае — выбираются <b>все</b> параграфы, записанные в коде следом за каждым из немаркированных списков*/</li>
+<li>DIV &gt; UL { border: 1px solid black} /*<strong>Прямой потомок</strong>. В данном случае в рамке окажется только тот список, который вложен в DIV, а списки вложенные уже в этот UL останутся необведенными*/</li>
+<li>A[title] {  color: green} /*Элемент<b> с определенным атрибутом</b>. В данном случае зелеными будут только ссылки с атрибутом title*/</li>
+<li>INPUT[type=&quot;text&quot;] {
+width: 200px} /*Элемент <b>с определенным значением</b> определенного атрибута. В данном случае зелеными будут только ссылки на моё портфолио*/</li>
+<li>A[href*=&quot;nickysheen&quot;] {  color: green} /*Элемент <b>с определенным фрагментом в значении</b> определенного атрибута. В данном случае зелеными будут ссылки на все ресурсы в адресах которых в любом месте и любом сочетании есть слово nickysheen*/</li>
+<li>A[href^=&quot;http&quot;] { background: url(/a/img/external-icon.png) no-repeat; padding-left: 10px}  /*Элемент с определенным фрагментом <b>в начале значения</b> определенного атрибута. В данном случае значок будет добавлен к исходящим ссылкам (с полным URL)*/</li>
+<li>A[href$=&quot;.jpg&quot;] { color: green}  /*Элемент с определенным фрагментом<b> в конце значения</b> определенного атрибута. В данном случае зелеными будут только ссылки на jpg*/</li>
+<li>A[data-info~=&quot;external&quot;] { color: green} /*Элемент с определенным пунктом<b> в разделенном прорбелами списке значений</b> определенного атрибута. В данном случае зелеными будут только ссылки, в которых одним из значений пользовательского аттрибута <a href="http://www.w3schools.com/html5/html5_ref_standardattributes.asp" target="_blank">data-info</a> будет external*/</li>
+<li>INPUT[type=radio]:checked { border: 1px solid black} /*Отмеченная радиокнопка или чебокс*/<br />
+Противоположность — :unchecked</li>
+<li>INPUT:disabled { background: #CCC} /*Неактивный элемент*/<br />
+Противоположность — :enabled</li>
+<li>DIV:empty /*Элементы без содержания или потомков*/</li>
+<li>BLOCKQUOTE:before { content: &quot;«&quot;}  /*IE8+*/<br />
+BLOCKQUOTE:after { content: &quot;»&quot;} </li>
+<li>DIV:not(#container) { color: blue}  /*Элемент, <b>за исключением определенных</b>. IE9+ */<br />
+#container:not(P) { color: green} <br />
+P:not([class*=&quot;lead&quot;]) { color: black}<br />
+INPUT:not(disabled) { border: 1px solid #CCC}</li>
+<li>P::first-line { font-weight: bold} }  /*<b>Первая строка, первая буква</b>. IE6+ */<br />
+P::first-letter { font-size: 200%}</li>
+<li>LI:nth-child(3) { color: red}    /*<b>Элемент в последовательности  себе подобных</b>. В данных случаях все третьи пункты списка и все нечетные строки таблицы. IE9+*/<br />
+TR:nth-child(odd) { background: #FC0}<br />
+LI:nth-child(3n) /*Элемент через определенный интервал: третий (3x1), шестой (3x2), девятый (3x3) и т.д.*/<br />
+LI:nth-child(4n+1) { background: #CCC} /*<b>К интервалу можно прибавлять или вычитать</b> число. В данном случае выбираем первый элемент  ((4 × 0) + 1), пятый ((4 × 1) + 1), девятый ((4 × 2) + 1) и т.д. IE9+*/<br />
+UL LI:nth-child(-n+4) { background: #FCC}  /*<b>Чтобы выделить несколько элеметнов подряд, надо использовать отрицательное значение n</b>. В данном случае выбираем четыре первых пунктов списка: (-0 + 4), (-1 + 4), (-2 + 4), (-3 + 4) IE9+*/<br />
+Примеры использования <code>nth-child</code>.<br />
+Конструктор из фоновых рисунков<br />
+<code>section &gt; section:nth-child(even) { url(&quot;../images/hr-damaged2.png&quot;) 0 bottom no-repeat}</code><br />
+Изменения макета в мобильных устройствах или на телеэкране:<br />
+<code>form:nth-child(-n+3) label { display: none}<br />
+fieldset input:first-of-type:not([type=radio]) {<br />
+border-top-left-radius: 10px;<br />
+border-top-right-radius: 10px}<br />
+fieldset input:last-of-type:not([type=radio]) {<br />
+border-bottom-left-radius: 10px;<br />
+border-bottom-right-radius: 10px}</code><br /> 
+Поочередное выравнивание фотографий по левому и по правому краю<br />
+<code>article img:nth-of-type(odd) { float: right}<br />
+article img:nth-of-type(even) { float: left}</code><br />
+<a href="http://leaverou.me/demos/nth.html" target="_blank">Страница визуальной проверки</a> сложных коэффициентов этого псевдокласса.</li>
+<li>LI:nth-last-child(2) { color: red}     /*<b>Тоже самое, что предыдущий пседо-класс, только </b>очет ведется от последнего элемента в последовательности. IE9+*/<br />
+</li>
+<li>UL:nth-of-type(3) { border: 1px solid black} /*<b>Элемент определенного типа, выбранный из всех подобных на странице</b>. IE9+*/<br />
+UL:nth-last-of-type(3) { border: 1px solid black}<br />
+P:first-of-type { color: green} /*Аналог :nth-of-type(1)*/<br />
+</li>
+<li>UL LI:first-child { border-top: none}  /*<b>Первый / последний потомок. Наиболее частый случай употребления — удаление отступов и линеек</b>*/<br />
+UL LI:last-child { border-top: none} /*IE9+*/</li>
+<li>DIV P:only-child { color: red} /*<b>Единственный потомок</b>*/</li>
+<li>IMG:only-of-type { font-weight: bold} /*<b>Единственный потомок определенного типа</b>*/</li>
+<li>H2:target {
+	background: #FCC; -webkit-animation:target .5s 2 linear} /*<b>Именнованный элемент</b> на странице к которому пользователь переходит по ссылке*/<br />
+@-webkit-keyframes target {<br />
+from { background: #FFF}<br />
+50% { background: #FCC}<br />
+to { background: #FFF}<br />
+}</li>
+</ol>
+</body>
+</html>

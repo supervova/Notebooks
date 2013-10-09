@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Блоки и регионы</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Блоки и регионы</h1>
+<p><i>&gt; Structure  &gt; Blocks</i></p>
+<ul>
+<li>Регионы — это области на странице сайта, заданные автором темы и обозначенные в разметке, как переменные ($sidebar_right;). Блоки — это содержание регионов: фрагменты информации (как системной, так и редакторской).<br />
+</li>
+<li>Для того, чтобы менять макет, можно использовать условную конструкцию. Наример, чтобы показывать боковую панель только на внутренних страницах, пишем в шаблоне:<br />
+<pre>&lt;?php
+  if($page['sidebar']) {
+    // do something
+  }
+?&gt;</pre>
+Чтобы проверять есть ли содержание в регионе, описанном в шаблонах node, вида или блока, надо в template.php прописать <a href="http://drupal.org/node/517696" target="_blank">специальную функцию</a>. </li>
+<li><a href="http://drupal.org/node/171224" target="_blank">Пример программной подготовки содержания для региона</a> (краткое содержание правой колонки)</li>
+<li>Для сайтов заказчиков делать блок «Справка» и показывать его только по адресам node/*/edit and node/add/* (Но, в принципе, может быть, будет достаточно оставить административной темой Batrik, в которой включенный по умолчанию  модуль Help показывает подсказки).</li>
+<li><strong>Обязательно составлять для себя блок-схему в OmniGraffle — со всеми блоками, регионами, видами и отношениями между ними.</strong></li>
+</ul>
+</body>
+</html>

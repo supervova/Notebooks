@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>LESS — «стенография» CSS</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>LESS — «стенография» CSS </h1>
+<p>LESS — это js-библиотека, расширяющая возможности css. Sass — это Ruby-библиотека.</p>
+<ol>
+<li>Устанавливаем <a href="http://incident57.com/less/" target="_blank">less.app</a></li>
+<li>Для Codы скачать less мод. Переписсать его в ~/Library/Application Support/Coda 2/Modes. Перезапустить Coda.</li>
+<li>В DW &gt; Cmd+U &gt; File Types / Editors &gt; Добавить расширение .less</li>
+<li>
+<p>~/Library/Application Support/Adobe/Dreamweaver CS5.5/en_US/Configuration/DocumentTypes/MMDocumentTypes.xml<br />
+<del>macfileextension=&quot;css&quot;</del> &gt; macfileextension=&quot;css,less&quot;</p>
+</li>
+<li>~/Library/Application Support/Adobe/Dreamweaver CS5.5/en_US/Configuration/Extensions.txt
+<ul>
+<li><del>CSS:Style Sheets</del> &gt; CSS,LESS:Style Sheets</li>
+<li>Перегрузить DW.</li>
+</ul>
+</li>
+
+<li>В папке /a/ создать новую папку /less/, cloak её, в .gitignore — a/less/).</li>
+<li>Папку с веб-сайтом перетянуть на значок less в dock.</li>
+<li>Правый щелчок курсором мыши на строке с файлом — выбор папки css.</li>
+<li>Создать новый css-файл, куда впоследствии будут импортироваться компоненты (@import), сохранить с разрешением .less.</li>
+</ol>
+<p class="note"><strong>LESS-файлы можно точно также импортировать</strong>, как и css, — при компиляции создается объединенный css.</p>
+<p><code>@import 'typography';<br />
+@import 'layout';</code></p>
+<p class="note" id="nested-import">При этом Less не допускает вложенного импорта. То есть преременные и примиси, импортированные в общий файл, не будут доступны тематическим файлам — надо импортировать в начале каждого . Также Less не допускает хаков <code>/**/:/**/</code> и требует закрывающей точки с запятой в конце строк  <code>width: 100;</code></p>
+<p><b>Переменные.</b> Объявляем в первом из импортируемых файлов, затем используем в правилах. В обоих случаях используем префикс @. Локальные переменные переопределяют глобальные. В переменные можно записывать URL-ы.</p>
+<pre>@с-red: #660019;
+@с-gold: #BF9940;
+@brd: 1px solid #B8BBBF;
+@base-url = 'http://coding.smashingmagazine.com';
+<br />
+#header { @с-red: #F00; /*Локальная переменная*/
+background: @с-red url(&quot;@{base_url}/a/img/background.png&quot;);<br />color: @с-gold; border-bottom: @brd}</pre>
+<p><strong>Mixins (примеси) — классы,  которые могут использоваться внутри других стилистических правил.</strong>  Могут содержать в своем названии переменную. Используются, например, для того, чтобы сократить количество браузеро-зависимого кода.</p>
+<p><code>.rounded-corners(@radius: 5px) { -moz-border-radius: @radius; -webkit-border-radius: @radius; border-radius: @radius}<br />
+<br />
+#header { .rounded-corners}<br />
+#footer { .rounded-corners(3px)} </code></p>
+<p><strong>Арифиметические операции с переменными</strong>: сложение, вычитание, умножение, деление — для изменения базовых полей, границ, цветов и т.п. Наибольшие значения в цветах — F, 255 — не умножаются. Наименьшие — нули — не делятся, не умножаются. </p>
+<p><code>@m: 25px; /*base margin*/<br />
+@c: #F00; /*base color*/<br />
+@full_page: 960px;<br />
+#header { background: @c / 20; top-margin: @m + 10px}<br />
+@quarter_page: (@full_page / 2) / 2;</code><br />
+</p>
+<p class="caption"><strong>Цветовые функции</strong></p>
+<pre>
+@base: #FC0;
+.box { @base: #00C; /*В рамках правила можно объявлять локальную переменную*/
+  color: saturate(@base, 5%);
+  border-color: lighten(@base, 30%);
+}</pre>
+<p class="caption"><strong>Использование JS</strong></p>
+<pre>@height = 'document.body.clientHeight';</pre>
+<p>Использование нестандартного синтаксиса — например, IE-фильров</p>
+<pre>.class { filter: ~&quot;progid:DXImageTransform.Microsoft.Alpha(opacity=20)&quot;}
+</pre>
+<p><strong>Примиси можно группировать (в namespace)</strong>, используя знак решетки. В принципе, можно группировать и простые переменные, но, к сожалению less.app пока их некорректно компилирует.</p>
+<p><code>#d { /*defaults*/<br />
+.h-color { color: #EE3322} /*header color*/<br />
+.bordered { border: solid 1px #EEE}<br />
+}</code></p>
+<p><code>h1 { #d &gt; .bordered; #d &gt; .h-color}</code><code></code></p>
+<p>Используя <strong>вложенные структуры</strong>, можно избежать многократного повторения одних и тех же селекторов</p>
+<p>Блок кода less превращается в css:</p>
+<pre>
+#header {
+  #nav {
+    ul {
+      li {
+        a {}
+      }
+    }
+  }
+}
+
+#header {}
+#header #nav {}
+#header #nav ul {}
+#header #nav ul li {}
+#header #nav ul li a {}
+</pre>
+<p class="caption">Чтобы создать набор псевдоклассов, используется амперсанд</p>
+<pre>
+a {
+	&amp;:active {}
+	&amp;:visited {}
+	&amp;:hover {}
+}
+</pre>
+В отличии от Saas в LESS нельзя использовать циклы<code>for</code>.
+Но <strong>условным операторам <code>if-else</code>,
+есть замена — <a href="http://lesscss.org/">guards</a>.
+</strong>
+</body>
+</html>

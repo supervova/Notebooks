@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Мобильный сайт — техника Responsive Images</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Мобильный сайт — техника Responsive Images</h1>
+<p><b>Техника пока не работает в Opera, хотя автор утверждает обратное. Поэтому не используем, пока не разберемся (возможно, причина в том, что прии спытаниях в Oper-е был выключен JS или из-за отсутствия уменьшенной версии).</b> Важные картинки <b>желательно</b> готовить в двух версиях: для обычной и мобильной версии сайта (ширина — 320px). Для оптимизации процесса следует написать photoshop-action.</p>
+<p>Добавляем в js-файл <a href="/a/js/rwd-images.js">специальный модуль</a>.</p>
+<p>Специальный фрагмент добавляем также в htaccess:<br />
+<code>RewriteEngine On<br />
+# временная картинка. в авторском варианте прозрачный gif хранится в корне в папке rwd-images, а в следующей строке после знака доллара указывается  rwd-images/rwd.gif [L]<br />
+RewriteRule .*rwd-router/.*\.r\.(jpe?g|png|gif)$ a/img/rwd.gif [L]<br />
+# ignore trap for non-image requests, rewrite URL without trap segment<br />
+RewriteRule (.*)rwd-router/(.*)$ $1$2<br />
+# remove .r from all requests<br />
+RewriteRule (.*)\.r(\.(jpe?g|png|gif))$ $1$2</code></p>
+<p>Добавляем в картинки прозрачный gif — a/img/rwd.gif</p>
+<p>В html в атрибуте src указываем путь к маленькой картинке, добавив перед расширением суффикс r (только в коде,<b> в «физическом» имени файла этого делать не нужно</b>; к «физическим именам» уменьшенных копий для единообразия добавляем ссуффикс -m — mobile). Путь к большой картинке указываем в html5-аттрибуте <code>data-fullsrc</code><br />
+<code>&lt;img src=&quot;/a/img/pic-m.r.jpg&quot; data-fullsrc=&quot;/a/img/pic.jpg&quot; class=&quot;ess&quot; /&gt;<br />
+</code> <a href="http://beradrian.wordpress.com/2009/01/13/resize-images-for-mobile-web/" target="_blank">См. также C# код</a> для программной оптимизации картинок. Возможно, в скором будущем функция уменьшения размеров будет добавлена в Drupal-модуль <a href="http://drupal.org/project/mobile_tools">Mobile Tools</a></p>
+
+<p id="media_queries">&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>SVG</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>SVG</h1>
+<p>SVG — формат векторной графики, использующий XML для описания изображений. В CSS преимущественно используется в качестве спрайтов.</p>
+<ol>
+<li><strong>Файл создается в Illustrator-е и сохраняется, как SVG</strong>. Наиболее универсальные параметры:
+<ul>
+<li>SVG Profiles: SVG 1.1</li>
+<li>Fonts
+<ul><li>Type: SVG</li>
+<li>Subsetting: Only Glyphs Used</li>
+</ul>
+</li>
+<li>Images
+<ul><li>Location: Embed</li>
+</ul>
+</li>
+<li>Флаг <em>Preserve Illustrator Editing Capabilities</em> не ставится.</li>
+</ul>
+</li>
+<li>Затем надо открыть файл в Dreamweaver-е и исправить единицы измерения в размерах в теге SVG: вместо px — em (причем, сохраняя сами значения).
+<pre>&lt;svg version=&quot;1.1&quot; id=&quot;Layer_1&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;
+xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; x=&quot;0px&quot; y=&quot;0px&quot;
+<del>width=&quot;30px&quot; height=&quot;160px&quot;</del> <ins>width=&quot;30em&quot; height=&quot;160em&quot;</ins>
+viewBox=&quot;0 0 30 160&quot; enable-background=&quot;new 0 0 30 160&quot; xml:space=&quot;preserve&quot;&gt;<br /></pre>
+</li>
+</ol>
+<p class="caption"><strong>Браузеры:</strong></p>
+<ul>
+<li>Internet Explorer 9+</li>
+<li>Firefox 4+</li>
+<li>Chrome 4+</li>
+<li>Safari 4+</li>
+<li>Opera 9.5+</li>
+</ul>
+<p>Для поддержки в IE6-8 можно использовать хаки и PNG.</p>
+</body>
+</html>

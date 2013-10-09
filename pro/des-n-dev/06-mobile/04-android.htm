@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>iPhone-приложение</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+BODY { width: 640px}
+IMG { display: inline-block}
+</style>
+</head>
+
+<body>
+<h1>Дизайн под Google Android
+</h1>
+<h2>Расширения</h2>
+<ul>
+<li>HVGA (half-size VGA) — <strong>320x480</strong> (180dpi). Самое популярное разрешение среди смартфонов.</li>
+<li>WVGA (wide VGA) <strong>800+x480</strong> (252dpi). Самое популярное разрешение среди смартфонов Android</li>
+<li>И еще <a href="/a/img/design-n-development/android-resolutions.png">целая куча</a> разнообразных разрешений.</li>
+</ul>
+<p>При этом физический размер мониторов примерно одинаков.</p>
+<ul>
+<p><img src="/a/img/design-n-development/hvga-wvga.gif" alt="" />
+</p>
+<p>Кроме разрешения  экраны современных устройств имеют такие свойства, как плотность и  DP (Density-independent pixel пиксель)</p>
+<li><strong>Разрешение</strong> — общее количество физических пикселей на экране.</li>
+<li><strong>Плотность</strong> — количество пикселей на дюйм. В Android выделяют четыре группы плотности lDPI (low — низкая), mDPI (medium — средняя), hDPI (high — высокя), and xhDPI (extra high — супер-высокая).<img src="/a/img/design-n-development/android-resolutions.png" alt="" /> <br />
+</li>
+<li><strong>DP</strong> — виртуальный пиксель, который <em>рекомендуется используется</em> в дизайнерских работах для того, чтобы они подходили для экранов любой плотности. Равен одном физическому пикселю на экране с плотностью 160dpi.</li>
+</ul>
+<p>Под xtnsht первых плотности прийдется создавать свои наборы графики и стилей, <strong>в базовом формате экрана — 320×480</strong>, затем в широкоформатном — 320 × 533.</p>
+<ul>
+<p>При подготовке графики используем стандартную плотность 72ppi, но делаем одну и ту же картинку в разных размерах в пропорциях 3:4:6:8 (у iPhone только 1:2). Предположим, иллюстрация на базовой, средней плотности должна быть 100×100. Тогда набор из 4 вариантов будет следующим:</p>
+<li>75 × 75 для  lDPI (100 x 0.75 (3 / 4))</li>
+<li><strong>100 × 100 — базовая картинка</strong></li>
+<li>150 × 150 для hDPI (100 × 1,5 (6 / 4))</li>
+<li><strong>200 × 200</strong> для xhDPI (100 × 2 (8 / 4); таже графика используется для Apple Retina).</li>
+</ul>
+<p>Графику размещаем по папкам: s, m, l, xl. Графика для полной версии сохраняется в корне и тематических каталогах.</p>
+<h2>Шаблонные решения в UI Android</h2>
+<p>На HTML-приложения шаблонные решения в UI Android никак не влияют, поэтому то, что делается под iOS будет также работать в браузерах на Android. Однако для разширения кругозора об этих решениях полезно знать.</p>
+<ul>
+<li>В отличие от iOS кнопка «назад» расположена во всех приложениях в общей панели управления внизу.</li>
+<li>Dashboard — аналог «рабочего стола» с иконками (см. навигацию в Facebook на iPhone)</li>
+<li>Action bar — основное меню программы вверху экрана; слева располагается логотип или название, справа —кнопка навигации и выпадающего меню поиска.</li>
+<li> Quick Actions — контекстное меню — вроде того, что появляется в 2Do, когда нажимаешь на задачу.</li>
+<li> Companion Widget — системные сообщения приложений. В отличии от iOS, в которой используются модальные окна, появляющиеся на экране на короткое время, в Android окна системных сообщений программ закреплены на домашнем экране.</li>
+<li>Fragments — Области программы, которые могут скрываться-появляться, растягиваться-сжиматься в зависимости от разрешения и ориентации экрана. Механизм эластичной верстки. Существует пока только в последней версии ОС на планшетах. ОС с fragments для смартфонов ожидается в скором будущем.</li>
+</ul>
+<p><img src="/a/img/design-n-development/pattern-dashboard.jpg" alt="" /><img src="/a/img/design-n-development/pattern-action-bar.jpg" alt="" /><img src="/a/img/design-n-development/pattern-search-bar.jpg" alt="" /><img src="/a/img/design-n-development/pattern-quick-actions.jpg" alt="" /><img src="/a/img/design-n-development/pattern-widgets.jpg" alt="" /><img src="/a/img/design-n-development/pattern-fragmets.jpg" alt="" /></p>
+<h2>Передача дизайна разработчику</h2>
+<ul>
+<li><strong>Главный PSD-файл.</strong> «Кадры» различных состояний приложения  в базовом формате экрана 320×480 и с Photoshop-комментариями.</li>
+<li>Если на больших экранах, что-то меняется — это оговаривается в комментариях основного файла и делается дополнительный файл с внесенными изменениями.</li>
+<li>Спецификации шрифтов, полей, цветов, названий файлов.</li>
+<li>Библиотеки изображений в четырех разрешениях — 32-битный png.</li>
+<li>Набор <a href="http://developer.android.com/guide/practices/ui_guidelines/icon_design.html" target="_blank">пиктограмм программы</a> — 32-битный png.</li>
+</ul>
+<h2>Скриншоты</h2>
+<p>В Android-устройствах нет встроенной возможности делать скриншоты. Поэтому если возникнет такая необходимость <a href="http://coding.smashingmagazine.com/2011/06/30/designing-for-android/" target="_blank">прийдется повозиться</a>, установив в Windows через Parallels Desktop</p>
+<ol>
+<li>Все USB драйверы для имеющегося устройства</li>
+<li><a title="Android SDK" href="http://developer.android.com/sdk/index.html">Android software development kit</a> (SDK),</li>
+<li><a title="Java SE SDK" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java SE SDK</a></li>
+</ol>
+<p>&nbsp;</p>
+</body>
+</html>

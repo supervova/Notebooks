@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>HTML5</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Сбор данных из интернет-источников с помощью YQL (Yahoo Query Language)</h1>
+<ol>
+<li><a href="http://developer.yahoo.com/yql/console/" target="_blank">YQL консоль<br />
+<img src="/a/img/design-n-development/yql-console.png" alt="" /></a>
+<ol>
+<li>Поле ввода запроса YQL. Результат можно получить либо в XML, либо в JSON.<br />
+<b>Синтаксис:</b> select {что} from {источник} where {условия}<br />
+<b>Примеры</b>
+<ul>
+<li>Результаты поиска в Gooogle по запросу smashing:<br />
+<a href="http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20google.search%20where%20q%3D%22smashing%22&amp;diagnostics=true&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys">select * from google.search where q=&quot;smashing&quot;</a></li>
+<li>То, же, только в результатах не остается ничего, кроме ссылок и их текста:<br />
+<a href="http://query.yahooapis.com/v1/public/yql?q=select%20url%2Ctitle%20from%20google.search%20where%20q%3D%22smashing%22&amp;diagnostics=true&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys">select url,title from google.search where q=&quot;smashing&quot;</a></li>
+<li>Последние заголовки Smashing Magazine, переведенные на русский (техника для дорвеев):<br />
+<a href="http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20google.translate%20where%20q%20in%20%28select%20title%20from%20feed%20where%20url%3D%22http%3A%2F%2Frss1.smashingmagazine.com%2Ffeed%2F%22%29%20and%20target%3D%22fr%22&amp;diagnostics=true&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys">select * from google.translate where q in (select title from feed where url=&quot;http://rss1.smashingmagazine.com/feed/&quot;) and target=&quot;ru&quot;</a></li>
+<li>50 суши-баров в Сан-Франциско, результаты с 11 по 30<br />
+<a href="http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20local.search%2850%29%20where%20query%3D%22sushi%22%20and%20location%3D%22san%20francisco%2C%20ca%22%20limit%2020%20offset%2010&amp;diagnostics=true&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys">select * from local.search(50) where query=&quot;sushi&quot; and location=&quot;san francisco, ca&quot; limit 20 offset 10</a></li>
+<li>Фото с Flickr, сделанные в Париже:<br />
+<a href="http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20flickr.photos.search%20where%20woe_id%20in%20%28%0A%20%20select%20woeid%20from%20geo.places%20where%20text%3D%22Paris%2CFrance%22%0A%29&amp;diagnostics=true&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys">select * from flickr.photos.search where woe_id in (select woeid from geo.places where text=&quot;Paris,France&quot;)</a></li>
+<li>Получить все twiiter-псевдонимы товарищей с <a href="http://swdc-central.com">SWDC-central.com</a> и найти все твиты с упоминанием этих людей:<br />
+<a href="http://query.yahooapis.com/v1/public/yql?q=select%20text%2Cfrom_user%20from%20twitter.search%20where%20q%20in%20%28%0A%20%20select%20content%20from%20html%20where%20url%3D%22http%3A%2F%2Fswdc-central.com%2F%22%20and%20xpath%3D%22%2F%2Fa%5Bcontains%28.%2C%27%40%27%29%5D%22%0A%29&amp;diagnostics=true&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys">select text,from_user from twitter.search where q in (select content from html where url=&quot;http://swdc-central.com/&quot; and xpath=&quot;//a[contains(.,'@')]&quot;)</a></li>
+</ul>
+</li>
+<li>Результат — в принципе, нужен только для того, чтобы придумать фильтры для запроса в первом поле.</li>
+<li>Ссылка на скрипт, который надо установить на своей странице.</li>
+<li>Примеры запросов, последние запросы и названия запросов на человеческом языке, которые каждый придумывает для себя сам.</li>
+<li>Таблицы баз данных, к которым можно обратиться напрямую.</li>
+</ol>
+</li>
+<li>Если в выражении надо указать конкертный блок на сайте-источнике, он выбирается в Firebug. Правой кнопкой вызывается контекстное меню, копируется x-path. Вставляется в запрос. Например:<br />
+<code>select * from html where url=&quot;http://www.polylog.ru/&quot; and xpath='//*[@id=&quot;news&quot;]'</code></li>
+<li>В HTML добавляется JS, обрабатывающий полученные данные и ссылка на JS, получающий данные.
+<pre>
+&lt;div id=&quot;news&quot;&gt;&lt;/div&gt;<br />&lt;script&gt;function news(data){<br />  if(data.results){<br />    var travels = document.getElementById('news');<br />    news.innerHTML = data.results[0];<br />  }<br />}&lt;/script&gt;<br />&lt;script src=&quot;http://query.yahooapis.com/v1/public/yql?<br />q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fwww.polylog.ru%22%20<br />and%20xpath%3D'%2F%2F*%5B%40id%3D%22news%22%5D'&amp;<br />diagnostics=true&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&amp;<br />format=xml&amp;callback=news&quot;&gt;&lt;/script&gt;</pre>
+</li>
+</ol>
+<p>Для YQL недоступны данные требующие авторизации, защищенные брэндмауэром или с помощью robots.txt</p>
+</body>
+</html>

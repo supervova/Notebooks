@@ -1,0 +1,16 @@
+#content { text-align: left; padding: 1em 0px 0px 0px; width: auto}
+.bg-brow { background-color: #F3F3F3}
+.bg-content { background-color: #FFFFFF}
+.bg-tb { background-color: #999999}
+.margin-table { margin: 1em 0pt 1em 0pt}
+.width-table { width: auto}
+.width-table-bg-tb { background-color: #999999; width: auto}
+.width-table-bg-tb TD, .width-table-bg-tb TH { border-bottom: 0.5pt solid #999999}
+A:link, A:visited { font-weight: bold; text-decoration: underline; color: #999999}
+BODY { background: white}
+DL, CAPTION, OL, P, TD, TH, UL { font-size: 10pt}
+H1 { font-size: 18pt; color: #666666}
+H2 { font-size: 14pt; color: #333333}
+H3 { font-size: 12pt; color: #666666}
+H4 { font-weight: normal; font-size: 11pt; color: #999999; margin-bottom: 0pt}
+P { margin-top: 0pt}

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Мобильный сайт</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Мобильный сайт</h1>
+См. также
+«<a href="/pro/des-n-dev/02-website-planning-responsive-first-approach.htm">Планирование адаптивности — до начала  HTML-кодирования</a>».
+<p class="lead" id="media_queries">В таблицу стилей после правил для нормальных браузеров и импортировать правила для мобильных устройствах.</p>
+<pre>@media handheld, only screen and (max-device-width: 480px)  {
+/*Styles*/
+}
+
+/* iPhone 4, Opera Mobile 11 and other high pixel ratio devices */
+@media
+.only screen and (-webkit-min-device-pixel-ratio: 1.5),
+.only screen and (-o-min-device-pixel-ratio: 3/2),
+.only screen and (min--moz-device-pixel-ratio: 1.5),
+.only screen and (min-device-pixel-ratio: 1.5) {
+/*Styles*/
+}
+
+/*iPad*/
+@media
+only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait),
+only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+/*Styles*/
+}</pre>
+<p>поддержка устаревших браузеров возможна с помощью <a href="http://protofunc.com/scripts/jquery/mediaqueries/" target="_blank">плагина jQuery</a> или jQuery-сниппета:</p>
+<pre>
+	$(document).ready(function(){
+		$(window).bind(&quot;resize&quot;, resizeWindow);
+		function resizeWindow(e){
+			var newWindowWidth = $(window).width();
+			// If width width is below 600px, switch to the mobile stylesheet
+			if(newWindowWidth &lt; 600){  $(&quot;link[rel=stylesheet]&quot;).attr({href : &quot;mobile.css&quot;});} <span class="note">// Else if width is above 600px, switch to the large stylesheet</span>
+				else if(newWindowWidth &gt; 600){
+				$(&quot;link[rel=stylesheet]&quot;).attr({href : &quot;style.css&quot;});
+			}
+		}
+	});
+</pre>
+<ol>
+<li>Первая задача мобильных стилей: удалить всю второстепенную информацию (display: none — в том числе для неважных картинок), оставить только одну колонку и уменьшить внутренние и внешние поля. Если информация в колонке важна, ее следует перенести вниз:<br />
+<code>aside { clear: both; width: 100%}</code>. Впрочем, прятать элементы можно не только от смартфонов, но и от ПК — нечто, предназначенное исключительно для мобильных устройств.</li>
+<li> Вторая задача: снизить файловый размер — заменить или вовсе удалить все большие фоновые изображения (в том числе — css-спрайты кнопок) и второстепенные картинки.
+<p>В CSS картинки для ПК делаем эластичными. Для мобильных устройств сначала скрываем все картинки. А затем показываем уменьшенные копии важных изображений.</p>
+<pre>IMG { border: 0; display: block}
+IMG.ess { max-width: 100%; width: 100%}
+		HTML&gt;BODY IMG.ess { height: auto}
+@media handheld, only screen and (max-device-width: 480px)  {
+		IMG { display: none}
+		IMG.ess { display: block} /*.ess — essential*/
+}
+</pre>
+<p>Если критически важно снизить размер фотографий, используем либо <a href="http://www.w3.org/community/respimg/2012/03/15/polyfilling-picture-without-the-overhead/" target="_blank">такую,</a> либо <a href="../Планирование адаптивности — до начала HTML-кодирования" target="_blank">такую</a> технику. </p></li>
+<li>В третьих, надо повысить удобочитаемость, увеличив мелкие и средние размеры шрифтов. Идеальные, на мой взгляд размеры. H1 — см. <a href="/_src/wireframing/_mobile-gui-kit.psd">_mobile-gui-kit.psd</a>. H2 и основная навигация — список контактов в iPhone. Основной текст — цепочка смс в iPhone. Мелкий текст: список цепочек смс в iPhone, серые надписи под именем абонента. Также хорошо: список песен в плейлистах iPod</li>
+<li>Надо увеличить площадь всех важных ссылок: display: block и дополнительные врунтренние поля — padding.</li>
+<li>Везде, где только возможно, надо вернуть свойству float его значение по умолчанию — none.</li>
+<li>Создать альтернативы всем выпадающим меню. Сам принцип виджета можно сохранить, но меню должно помещаться на экране.</li>
+<li>Заменить псевдо-классы hover (которые большинством мобильных устройств не поддерживаются) на псевдо-классы active.</li>
+<li><a href="/pro/des-n-dev/06-mobile/05-technics-retina.htm">Добавить стили и графику под экраны с высоким разрешением</a>.</li>
+</ol>
+<h2>Кроме стилей, надо сделать еще вот, что:</h2>
+<ol>
+<li>В адресах самостоятельных мобильных версий вместо www используется субдомен m — http://m.example.com. Кроме того, желательно владеть адресом  с TLD .mobi, определив для него редирект на субдомен m.</li>
+<li>Чтобы избежать автоматического уменьшения страницы под экраны мобильных устройств (например, iPhone) используем <code>meta-viewport<br />
+<b>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</b></code><br />
+</li>
+<li>Технология — HTML5+CSS3+jQuery. Изучить, как jQuery использует <a href="http://en.m.wikipedia.org/" target="_blank">мобильная Википедия</a>. Если не получится скачивать шрифты только для настольной версии, не использовать веб-шрифты.<br />
+<img src="/a/img/design-n-development/m-imdb-app.jpg" alt="" /><br />
+<br />
+<span class="note">IMDB имеет мобильную версию веб-сайта и приложение под iPhone. Они могут себе это позволить — ради возможностей, которые предоставляет устройство — управление встряхиванием, фотокамера, диктофон и т.п.</span></li>
+<li>Критически важно <a href="http://articles.sitepoint.com/print/web-site-optimization-steps" target="_blank">оптимизировать скорость загрузки</a> мобильной версии — следует ориентироваться на 10 секунд и на 70–10 КБ.</li>
+<li>Помимо картинок следует максимально сократить количество ссылок.</li>
+<li>Пользователей, зашедших на мобильную версию с обычного компьютера, не нужно автматически перенаправлять на обычную версию — потребители всегда предпочитают свободу выбора и, в данном случае, ссылку.</li>
+<li>Кликабельные телефонные номера <code>&lt;a href=&quot;tel:+7-495-258-2045&quot; class=&quot;a_phone&quot;&gt;258-20-45&lt;/a&gt;</code>. Стиль a_phone маскирует ссылку под простой текст в обычных браузерах и показывает ссылкой на мобильных устройствах.</li>
+<li>В формах для полей телефонов и email использовать специальные аттрибуты спецификации HTML5:<br />
+<code>&lt;input type=&quot;tel&quot; /&gt;<br />
+&lt;input type=&quot;email&quot; /&gt;</code></li>
+<li>Альтернативные <a href="/pro/des-n-dev/05-html-css-jquery/html5-practice.htm#video">видеоролики, подходящие для разных типов мобильных устройств</a>: Flash и HTML5.</li>
+<li>Использовать специальные js-библиотеки: <a href="http://www.sencha.com/products/touch/" target="_blank">Sencha</a>, <a href="http://www.jqtouch.com/">jQTouch</a>, <a href="http://jquerymobile.com">jQuery Mobile</a> (мой выбор, хотя пока существует только бета-версия).</li>
+<li>Добавить специальные пиктограммы для закладок iPhone, iPad, iPhone4 (PNG — 57x57, 72x72, 114x114):<br />
+<code>&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;/apple-touch-icon.png&quot; type=&quot;image/x-icon&quot; /&gt;</code><br />
+iPhone сам закругляет углы и добавляет отражение.</li>
+<li>Хорошие мобильные версии:
+<ul>
+<li><a href="http://m.flickr.com/#/photos/supervova/4738923408/" target="_blank">Flickr</a></li>
+<li><a href="http://m.youtube.com/" target="_blank">Youtube</a></li>
+</ul>
+</li>
+<li>Добавить инструкции установки закладок на «рабочие столы» для разных мобильных браузеров.<br />
+<img src="/a/img/design-n-development/install-web-app.png" alt="" /></li>
+</ol>
+<a href="http://www.w3.org/2007/02/mwbp_flip_cards.html" target="_blank">Рекомендации W3C</a>
+</body>
+</html>

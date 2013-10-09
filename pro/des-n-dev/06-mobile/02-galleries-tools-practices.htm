@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Мобильный сайт/веб-приложение: практика и примеры</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+BODY { width: 640px}
+IMG { display: inline-block}
+</style>
+</head>
+
+<body>
+<h1>Не просто мобильный веб-сайт, а веб-приложение</h1>
+<p>У веб-приложений есть свои преимущества: совместимость с разными мобильными платформами; обычный html-css-javascript, а не Objective-C или Java; не надо делить с Apple или с кем-то ещё прибыль; свобода от жестких рамок требований Apple и др. Есть и недостатки: у веб-приложений пока нет единого рынка вроде iTunes Store; нельзя пользоваться многими возможностями мобильных операционных систем — прежде всего, связанных с интерфейсом (доступ к камере, акселерометр). <b>Впрочем, почти все недостатки решаются с помощью онлайн-сервиса <a title="PhoneGap" href="http://phonegap.com/">PhoneGap</a>, с помощью которого можно конвертировать веб-приложения в «родные» приложения Apple, Android, BlackBerry, Simbian (Windows ожидается).</b></p>
+<h2>Design</h2>
+<h3>Inspiration</h3>
+<ul>
+<li><a title="Apple Web apps" href="http://www.apple.com/webapps/">Apple Web Apps</a></li>
+<li><a title="Mobile Awesomeness" href="http://www.mobileawesomeness.com/">Mobile Awesomeness Design Gallery</a></li>
+<li><a title="CSS iPhone" href="http://www.cssiphone.com/">CSS iPhone Design Gallery</a></li>
+<li><a href="http://wellplacedpixels.com/">Well Placed Pixels</a></li>
+<li><a href="http://www.apple.com/iphone/apps-for-iphone/">Apple App Store</a></li>
+</ul>
+<h3>Шаблоны<i></i></h3>
+<ul>
+<li><a title="iPhone" href="http://www.teehanlax.com/blog/2009/06/18/iphone-gui-psd-30/">iPhone GUI PSD 3.0</a> and <a title="iPad" href="http://www.teehanlax.com/blog/2010/02/01/ipad-gui-psd/">iPad GUI PSD</a> (Photoshop) </li>
+<li><a href="http://www.morford.org/iphoneosdesignstencil/">iPad and iPhone stencils</a></li>
+</ul>
+<h2>Coding</h2>
+<ul>
+<li><a href="http://developer.apple.com/safari/library/documentation/AppleApplications/Reference/SafariWebContent/Introduction/Introduction.html#//apple_ref/doc/uid/TP40002079-SW1">Safari Web Content Guide</a></li>
+<li><a href="http://developer.apple.com/safari/library/documentation/InternetWeb/Conceptual/iPhoneWebAppHIG/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007900">iPhone Human Interface Guidelines for Web Applications</a></li>
+<li><a title="iPad Human Interface Guidelines" href="http://developer.apple.com/iphone/library/documentation/General/Conceptual/iPadHIG/Introduction/Introduction.html">iPad Human Interface Guidelines</a></li>
+<li>Browser Detection <a title="iPad Detection Using JavaScript or PHP" href="http://davidwalsh.name/detect-ipad">for the iPad</a> and <a href="http://davidwalsh.name/detect-iphone">for the iPhone</a></li>
+<li><a title="Nettuts" href="http://net.tutsplus.com/tutorials/tools-and-tips/learn-how-to-develop-for-the-iphone/">Detecting iPhone Window Orientation</a><br />
+Detecting iPad Window Orientatio is <i>much</i> easier:<br />
+&lt;link rel=&quot;stylesheet&quot; media=&quot;all and (orientation:portrait)&quot; href=&quot;portrait.css&quot;&gt;<br />
+&lt;link rel=&quot;stylesheet&quot; media=&quot;all and (orientation:landscape)&quot; href=&quot;landscape.css&quot;&gt;</li>
+<li><a href="http://jqtouch.com/" target="_blank"><b>jQuery jQTouch — Mobile Framework</b></a>
+<ul>
+<li><a href="http://building-iphone-apps.labs.oreilly.com/ch04.html">Building iPhone Apps with HTML, CSS and JavaScript, Chapter 4: Animation</a></li>
+<li><a title="Philipp Bosch. Web Engineer. Talks" href="http://philippbosch.de/talks/jqtouch/">PDF slides about getting started with jQTouch</a>, by Philipp Bosch </li>
+</ul>
+</li>
+<li>Полуавтоматическое создание мобильных версий сайтов: <a href="http://www.mobify.me/">Mobify</a></li>
+</ul>
+<h2>Тестирование</h2>
+<p>Эмуляторы</p>
+<ul>
+<li><a href="http://developer.android.com/guide/developing/tools/emulator.html">Android</a></li>
+<li><a href="http://www.opera.com/mobile/demo/">Opera Mini</a></li>
+<li><a href="http://developer.apple.com/">Apple iPhone</a> (<a href="http://www.project83.com/blog/how-to-test-iphone-websites-locally-with-the-iphone-simulator/http://www.project83.com/blog/how-to-test-iphone-websites-locally-with-the-iphone-simulator/" target="_blank">надо установить iOS SDK</a>)</li>
+<li><a href="http://msdn.microsoft.com/en-gb/windowsmobile/bb264327.aspx">Windows Mobile</a></li>
+<li><a href="http://www.blackberry.com/developers/downloads/simulators/">BlackBerry</a></li>
+<li><a href="http://www.forum.nokia.com/info/sw.nokia.com/id/db2c69a2-4066-46ff-81c4-caac8872a7c5/NMB40_install.zip.html">Nokia Mobile Browser</a></li>
+</ul>
+<h2>Примеры удачного дизайна, оптимизированного под iPhone</h2>
+<p><a href="http://zinio.com/iphone"><img alt="" src="/a/img/design-n-development/img_0236.jpg" /></a><a href="http://iphonetoolbox.com/dailywallpaper/"><img alt="" src="/a/img/design-n-development/img_0230.jpg" /></a><a href="http://iphone.horoscopes.aol.com/"><img alt="" src="/a/img/design-n-development/img_0232.jpg" /><img alt="" src="/a/img/design-n-development/img_0233.jpg" /></a><a href="http://www.monterilla.cl/"><img alt="" src="/a/img/design-n-development/img_0202.jpg" /><img alt="" src="/a/img/design-n-development/img_0204.jpg" /></a><a href="http://i.viget.com/"><img alt="" src="/a/img/design-n-development/img_0249.jpg" /></a><a href="http://iphone.readyforiphone.com/"><img alt="" src="/a/img/design-n-development/img_0212.jpg" /></a><a href="http://www.vw.com/mobile/iphone/"><img alt="" src="/a/img/design-n-development/img_0197.jpg" /></a><a href="http://walmart.com/iphone"><img alt="" src="/a/img/design-n-development/img_0246.jpg" /></a><a href="http://walmart.com/iphone"><img alt="" src="/a/img/design-n-development/img_0247.jpg" /></a><a href="http://www.signalelement.com/iphone"><img alt="" src="/a/img/design-n-development/img_0201.jpg" /></a><a href="http://m.mit.edu/"><img alt="" src="/a/img/design-n-development/img_0227.jpg" /></a><a href="http://iphone.food.aol.com/"><img alt="" src="/a/img/design-n-development/img_0228.jpg" /></a><a href="http://deviantart.com/"><img alt="" src="/a/img/design-n-development/img_0240.jpg" /><img alt="" src="/a/img/design-n-development/img_0241.jpg" /></a></p>
+<h2>Tools to design a website for iPhone</h2>
+<ul>
+<li><a href="http://www.marketcircle.com/iphoney/">iPhoney</a> is a tool to see how your web creations will look on iPhone. </li>
+<li><a href="http://www.testiphone.com/">Test iPhone</a> A web browser based simulator. </li>
+<li><a href="http://iwebkit.net/">iWebKit</a> is a file package designed to help you create your own iPhone and iPod Touch compatible website or webapp. </li>
+<li><a href="http://code.google.com/p/iui/">iUI</a> is a framework consisting of a JavaScript library, CSS, and images for developing iPhone web designs.</li>
+<li><a href="http://www.intersquash.com/">Intersquash</a>. You can instantly create an iPhone compatible site from your RSS feed url. </li>
+<li><a href="http://www.bravenewcode.com/wptouch/">WPtouch</a> transforms your WordPress blog into an iPhone application-style theme, complete with ajax loading articles and effects, when viewed from an iPhone or iPod touch. </li>
+<li><a href="http://www.jaipho.com/">Jaipho Gallery</a> If your website features a photo gallery, Jaipho will optimize it for iPhone users.</li>
+</ul>
+</body>
+</html>

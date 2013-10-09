@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Блог на Jekyll и github</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Блог на Jekyll и github</h1>
+<p>Jekyll — это простой генератор статичных сайтов. Он содержит шаблоны для создания логики сайта. Благодаря github Pages — сайт можно хостить на github. Это просто. Создаете репозиторий «Название сайта».github.com и публикуете туда код вашего сайта на Jekyll. Commit+Push и github автоматически обновляет ваш сайт.</p>
+<h2>Почему Jekyll и github</h2>
+<ul>
+<li>Jekyll предоставляет подсветку синтаксиса pygments, довольно неплохая.</li>
+<li>Ваш блог хранится в git репозитории, а значит у вас есть версионное хранилище.</li>
+<li>Jekyll компилирует сайт однажды и затем используются только статические html файлы.</li>
+<li>Добавить изменения или написать новый пост значит сделать коммит на github.</li>
+<li>Популярность.</li>
+<li>Документация и примеры — работающие сайты и блоги в open source.</li>
+<li>Удобный язык разметки. Jekyll поддерживает textile и markdown. Конечно html.</li>
+<li>Надёжный хостинг.</li>
+<li>Комментарии в блоге можно реализовать с помощью сервисов аля Disqus.</li>
+</ul>
+<h2>Внутренности</h2>
+<p>Пример <a href="http://tom.preston-werner.com/" target="_blank">блога на Jekyll</a> с <a href="https://github.com/mojombo/mojombo.github.com" target="_blank">исходными кодами</a><a href="http://tom.preston-werner.com/">.</a></p>
+<h3>Исходные коды</h3>
+<ul>
+<li>_includes/ (HTML-сниппеты)</li>
+<li>_layouts/ (шаблоны)</li>
+<li>_posts/ (статьи)</li>
+</ul>
+<ul>
+<li>Шаблоны работают с помощью <a href="http://liquidmarkup.org/">Liquid</a>.</li>
+<li>Названия файлов заметок в формате год–месяц–день–name.format</li>
+<li>Разметка: textile или markdown.</li>
+</ul>
+<p>Заметка должен включать шапку, обозначающую шаблон:</p>
+<pre>--- layout: post title: &quot;Название поста&quot; ---</pre>
+<br />
+<strong>Достоинства:</strong>
+<p>1) github.<br />
+2) Работает очень очень быстро — &gt;95 из 100 очков профилируя через Google PageSpeed.<br />
+3) Можно легко переместить на Heroku.(к примеру)<br />
+4) Можно фокусироваться на контенте и не беспокоимся о реализации и платформе.</p>
+</body>
+</html>

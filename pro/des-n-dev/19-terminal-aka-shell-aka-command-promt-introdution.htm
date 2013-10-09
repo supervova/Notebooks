@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Элементарная компьютерная безопасность</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Командная строка (терминал) — введение</h1>
+<p>Командная строка заменяет GUI — для сотен различных операций: перемещения, редактирования файлов, запуска приложений, обработки изображений, создания резервных копий и т.д. Командная строка полезна для контроля удаленных компьютеров без GUI — например, серверов под Linux (более частое, но менее точное обозначение UNIX-систем, которые включают Linux, Mac OS, BSD и др.). Сервера и БД, конечно управляются с помощью веб-интерфейсов вроде cPanel и phpMyAdmin. Но часто их возможностей не хватает</p>
+<p class="caption">Доступ к командной строке:</p>
+<ul>
+<li>на Mac Os — терминал через Spotlight</li>
+<li>на Windows — Start → All Programs → Accessories → Command Prompt.</li>
+</ul>
+<p>Для доступа к удаленному серверу используется SSH-клиент. На Mac OS — это программа без GUI, управляемая через командную строку. Под Windows используются GUI-приложения. Самое популярное —  <a href="http://www.putty.org/" rel="nofollow">Putty</a>. SSH (англ. Secure SHell — «безопасная оболочка») — сетевой протокол сеансового уровня, позволяющий производить удалённое управление операционной системой. Шифрует весь трафик, включая и передаваемые пароли.</p>
+<p>Большинство хостинг-провайдеров за определенную плату предоставляют клиентам доступ к их домашнему каталогу по SSH.  Логин и пароль, как правило, совпадают выданными к FTP, но, в любом случае, прежде, чем подключаться к серверу, нужно связаться с провайдером.</p>
+<h2>Команды</h2>
+<p><code>man</code> — справка по командам</p>
+<h3>Доступ к файлам, подключение к серверу</h3>
+<ul>
+<li><code>ssh</code> — <code>ssh -l username www.example.com</code> -l означает login as. После введения такой команды SSH запросит пароль. После авторизации терминал сообщит об этом, закончив фразу знаками ~ и $ (или #, в случае доступа к корневому каталогу сервера).Тильда означает, что доступ открыт к корневому каталогу сайта (не всего сервера). Знак доллара — подсказка, что можно уже вводить команды.</li>
+<li><strong><code>pwd</code></strong> — показывает, какой каталог сейчас открыт.</li>
+<li><strong><code>cd</code></strong> — change directory — сменить директорию. Например, <code>cd /</code> — переход к корневому каталогу системы. Или <code>cd example.com</code> — переход к корневому каталогу сайта.</li>
+<li><strong><code>ls</code></strong> (<code>dir</code>; здесь и далее в скобках — windows-«перевод») — list — список файлов. Используя <code>cd</code> и <code>ls</code> можно увидеть содержимое каждого каталога в системе. Чтобы показать также скрытые файлы используется параметр <code>-a</code>
+<pre>ls -a</pre>
+</li>
+<li><code>cs</code></li>
+<li>Автозаполнение — с помощью клавиши табуляции. Yf,hfnm команду и начало пути, (например, cd /use) затем нажимаешь клавишу&amp;</li>
+</ul>
+<h3>Просмотр и перемещение файлов</h3>
+<ul>
+<li><code><strong>cat</strong></code> — просмотр содержимого файла. Например, <code>cat index.html</code>. Не подходит для больших файлов — содержание быстро прокручивается в терминале. Для спокойного просмотра существует следующая команда</li>
+<li><strong><code>more</code></strong> — постраничный просмотр содержимого файла. Пробел — следующая страница. Enter — следующая строка. Q — выйти из файла.</li>
+<li><code>head</code> — просмотр первых строк содержимого файла. По умолчанию строк 10, но можно задать своё количество. Например, <code>head -20 index.html</code></li>
+<li><code>tail</code> — просмотр последних строк содержимого файла.</li>
+<li><code><strong>mv</strong></code> — move — переименование файла. Например,<br />
+<code>mv new-name.html old-name.html</code></li>
+<li><code><strong>cp</strong></code> — copy — копировать/вставить <code>cp to.html from.html </code></li>
+<li><code><strong>rm</strong></code> — remove — удалить.<code> rm del.html</code> </li>
+</ul>
+<h3>Поиск</h3>
+<p><strong><code>find</code>. Поиск по названиям.</strong> Если ввести путь к директории, выдаст список всех файлов с путями. Для удобства в конце следует добавлять команду <code>more</code>. <code>find /Users/vova/Music | more</code>. <strong>Символ | отделяет выполняемые одновременно команды.</strong></p>
+<p>Чтобы найти файл по названию или расширению используются: <code>-name</code>, <code>\*</code> (как «джокер»), <code>-o</code> (или) и <code>and</code>.</p>
+<pre>find /var/www -name logo.gif
+find /var/www -name \*.gif
+find /var/www -name \*.gif -o -name \*.jpg</pre>
+<p>Чтобы найти файлы определенного размера используется <code>-size</code>. Например, поиск файлов от 5 до 10 Кб:</p>
+<pre>find /var/www -name \*.gif -size +5k -size -10k</pre>
+<p>Чтобы найти файлы измененные за определенный промежуток времени размера используется <code>-ctime</code>. Например, поиск файлов измененных в промежуток со 180 одо 90 дней тому назад:</p>
+<pre>find /var/www -name \*.gif -ctime +90 -ctime -180</pre>
+<p>Чтобы узнать дату изменения команда поиска уточняется параметром -printf. Друие полезные параметры:<code> -type</code> — ограничивает поиск только файлами (<code>f</code>) или только директориями (<code>d</code>); и <code>-cmin</code> —  дает возможность посмотреть, какие файлы изменялись последние несколько минут. Это полезно при раннем обнаружении хакерской атаки.</p>
+<pre>find /var/www -cmin -10 -type f -printf &quot;%c %p\n&quot;</pre>
+<p><strong>grep — поиск в содержании.</strong></p>
+<pre>cd /var/www/vhosts/myserver.com/httpdocs/ grep &quot;&lt;div id=\&quot;left\&quot;&gt;&quot; *.php
+grep -r &quot;&lt;div id=\&quot;left\&quot;&gt;&quot; .</pre>
+<p>Во втором случая <code>-r</code> ит очка в конце означает поиск в субдиректориях текущей директории. Команду можно уточнять с помощью параметра <code>-n</code> (номер строки) и команды find, присоединяя вторую команду обратным апострофом.</p>
+<pre>grep -n &quot;&lt;div id=\&quot;left\&quot;&gt;&quot; `find . -name \*.php -ctime -14`</pre>
+<p>&nbsp;</p>
+<h3>Правка файлов</h3>
+<p><code>vi</code>. Vi — 'то текстовой редактор. Чтобы отредактировать в нём файл, нужно набрать одноименную команду:</p>
+<pre>vi index.php</pre>
+<p>Перемещение по файлу — с помощью стрелок. X — удалить символ. DD — удалить строку. I (insert) — режим редактирования. Esc — выход из режима редактирования.<code> :w</code> (write) — сохранить. <code>:q</code> — выйти из редактора. <code>:wq</code> — сохранить и выйти. <a href="http://www.eng.hawaii.edu/Tutor/vi.html">Возможности почти такие же, как в современных текстовых редакторах</a>.</p>
+<h3>Архивирование, создание резервных копий файлов и БД</h3>
+<ul>
+<li><code>tar</code>. Не все серверы поддерживают zip, но все tar. Перейти в директорию,  архив которой нужно сделать. В команде  указать czf (create zipped file),  и директорию, куда поместить архив (если выбрать ту же директорию, это приведёт к ошибке). Если архивировать директорию целиком, чтобы в архив попали скрытые файлы, нужно в конце добавить точку.
+<pre>cd /var/www/vhosts/myserver.com/httpdocs/
+tar czf /tmp/backup.tgz .</pre>
+Можно уточнять с помощью команды find
+<pre>tar cfz /tmp/backup.tgz `find . -type f -ctime -1`</pre>
+Чтобы посмотреть содержание архива, используется параметр <code>tfz</code>
+<pre>tar tfz /tmp/backup.tgz</pre>
+Для разархивирования используется <code>xfz</code> (extract from zipped file). Можно распаковывать архив целиком, а можно — отдельные файлы
+<pre>
+tar xfz /tmp/backup.tgz
+tar xfz /tmp/backup.tgz ./index.php ./test.php</pre>
+</li>
+<li><code>zip / </code><code>unzip</code> — тоже, что и <code>tar</code>, но в другом формате. Пример:
+<pre>cd /var/www/vhosts/myserver.com/httpdocs/
+zip -r /tmp/backup.zip .
+zip -r /tmp/backup.zip `find . -type f -ctime -1`
+unzip -l /tmp/backup.zip
+unzip /tmp/backup.zip test.php
+unzip /tmp/backup.zip</pre>
+</li>
+<li><code>mysqldump</code> — создание резервной копии базы
+<pre>mysqldump --user=&quot;username&quot; --password=&quot;password&quot; --add-drop-table database &gt; /tmp/db.sql
+</pre>
+</li>
+<li><code>mysql</code> — вход в базу данных (в примере <code>dbname</code> заменяется названием БД)
+<pre>mysql --user=&quot;username&quot; --password=&quot;password&quot; dbname</pre>
+<code>mysql></code> — выполнение SQL-команд 
+<pre>mysql&gt; SHOW TABLES;
+mysql&gt; SELECT * FROM customers;</pre>
+Для выставления базы используется команда mysql используется вместе с командой просмотра cat
+<pre>cat /tmp/db.sql | mysql --user=&quot;username&quot; --password=&quot;password&quot; dbname</pre>
+</li>
+</ul>
+<h3>Права доступа</h3>
+<ul>
+<li>С помощью параметра -l команды ls можно посмотреть права владельца, группы и всех остальных на файлы в текущей дирректории: <code>ls -l</code></li>
+<li><code>chmod</code> — изменение прав доступа. Используются параметры  u (&ldquo;user&rdquo;, владелец), g (&ldquo;group&rdquo;), o (&ldquo;other&rdquo; — кто угодно), a (&ldquo;all&rdquo; — все); <code>r</code> — read; <code>w</code> — write; <code>x</code> — execute, запускать; <code>-R</code> — все файлы во всех субдиректориях.
+<pre>chmod go+r images/bg.jpg
+chmod a+r images/bg.jpg
+chmod -R a+rw images/
+chmod -R a+rwx images/
+chmod -R a-x `find images/ -type f`</pre>
+<strong> Права доступа для файлов, не предназначенных для чужих глаз, должны быть максимально ограничены.</strong></li>
+<li><code>chown</code> — изменения владельца. Для этой команды нужно быть авторизованым в системе, как superuser — администратор. Например, изменение владельца на группу <code>www-data</code> (посетители сайта):
+<pre>chown www-data images/bg.jpg
+</pre>
+</li>
+<li>sudo — выполнить команду, как  администратор (superuser). Требуется пароль.
+<pre>sudo chown www-data images/bg.jpg
+</pre>
+</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+#content { text-align: left; padding: 10px; width: 580px}
+.bg-brow { background-color: #F3F3F3}
+.bg-content { background-color: #FFFFFF}
+.bg-light-blue { background-color: #A6D9FF}
+.bg-tb { background-color: #999999}
+.bg-trow { background-color: #E5E5E5}
+.border-b { border-bottom: 1px solid #CCCCCC}
+.bullet { list-style-image: url(/a/img/b.gif)}
+.list-type-none { list-style-type: none}
+.margin-t0 { margin-top: 0px}
+.margin-table { margin: 1em 0px 1em 0px}
+.novisited-link a:visited { color: #E55933}
+.novisited-link a:hover { color: #339933}
+.nowrap { white-space: nowrap}
+.small, .txt-small { font-family: Tahoma, Verdana, sans-serif; color: #000000; font-size: 11px}
+.txt-blue { color: #003399}
+.txt-example { margin-left: 2em}
+.txt-h1-inner { font-family: Arial, Helvetica, sans-serif; color: #666666; font-size: 18px}
+.txt-h1-po { font-family: Arial, Helvetica, sans-serif; color: #003399; font-size: 20px; font-weight: normal}
+.txt-h1-top { font-family: Verdana, Arial, sans-serif; color: #666666; font-size: 12px; margin-bottom: 0px}
+.txt-grey153 { color: #999999}
+.txt-normal-weight { font-weight: normal}
+.underline-none a { color: #000000; text-decoration: none}
+.underline-none a:visited { color: #000000; text-decoration: none}
+.underline-none a:hover { color: #E55933; text-decoration: none}
+.width-table { width: 100%}
+.width-table-bg-tb { background-color: #999999; width: 100%}
+A { color: #E55933}
+A:visited { color: #003399}
+A:hover { color: #339933}
+BODY { background-color: #FFFFFF; margin: 0px; text-align: center}
+caption { font-family: Tahoma, Verdana, sans-serif; color: #000000; font-size: 13px; font-weight: bold; text-align: left; padding-bottom: 4px}
+DD { margin-left: 1em}
+DL, OL, P, UL { font-family: Arial, Helvetica, sans-serif; color: #000000; font-size: 13px}
+P {margin-top: 0px}
+H1 { font-family: Arial, Helvetica, sans-serif; color: #666666; font-size: 18px}
+H2 { font-family: Arial, Helvetica, sans-serif; color: #003399; font-size: 14px}
+H3 { font-family: Verdana, Arial, sans-serif; color: #E55933; font-size: 12px}
+H4 { font-family: Verdana, Arial, sans-serif; color: #339933; font-size: 12px; margin-bottom: 0px}
+OL { margin: 0px 0px 1em 2.8em; padding: 0px 0px 1em 0px; list-style-type: decimal}
+TD { font-family: Arial, Helvetica, sans-serif; color: #000000; font-size: 13px}
+TH { font-family: Arial, Helvetica, sans-serif; color: #000000; font-size: 13px; text-align: left}
+UL { margin: 0px 0px 0px 16px; padding: 0px; list-style-position: outside; list-style-type: disc}

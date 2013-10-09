@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>HTML5</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>jQuery/Javascript</h1>
+<h3>Тонкости jQuery</h3>
+<ol>
+<li><b>parent, parents, closest</b><br />
+<code>$('span').<b>parent</b>().css('background', '#f90');</code> <span class="note">// метод <b>parent</b>() указывает <b>на прямого предка</b>; в скобках можно уточнить элемент, класс, id</span><br />
+<pre>$('#nav li').each(function() {<br />	if ($(this).<b>parents</b>('#nav li').length == 2)<br />		$(this).css('color', '#f90');<br />}); <span class="note">// метод <b>parents</b>() указывает <b>на всех предков</b>; в данном случае с помощью пакетной опарации <code>each</code> окрашивается пункты списка третьего уровня</span></pre>
+<pre>if ($('#element1').<b>closest</b>('#element2').length == 1) <span class="note">// метод <b>closest</b>() похож на parents(), только отчет ведет от себя самого</span><br />	alert(&quot;да, #element1 является потомком #element2!&quot;); //в данном примере проверяем, является ли первый элемент потомком второго</pre>
+</li>
+<li><b>children, find</b><br />
+<code>$('#table tr').<b>children</b>('td:contains(dog)')</code> <span class="note">// метод <b>children</b> указывает на <b>прямых наследников</b>; в скобках можно отфильтровать их по классу, содержанию и т.д.</span><br />
+$('#table').<b>find</b>('tr') <span class="note">// метод <b>find</b> ищет <b>любых наследников</b>; в примере будут найдены <code>tr</code> в таблицах и с <code>tbody</code> в разметке и без <code>tbody</code></span></li>
+<li><b>position, offset</b><br />
+<code>var position = p.position();</code> <span class="note">// метод <b>position</b> получает/задает координаты элемента относительно предка со свойством position: relative</span><br />
+<code>$(&quot;p:last&quot;).<b>offset</b>({ top: 10, left: 30 });</code> <span class="note">// метод <b>offset</b> получает/задает координаты элемента всегда относительно документа</span></li>
+<li><b>width и height</b><br />
+Из-за ошибок в IE следует использовать <code><b>width()</b></code> и <code><b>height()</b></code><b>,</b> а не аналоги <code>css(‘width’)</code> и <code>css(‘height’) </code>. Но, поскольку первая пара оперирует только цифрами, единицы измерения в случае надобности надо дописывать
+<pre>
+var width = $('#someElement').width(); //returns integer<br />width = width+'px'; <span class="note">//now it's a string like css('width') returns</span>
+</pre>
+</li>
+<li><b>bind, live, click, delegate</b><br />
+<code>$('a').<b>click</b>(function() {...});</code> = <code>$('a').<b>bind</b>('click', function() {…});</code> <span class="note">// методы <code><b>click</b></code><b>, mouseover</b> являются подмножествами метода <code><b>bind</b></code></span>
+<pre>
+$('#table td').bind('click contextmenu', {message: 'hello!'}, function(e) {<br />	alert(e.data.message);<br />}); // <span class="note"><b>bind</b> более точный метод, в его параметрах можно указать вызов щелчком контекстного меню <b>contextmenu</b>, а также создать <b>локальную переменную</b> (в данном случае — <b>message</b>)</span>
+</pre>
+<code>$('a').<b>live</b>('click', function() {…});</code> <span class="note">// <b><code>live</code></b> идентичен <b><code>bind</code></b> но привязвает события не только к готовым элементам, но и к создаваемым сценариями «на лету». Однако, в отличие от большинства методов jQuery live нельзя использовать в адресных цепочках (<b>можно</b> <code>$('#myDiv a').live()</code>, <b>нельзя</b> <code>$('#myDiv').children('a').live()</code>) — зачем это вообще может понадобиться, непонятно, но можно воспользоваться методом <b>delegate</b> <code>$('#myDiv').delegate('a', 'mouseover', function() {…});</code></span></li>
+<li><b>not, :not, is</b><br />
+<code>$('p').<b>not</b>('.someclass') = $('p<b>:not</b>(.someclass)')<br />
+if ($(this).find('input').<b>is</b>('.required[value=]'))</code> <span class="note">// а <b>is</b> можно использовать для обнаружения элементов <b>не только по css-селекторам</b>; в примере ищем незаполненные поля</span></li>
+<li><b>each, filter</b>
+<pre>$('p').<b>each</b>(function() {…});
+var myarray = ['one', 'two'];<br />$.<b>each</b>(myarray, function(key, val) {<br />	alert('The value at key '+key+' is '+val);<br />}); <span class="note">// <b>each</b> — пакетная операция, которая может быть произведена <b>не только над html-элементами</b>, но и над <b>массивами</b>, причем она позволяет
+извлекать содержимое пар имя/значение</span></pre>
+<pre>var elements = $('#someElement div ul li a');<br />elements.filter('.someclass').css('color', '#f90'); <span class="note">// <b>filter</b> позволяет <b>извлекать особый элемент из переменной</b>, содержащий тип элементов</span></pre>
+</li>
+<li><b>extend, merge</b>
+<pre>var obj1 = {one: 'un', two: 'deux'}<br />var obj2 = {three: 'trois', four: 'quatre'}<br />$.extend(obj1, obj2);  // метод <b>extend добавляет в первый объект</b>
+{ &quot;заключенное&quot; : &quot;в фигурные скобки&quot;, &quot;неупорядоченное&quot; : &quot;множество пар имя/значение&quot;},
+<b>все значения остальных объектов</b>, оставляя эти остальные без изменений </pre>
+<pre>var arr1 = ['one', 'two'];<br />var arr2 = ['three', 'four'];<br />$.merge(arr1, arr2); // метод <b>merge добавляет в первый массив</b>
+[ &quot;заключенное в квадратные скобки&quot;,
+&quot;множество значений или объектов&quot; ] 
+<b>все значения остальных массивов</b>, оставляя эти остальные без изменений </pre>
+</li>
+</ol>
+<h3>Полезные рецепты</h3>
+<ol>
+<li><b>Заголовки списков.</b> $(&quot;ol, ul&quot;).prev(&quot;p&quot;).css(&quot;margin-bottom&quot;, &quot;0&quot;);</li>
+<li id="abbreviations"><b>Сокращения.</b>
+<ul>
+<li>Свойства одной переменной без многократного повторения ее имени или создания ассоциативного массива <code>к[люч]='значение'</code>
+<pre>
+var car = {
+  colour:'red',
+  wheels:4,
+  hubcaps:'spinning',
+  age:4
+}
+</pre>
+</li>
+<li>Запись массивов без объявления <code>new Array</code>
+<pre>
+var moviesThatNeedBetterWriters = [
+  'Transformers','Transformers2','Avatar','Indiana Jones 4'
+];
+</pre>
+</li>
+<li>Тернарная условная операция
+<pre>
+var direction = x &lt; 200 ? 1 : -1;
+условие ? выражение 1 : выражение 2
+</pre>
+Если условие (x &lt; 200) верно, то вычисляется значение выражения 1, в противном случае — значение выражения 2. </li>
+</ul>
+</li>
+<li><b><a href="http://www.wait-till-i.com/2008/05/23/script-configuration/" target="_blank">Создание переменной настроек</a></b>, где можно определять новые значения для кода. Например, классы и идентификаторы CSS, надписи в создаваемых объектах, количество создаваемых оьбъектов и т.п.</li>
+<li><b><a href="http://www.w3schools.com/js/js_obj_intro.asp" target="_blank">Встроенные объекты — Math, Array, String</a>.</b> Их свойства и методы</li>
+<li><span lang="ru" xml:lang="ru"><a href="http://www.ruseller.com/lessons.php?rub=28&amp;id=696" target="_blank">Использование одного обработчика событий, а не нескольких</a>.</span></li>
+</ol>
+</body>
+</html>

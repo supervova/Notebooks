@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Роли, пользователи, права</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Роли, пользователи, права</h1>
+<p><i>&gt; People  &gt; вкладки  List и Permissions (подразделы Permissions и Roles)</i></p>
+<ul>
+<li>Для использования любого модуля или возможности нужны права. Чтобы давать или ограничивать права большому количеству пользователей в D предусмотрены роли. По умолчанию это авторизованный и неавторизованный пользователи, администратор сайта.</li>
+<li>Можно создавать собственные роли: например, «сотрудник» или «редактор».</li>
+<li>После установки всех модулей и создания всех ролей, надо распределить права.</li>
+<li id="admin">Чтобы отметить сразу все чекбоксы прав, можно в панели FF Web Developer выбрать Forms &gt; Populate Form Fields</li>
+<li>Если сайт содержит пользовательские страницы, в чьих URL-ах, как правило,  используются имена пользователей, нельзя разрешать пользователям менять эти имена.</li>
+</ul>
+<ol>
+<li><i>&gt; People  &gt; Permissions &gt; Roles &gt; Add Role</i><br />
+Создаем роль 
+«Редактор»</li>
+<li>Edit permissions. Даем права на:
+<ul>
+<li>Comment (все действия)</li>
+<li>Content translation</li>
+<li>Dashboard</li>
+<li>Use the Filtered HTML text format </li>
+<li>Image</li>
+<li>Blog entry: Create new content</li>
+<li>Blog entry: Edit own content</li>
+<li>Blog entry: Edit any content</li>
+<li>Overlay</li>
+<li>Set Page Title</li>
+<li>Create and edit URL aliases </li>
+<li>View the administration theme </li>
+<li>View site reports </li>
+<li>Block IP addresses</li>
+<li>Use the administration toolbar </li>
+</ul>
+</li>
+<li><i>&gt; Configuration &gt; Content authoring &gt; Text formats &gt; Filtered HTML &gt; Limit allowed HTML tagsEnabled</i><br />
+Заменить значение по умолчению на:
+<br /><code>&lt;a&gt; &lt;audio&gt; &lt;blockquote&gt; &lt;cite&gt; &lt;code&gt; &lt;dd&gt; &lt;dl&gt; &lt;dt&gt; &lt;em&gt; &lt;embed&gt; &lt;h3&gt; &lt;img&gt; &lt;li&gt; &lt;object&gt; &lt;param&gt; &lt;strong&gt; &lt;ol&gt; &lt;ul&gt; &lt;video&gt;</code></li>
+</ol>
+<p>Где-то здесь в D6 были еще настройки рассылки писем пользователям (welcome,forgot password, confirmation), но я их пока не нашел. Вполне возможно, что для них нужны <b><a href="http://drupal.org/project/simplenews" target="_blank">Simplenews</a> и <a href="http://drupal.org/project/mimemail" target="_blank">Mime Mail</a></b>.</p>
+</body>
+</html>

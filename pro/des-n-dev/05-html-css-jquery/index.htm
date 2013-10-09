@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Терминал самообслуживания: планшет + веб-приложение на HTML5</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+CODE { background: #FFFFE1}
+H3 { text-transform: none}
+IMG { margin-bottom: 1.54em}
+STRONG { font-size: 184.6%} 
+.types {margin: 0 auto 1.54em }
+	.types DIV { float: left; width: 92px; margin-right: 20px}
+		.types .last { margin-right: 0}
+		.types UL { margin: 0; list-style-type: none}
+</style>
+</head>
+
+<body>
+<h1>HTML5</h1>
+<img src="/cheetsheets-infographics/development/html5.png" alt="" />
+<p>См. <a href="/cheetsheets-infographics/development/html5.pdf">cheatsheet</a> и <a href="http://www.w3schools.com/html5/html5_reference.asp">w3schools</a></p>
+<div class="types cfx">
+<div>
+<h3>Стуктура</h3>
+<ul>
+<li>article</li>
+<li>aside</li>
+<li>nav</li>
+<li>section</li>
+<li><span class="comment">официально самого общего типа, но по логике относятся к макету:</span>
+<ul>
+<li>header</li>
+<li>footer</li>
+</ul>
+</li>
+</ul>
+</div>
+<div>
+<h3>Группировка содержания</h3>
+<ul>
+<li>p</li>
+<li>hr</li>
+<li>pre</li>
+<li>blockquote</li>
+<li>ol</li>
+<li>ul</li>
+<li>li</li>
+<li>dl</li>
+<li>dt</li>
+<li>dd</li>
+<li>figure</li>
+<li>figcaption</li>
+<li>div</li>
+</ul>
+</div>
+<div>
+<h3>Содержание особого типа</h3>
+<ul>
+<li>img</li>
+<li>audio</li>
+<li>video</li>
+<li>canvas</li>
+<li>embed</li>
+<li>iframe</li>
+<li>svg</li>
+<li>math</li>
+<li>object</li>
+</ul>
+</div>
+<div>
+<h3>Разметка текста</h3>
+<ul>
+<li> a</li>
+<li>em</li>
+<li>strong</li>
+<li>span</li>
+<li>br</li>
+<li>sub и sup</li>
+<li>code</li>
+<li>dfn</li>
+<li>abbr</li>
+<li>q</li>
+<li class="comment">i</li>
+<li class="comment">b</li>
+<li class="comment">var</li>
+<li class="comment">samp</li>
+<li class="comment">kbd</li>
+<li class="comment">time</li>
+<li class="comment">mark</li>
+<li class="comment">small</li>
+</ul>
+</div>
+<div class="last">
+<h3>Формы</h3>
+<ul>
+<li>form</li>
+<li>input</li>
+<li>fieldset</li>
+<li>legend</li>
+<li>label</li>
+</ul>
+</div>
+</div>
+<p>С появлением элементов стуктуры документ можно делить на секции двумя способами: «неочевидные» секции разделяются между собой заголовками; очевидные заключаются в элементы структуры. При этом <b>неочевидные секции можно создавать внутри очевидных</b>. А <b>очевидные внутри неочевидных нет</b>. </p>
+<p>То есть следующий фрагмент написан правильно: в очевидной секции — две неочевидных.</p>
+<pre>
+<b>&lt;section&gt;</b>
+<b>&lt;h2&gt;Mares&lt;/h2&gt;</b>
+<br />&lt;h3&gt;Pink Diva&lt;/h3&gt;
+&lt;p&gt;Pink Diva has given birth to three Grand National winners.&lt;/p&gt;
+<br />&lt;h3&gt;Ring a Rosies&lt;/h3&gt;
+&lt;p&gt;Ring a Rosies has won the Derby three times.&lt;/p&gt;
+<b>&lt;/section&gt;</b>
+</pre>
+<p>А вот этот фрагмент написан неправильно:  две <b>очевидных секции не становятся разделами неочевидной секции</b> — они будут «соседями».</p>
+<pre><b>&lt;h2&gt;Mares&lt;/h2&gt;
+</b>&lt;article&gt;
+&lt;h3&gt;Pink Diva&lt;/h3&gt;
+&lt;p&gt;Pink Diva has given birth to three Grand National winners.&lt;/p&gt;
+&lt;/article&gt;<br />&lt;article&gt;
+&lt;h3&gt;Ring a Rosies&lt;/h3&gt;
+&lt;p&gt;Ring a Rosies has won the Derby three times.&lt;/p&gt;
+&lt;/article&gt;</pre>
+<p>Исключения составляют «корневые неочевидные» секции, созданные элементами <code>body</code>, <code>td</code>, <code>blockquote</code>, <code>details</code>, <code>fieldset</code>, <code>figure</code>. То есть следующий фрагмент логически верен:</p>
+<pre>&lt;body&gt;
+<b>&lt;h1&gt;Mares&lt;/h1&gt;
+</b>&lt;article&gt;
+&lt;h2&gt;Pink Diva&lt;/h2&gt;
+&lt;p&gt;Pink Diva has given birth to three Grand National winners.&lt;/p&gt;
+&lt;/article&gt;<br />&lt;article&gt;
+&lt;h2&gt;Ring a Rosies&lt;/h2&gt;
+&lt;p&gt;Ring a Rosies has won the Derby three times.&lt;/p&gt;
+&lt;/article&gt;<br />&lt;/body&gt;
+</pre>
+<p>Причем если первый заголовк в документе будет заключен в элемент структуры, заголовком документа будет считаться следующий за ним заголовок</p>
+<pre>&lt;section&gt;<br />&lt;h1&gt;Этот H1 не будет заголовком документа&lt;/h1&gt;<br />&lt;/section&gt;<br />&lt;h6&gt;Заголовком документа будет этот H6&lt;/h6&gt;</pre>
+<p>Здесь возникает одна проблема. Если отдельную заметку на странице помещать в <code>article</code> весь документ остается безымянным. Некоторые считают, что <b>первый уровень структуры документа нужно размечать с помощью <code>div</code>, а article, section, aside и nav использовать только для деления на разделы</b>. Я пока не использовал такой подход. Но, по0моему, он логичен.</p>
+<p><b>Правило заголовка.</b> Если блок документа нельзя озаглавить, то следует использовать <code>div</code>, а не <code>article</code> или <code>section</code>. Хотя последние два элемента в принципе могут быть не озоглавлены (например, в случае комментариев), чаще всего элементы структуры нуждаются в заголовках, элементы группировки нет.</p>
+<dl>
+<dt><strong><code>&lt;article&gt;</code></strong></dt>
+<dd>Самостоятельный блок содержания — заметка блога, анонс в ленте, комментарий в форуме или блоге. &lt;article&gt; может включать другие элементы &lt;article&gt;: как, например, статья &lt;article&gt; и комментарии к ней &lt;article&gt;<br />
+<img src="/a/img/design-n-development/html5-articles.jpg" alt="" /></dd>
+<dt><strong><code>&lt;aside&gt;</code></strong></dt>
+<dd>This is usually expressed in sidebars that contain elements like related posts, tag clouds, etc. They can also be used for pull quotes. Can contain nav elements.</dd>
+<dt><code>&lt;audio&gt;</code></dt>
+<dd>Defines sound content</dd>
+<dt><code>&lt;canvas&gt;</code></dt>
+<dd>Defines graphics</dd>
+<dt><code>&lt;command&gt;</code></dt>
+<dd>defines a command button, like a radiobutton, a checkbox, or a button.</dd>
+<dt><code>&lt;datalist&gt;</code></dt>
+<dd>defines a list of options (like &lt;select&gt; previously). Use this element together with the input element, to define which values the input element can have.</dd>
+<dt><strong><code>&lt;details&gt;</code></strong></dt>
+<dd>Используется не только для подробностей документа или какой-то его части, но и <b>для экспандо бокса — выдвигающейся панели действий</b>.</dd>
+<dt><strong><code>&lt;figure&gt;</code></strong></dt>
+<dd>Defines a group of media content, and their caption (optional elements &lt;figcaption&gt;). It must be inside a menu element.</dd>
+<dt><strong><code>&lt;figcaption&gt;</code></strong></dt>
+<dd>Defines the caption of a figure element</dd>
+<dt><code>&lt;embed&gt;</code></dt>
+<dd>defines embedded content, such as a plug-in.</dd>
+<dt><strong><code>&lt;header&gt;</code></strong></dt>
+<dd>The header element contains introductory information to a section or page.<br />
+<b>It can also be used to wrap a section's table of contents, a search form, or any relevant logos. Может содержать &lt;nav&gt;</b></dd>
+<dt><code>&lt;hgroup&gt;</code></dt>
+<dd>На мой взгляд, при наличии <code>header</code>, <code>hgroup</code> не нужен.</dd>
+<dd><code>&lt;keygen&gt;</code></dd>
+<dd>Defines a generated key in a form</dd>
+<dt><code>&lt;mark&gt;</code></dt>
+<dd>как &lt;em&gt;, &lt;strong&gt;, &lt;b&gt;</dd>
+<dt><code>&lt;meter&gt;</code></dt>
+<dd>defines a measurement. Used only for measurements with a known minimum and maximum value. Displaying a scalar measurement within a known range, like hard drive usage, can be done using the meter element (spec: <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-button-element.html#the-meter-element">4.10.17</a>)
+<ul>
+<li>
+<label>Meter: empty</label>
+<meter value="0"></meter>
+</li>
+<li>
+<label>Meter: full</label>
+<meter value="1"></meter>
+</li>
+<li>
+<label>Meter: &quot;a bit&quot;</label>
+<meter min=".34" max=".41" value=".36"></meter>
+</li>
+<li>
+<label>Preferred usage</label>
+<meter min="50" max="250" low="100" high="200" value="120"></meter>
+</li>
+<li>
+<label>Too much traffic</label>
+<meter min="1024" max="10240" low="2048" high="8192" value="9216"></meter>
+</li>
+<li>
+<label>Optimum value</label>
+<meter value=".5" optimum=".8"></meter>
+</li>
+<li>
+<label>Javascript</label>
+</li>
+</ul>
+</dd>
+<dt><strong><code>&lt;nav&gt;</code></strong></dt>
+<dd>The nav element is reserved for a section of a document that contains links to other pages or links to sections of the same page. Not all link groups need to be contained within it, just primary navigation. Can contain headings.</dd>
+<dt><code>&lt;progress&gt;</code></dt>
+<dd><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-button-element.html#the-progress-element" target="_blank">Шкала выполнения задачи</a>.  can be both indeterminate as determinate.
+<ul>
+<li>
+<label>Indeterminate</label>
+<progress max="100"></progress>
+</li>
+<li>
+<label>Progress: 0%</label>
+<progress max="10" value="0"></progress>
+</li>
+<li>
+<label>Progress: 100%</label>
+<progress max="3254" value="3254"></progress>
+</li>
+<li>
+<label>Progress: 57%</label>
+<progress max="0.7" value="0.4"></progress>
+</li>
+<li>
+<label>Javascript</label>
+<progress id="progress-javascript-example"></progress>
+</li>
+</ul>
+</dd>
+<dt><strong><code>&lt;section&gt;</code></strong></dt>
+<dd>&lt;section&gt; — в отличие от div-а, выполняющего в основном оформительские функции, семантическая часть документа. &lt;section&gt; может быть не только контейнером для содержания, но и контейнером для частей содержания. Так, &lt;section&gt; может включать несколько &lt;article&gt;. Но и &lt;article&gt; может содержать несколько &lt;section&gt;.</dd>
+<dt><strong><code>&lt;small&gt;</code></strong></dt>
+<dd>Используется как семантический элемент для выделения сносок, комментариев.</dd>
+<dt><strong><code>&lt;time&gt;</code></strong></dt>
+<dd>&lt;time datetime=&quot;1975-10-12&quot;&gt;День рождения моей любимой женщины&lt;/time&gt;</dd>
+<dd>&lt;footer&gt;&lt;time datetime=&quot;2011-10-12&quot;&gt;21 ноября&lt;/time&gt; Владимир Никишин, Esquier&lt;/footer&gt;</dd>
+<dt>&nbsp;</dt>
+</dl>
+</body>
+</html>

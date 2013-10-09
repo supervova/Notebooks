@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>CSS/HTML всячина</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>CSS/HTML всячина</h1>
+<ol>
+<li><b>«Вес» css-правила.</b> Inline-cтиль = 1000 очков. ID = 100. Класс, псевдо-класс (:hover и т.п.), атрибут ([href=&quot;www.fb.com&quot;] и т.п.) = 10. Тег, псевдо-элемент (:after, :before, ::first-letter, ::first-line) = 1.</li>
+<li>Пиктограммы без лишней разметки, работающие в IE6/7
+<pre>
+LI {<br />background-image: expression(this.runtimeStyle.backgroundImage=&quot;none&quot;,this.innerHTML = '&lt;img alt=&quot;&quot; src=&quot;sprite.png&quot;&gt;'+this.innerHTML);
+position: relative; padding-left: 20px}
+<br />LI:before, LI IMG {<br />clip: rect(0 30px 15px 15px);<br />content: url(sprite.png);<br />position: absolute;<br />top: 3px;
+left: -15px; /* to offset the clip value */
+_left: -35px; /* IE 6 */
+}
+</pre>
+</li>
+
+<li>Большие картинки-спрайты можно записывать в css c помощью буквенно-цифровых кодов <a href="http://ru.wikipedia.org/wiki/Base64" target="_blank">base64</a>. Картинка <a href="http://www.motobit.com/util/base64-decoder-encoder.asp" target="_blank">кодируется</a>, а затем вставляется таким вот образом:<br />
+<code>background:url('data:&quot;image/jpg&quot;;base64,/9j/4AAQSkZJR…');</code></li>
+<li>С помощью <strong>css-функции attr</strong> можно выводить в браузере значения атрибутов HTML-элементов. Например,<code> A:after { content: attr(href)}</code> — после каждой ссылки будет выводиться.</li>
+<li><strong>Псевдо-элементы</strong> не могут быть созданы с элементами, которые не могут включать в себя другие элементы — например, с IMG, INPUT.</li>
+<li><b>Обтекание текстом</b> достигается с помощью больших фоновых ихображений и relative-позиционирования (top можно не указывать):<br />
+<code>.textflow { position: relative}<br />
+&lt;p class=&quot;textflow&quot; style=&quot;left: 680px; width: 300px&quot;&gt;Ну и фоновая картинка под текстом&lt;/p&gt;</code></li>
+<li>Показывать / скрывать блоки  (например, меню) в email, оптимизированном под просмотр на мобильных устройствах, можно без javascript-а, с помощью псевдо-класса <code>hover</code>
+<pre>
+@media only screen and (max-device-width: 480px) {
+…
+A[class=&quot;mobileshow&quot;], A[class=&quot;mobilehide&quot;] {
+background: #AAA;<br />-moz-border-radius: 20px;
+-webkit-border-radius: 20px;
+border-radius: 20px;<br />color: #FFF;<br />display: block !important;<br />text-align: center;
+text-decoration: none;<br />padding: 0 8px;
+position: absolute;
+top: 25px;
+right: 10px;
+width: 40px}
+DIV[class=&quot;article&quot;] { display: none}
+A.mobileshow:hover { visibility: hidden}
+.mobileshow:hover + .article { display: inline !important}
+…
+}
+</pre>
+</li>
+<li><b>Quirk mode</b> — режим совместимости. <b>Если не объявлен doctype,</b> браузеры отображают содержимое, как их предыдущие версии</li>
+<li>Если нужно сделать <b>уникальный дизайн для одной страницы</b>, в папке css создаем папку custom и туда сохраняем стили названные также, как и страницы для которых они предназначаются: например, i-ll-marry-tanya-in-may.css</li>
+<li>Чтобы быть уверенным в том, что пользователи и поисковые роботы всегда получают <b>самые свежие страницы новостей</b>, помимо соответствующих правил в htaccess, можно добавить мета-теги, как это делает Google и новостные сайты:
+<pre>
+&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-cache&quot; /&gt; <br />&lt;meta http-equiv=&quot;Pragma&quot; content=&quot;no-cache&quot; /&gt; <br />&lt;meta name=&quot;Expires&quot; content=&quot;Fri, 01 Jan 1990 00:00:00 GMT&quot; /&gt;</pre>
+</li>
+<li>Для красоты внизу заметок можно делать сноски<sup><a href="#footnote">1</a></sup></li>
+</ol>
+<h3>Кросс-браузерная вёрстка</h3>
+<ul>
+<li>Элементы форм (select, input), шрифты всегда будут выглядеть по-разному в разных браузерах.</li>
+<li>Справочник-таблица по реализации css-свойств различными браузерами<br />
+<a href="../../../-pro/-labs/SitePoint CSS Reference" target="_blank"><img alt="" src="/a/img/design-n-development/sitepoint-chart.jpg" /></a></li>
+</ul>
+<h3>Блоки и inline-элементы</h3>
+<ul>
+<li>Если ширина не указана, блок занимают всю ширину родительского минус padding предка, так что нет необходимости указывать ширину 100%.</li>
+<li>При 100% ширины или высоты блок не может иметь ни полей (margins, padding), ни границ, иначе — предок «лопнет».</li>
+<li>Inline-элементы не понимают ширину и высоту.</li>
+<li>На inline-элементы, также как текст оказывают влияние свойства <code>white-space</code>, <code>font-size</code> и <code>letter-spacing</code></li>
+<li>Inline-элементы могут быть выровнены с помощью <code>vertical-align</code>, блоки — нет.</li>
+<li>Inline-элементы имеют под собой небольшое поле — для висячих штрихов букв.</li>
+<li>Плавающий Inline-элемент становится блоковым.</li>
+</ul>
+<h3>Float и clear</h3>
+<ul>
+<li>Плавающий элемент без указанный ширины, растягивается на всю ширину предка.</li>
+<li>Сleared-элемент смещается ниже предшествующего ему плавающего элемента.</li>
+<li>Сleared-элемент влияет только на предшествующий элемент в коде, но не на последующий. Поэтому в большинстве случаев <b>свойство <code>clear</code></b> бесполезно применять к плавающим блокам — только к следущим элементам, которые должны быть ниже плавающих<br />
+<code>&lt;aside stlyle=&quot;float: left&quot;&gt;&lt;/aside&gt;&lt;aside stlyle=&quot;float: left&quot;&gt;&lt;/aside&gt;&lt;footer style=&quot;clear: both&quot;&gt;&lt;/footer&gt;</code></li>
+<li>Кнопки, сверстанные в линию за полем ввода, как правило, во всех браузерах смещены вверх, а margins не помогают. Выход сделать поле ввода плавающим<br />
+<input disabled="disabled" />
+<button>Submit</button>
+</li>
+</ul>
+<h3>Наиболее распространенные баги IE</h3>
+<ul>
+<li>IE6 <b>удваивает margin плавающего элемента</b> по направлению float (float: right удваивает margin-right). Решение: <code>display: inline</code></li>
+<li>IE6 не поддерживает fixed положение элементов и фонов</li>
+<li>IE6/IE7 множество значений свойства <code>display</code>: <code>inline-table</code>, <code>table-cell</code>, <code>table-row</code> и т .д.</li>
+<li>IE 6-8 почти не понимают CSS3.<a href="http://www.smashingmagazine.com/2010/04/28/css3-solutions-for-internet-explorer/"></a></li>
+<li><a href="http://css-class.com/articles/explorer/guillotine/index.htm">The Internet Explorer Guillotine Bug</a> <a href="http://www.maratz.com/blog/archives/2006/11/11/ie-7-quirks-floats-and-margins/">IE7 Bottom Margin Bug</a> <a href="http://www.positioniseverything.net/explorer/escape-floats.html">The IE Escaping Floats Bug</a> <a href="http://www.positioniseverything.net/explorer/peekaboo.html">The IE6 Peekaboo Bug</a> <a href="http://www.impressivewebs.com/ie6-ghost-text-bug-with-multiple-solutions/">The IE6 &quot;Ghost Text&quot; Bug</a> <a href="http://www.positioniseverything.net/explorer/expandingboxbug.html">The IE6 Expanding Box Problem</a> <a href="http://www.positioniseverything.net/explorer/threepxtest.html">The IE6 3-pixel Gap</a></li>
+<li>
+<p class="caption"><b>hasLayout.</b> Идея разрабочиков IE — элемент со свойством layout (hasLayout = true в программном коде браузера) может иметь border, margin, padding. А в реальности ведёт себя иначе, нежели такой же элемент без 
+layout. Из-за этого в IE возникает много багов — <b>неожиданного поведения блоков и их потомков</b>.</p>
+<ul>
+<li>Баги со свойством float</li>
+<li>Сворачивание полей перед контейнером и его потомками.</li>
+<li>Нарушение глубины, порядка по оси z — z-index</li>
+<li>Разные проблемы со списками <b>(у списков с графическими маркерами проблемы исчезают)</b>. А если элементам li определить layout, проблем будет еще больше — появится лишнии вертикальные поля; элементы нумерованных списков с layout сбивают последовательность счета.</li>
+<li>Проблемы с позиционированием фоновых изображений.</li>
+<li>Своенравие элементов при использовании js <b><a href="http://www.satzansatz.de/cssd/onhavinglayout.html#rev" target="_blank">и т.д.</a></b></li>
+</ul>
+<p class="caption"><b>Золотое правило</b> борьбы со значительной частью таких багов: <b>всегда определять layout у элементов со свойством position: relative</b>.</p>
+<p class="caption">Как правило, layout можно задать определив ширину и высоту (любое значение, кроме auto; а для строковых элементов еще и display: block) или такие свойства и значения, как:</p>
+<ul>
+<li><b>zoom: 1</b></li>
+<li>position: absolute. </li>
+<li>float: left|right — но из-за особенностей layout, float создает новые баги (например, если у блокового элемента установлена ширина его содержание не обтекает плавающий элемент снизу; <b>позиционирование элементов в контейнерах с плавающими — IE6 отсчитывает не от верхнего левого угла контейнера, а от верхнего правого плавающего</b>)</li>
+<li>display: inline-block + width: любое значение, кроме auto — помогает, когда layout нужно определить для строчного элемента</li>
+<li>Начиная с IE7: overflow, min/max height/width, position: fixed</li>
+<li><a href="http://onhavinglayout.fwpf-webdesign.de/hack_management/" target="_blank">Сравнительная таблица хаков</a></li>
+</ul>
+<p class="caption">Это касается, как строчных, так и некоторых блоковых элементов: 
+DIV без ширины и высоты будет вести себя в  IE иначе, чем с определенными размерами. Элементы с layout, определенным по умолчанию:</p>
+<ul>
+<li>&lt;html&gt;, &lt;body&gt;</li>
+<li>&lt;table&gt;, &lt;tr&gt;, &lt;th&gt;, &lt;td&gt;</li>
+<li>&lt;img&gt;</li>
+<li>&lt;hr&gt;</li>
+<li>&lt;input&gt;, &lt;button&gt;, &lt;select&gt;, &lt;textarea&gt;, &lt;fieldset&gt;, &lt;legend&gt;</li>
+<li>&lt;iframe&gt;, &lt;embed&gt;, &lt;object&gt;, &lt;applet&gt;</li>
+<li>&lt;marquee&gt;</li>
+</ul>
+<p><b>Элементы с layout и display: inline ведут себя, как элементы inline-block в нормальных браузерах.</b></p>
+<p>Отменить layout можно задав следующим свойствам их значения по умолчанию:</p>
+<ul>
+<li>width, height ('auto')</li>
+<li>position ('static')</li>
+<li>float ('none')</li>
+<li>zoom ('normal')</li>
+<li>В IE7: overflow ('visible'), max-width, max-height ('none')</li>
+</ul>
+</li>
+</ul>
+</body>
+</html>

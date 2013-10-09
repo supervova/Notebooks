@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Процессинг банковских карт</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Процессинг банковских карт</h1>
+<p>Диапазон решений по приему онлайн-платежей распространяется от простого делегирования обязаностей <a href="http://paypal.com" target="_blank">PayPal</a> или <a href="https://checkout.google.com/sell/" target="_blank">Google Checkout</a> до обработки шифрованных данных собственными силами.</p>
+<ol>
+<li><strong>Для новых предприятий</strong> больше подходят Payment-Processing сервисы — например, <a href="http://paypal.com" target="_blank">PayPal</a> или <a href="https://checkout.google.com/sell/" target="_blank">Google Checkout</a>. Хотя их услуги дороже, а процесс рассчетов не самый простой, подключиться к таким системам гораздо проще.</li>
+<li>Другое принципиальное решение — IMA-PSP:
+<ol>
+<li>Надо в своем банке получить Internet Merchant Account (IMA) ID.</li>
+<li>Перед тем, как подлписать контракт на обслуживание, нужно внимательно изучить тарифные планы.</li>
+<li>Не рекомендуется обрабатывать платежи с карт вручную.</li>
+<li>Затем нужно выбрать PSP (payment service provider; другое название — payment gateway), изучить их тарифы и решить, что будет выгоднее и удобнее для потребителей — расплачиваться на сайте магазина или на сайте PSP. Неокторые PSP предлагают IMA ID, а некоторые банки — PSP. Проверочный лист PSP:
+<ul>
+<li>SSL-шифрование всех страниц платежного процесса</li>
+<li>Процедуры авторизации</li>
+<li>API для передачи данных с сайта магазина в шифрованном виде</li>
+<li>API для определения подтверждения/отказа</li>
+<li>Автозаполнение уже заполненных покупателем полей</li>
+<li>Возможность фирменного дизайна страниц платежных форм.</li>
+<li>Переадресация на сайт магазина по окончании рассчета.</li>
+</ul>
+<a href="http://www.xmarks.com/topic/payment_gateways" target="_blank">Некоторые сервисы</a>, отвечающие этим требованиям:
+<ul>
+<li><a href="http://www.authorize.net/" target="_blank">Authorize.Net</a></li>
+<li><a href="https://www.2checkout.com/">2Checkout</a></li>
+</ul>
+<a href="http://www.smashingmagazine.com/2011/04/11/taking-credit-card-payments-online-whats-involved/" target="_blank">Краткий перечень преимуществ</a> этих систем. </li>
+</ol>
+</li>
+</ol>
+<h2>Процесс</h2>
+<ol>
+<li> SSL-защищенная корзина</li>
+<li>Последовательность форм рассчета</li>
+<li>Введенные данные по шифрованному каналу передаются в базу, затем, опять в шифрованном виде, — на PSP-сайт. Пользователь также перенаправляется на сайт PSP.</li>
+<li>Пользователь заполняет еще незаполненные поля на PSP-сайте. PSP-сайт отправляет статус транзакции, ID заказа и др. платежную информацию назад, на сайт магазина. Все операции должны соответствовать стандартам безопасности <a href="http://www.pcicomplianceguide.org/" target="_blank">PCI DSS</a>.</li>
+<li>Пользователь возвращается на страницу подтверждения/отказа на сайте магазина.</li>
+</ol>
+</body>
+</html>

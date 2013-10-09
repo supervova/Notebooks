@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Перенос сайта с сервера на сервер, импорт базы данных</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Перенос сайта с сервера на сервер, импорт базы данных</h1>
+<ol>
+<li><a href="/pro/drupal/01-installation.htm">Установить Drupal</a></li>
+<li>Импортировать/восстановить базу через Backup and Migrate или через phpMyAdmin, или через Sypex Dumper (см. ниже).</li>
+<li><a href="/pro/drupal/02-settings.htm">Установить и настроить все нужные модули</a></li>
+<li>Переписать на сервер файлы, которые уже есть — шаблоны, картинки, стили, скрипты.</li>
+</ol>
+<h2>Вариант №1. phpMyAdmin</h2>
+<h3>Экспорт</h3>
+<ol>
+<li>Почистить таблицы журналов и кэша. В Drupal это accesslog, watchdog и все, начинающиеся на cache</li>
+<li>Вкладка «Экспорт<strong></strong>» — выбрать нужные таблицы и SQL</li>
+<li>В параметрах
+<ul>
+<li>Режим совместимости SQL. Если импорт-экспорт производится из одной версии MySQL, оставить None. Если база какая-то другая — выбрать ее формат.</li>
+<li>Выбрать «Структура», «Добавить DROP TABLE / DROP VIEW», «Добавить IF NOT EXISTS», «Добавить AUTO_INCREMENT» и «Заключить названия таблиц и полей в косые кавычки».</li>
+<li>Выбрать «Данные», «Полная вставка», «Расширенные вставки» и «Использовать шестнадцатеричное отображение для полей типа BLOB».</li>
+</ul>
+</li>
+<li>Выбрать «Сохранить как файл».</li>
+<li>В шаблоне имени файла написать название файла базы.</li>
+<li>Выбрать тип сжатия.</li>
+<li>Нажать «ОК».</li>
+</ol>
+<h3>Импорт</h3>
+<ol>
+<li>Выбрать базу в phpMyAdmin</li>
+<li>Импорт</li>
+<li>Выбрать дамп</li>
+<li>Остальные настройки, как правило, не нужны.</li>
+<li>ОК</li>
+<li><strong>Если импорт прерывается на какой-то таблице, экспортировать БД заново без нее.</strong></li>
+<li>После импорта в файле <em>settings.php</em> в строчке<br />
+<code> $db_url = 'mysql://drupalsite:drupalsite@localhost/drupalsite'</code>
+<p>нужно поменять имя пользователя и пароль</p>
+<ul>
+<li>mysql://drupalsite:drupalsite — это имя пользователя mysql и через двоеточие пароль базы данных mysql.</li>
+<li>@localhost — это хост.</li>
+<li>/drupalsite — это название базы данных mysql.</li>
+</ul>
+<p>Например эта строчка может выглядеть так:</p>
+$db_url = 'mysql://supervova:123password@nickysheenru.81.com1.ru/db_homepage';</li>
+</ol>
+<h2>Вариант №3. Sypex Dumper</h2>
+<h3>Установка</h3>
+<ol>
+<li>Скачать <a href="http://sypex.net/ru/products/dumper/downloads/" target="_blank">Sypex Dumper Light</a></li>
+<li>Разархивировать, переименовать каталог в sxd</li>
+<li>Открыть файл dumper, изменить кодировку на UTF8.</li>
+<li>Закачать каталог на сервер (на локальном сервере — это /Applications/XAMPP/xamppfiles/htdocs)</li>
+<li>Через контекстное меню ftp-клиента DW (Set Permissions) установить для каталога chmod 777  (иногда Dreamweaver не показывает, что изменил права — можно проверить через FileZill-у). На локальном сервере права меняются через контекстное меню &gt; свойства.</li>
+</ol>
+<h3>Экспорт</h3>
+<ol>
+<li>Открыть в браузере http://domain.com/sxd/dumper.php.</li>
+<li>Ввести логин и пароль БД сайта (на локальном сервере — root/пусто).</li>
+<li>Выбрать нужную базу.</li>
+<li>В поле фильтр таблиц отключить ненужные таблицы:<br />
+^acceslog, ^cache, ^cache*, ^search_dataset, ^search_index, ^search_total, ^sessions, ^watchlog (или предварительно почистить их в phpMyAdmin</li>
+<li>Выбрать метод и степень сжатия.</li>
+<li>Нажать «Применить».</li>
+<li>Нажать «Скачать…»</li>
+</ol>
+<h3>Импорт (восстановление)</h3>
+<ol>
+<li>Если на целевом сервере база еще не создана, создать через phpMyAdmin или полную версию <a href="http://sypex.net/ru/products/dumper/downloads/" target="_blank">Sypex Dumper.</a></li>
+<li>Открыть в браузере http://domain.com/sxd/dumper.php.</li>
+<li>Ввести логин и пароль БД сайта  (на локальном сервере — root/пусто).</li>
+<li>Выбрать  Restore / Восстановление БД из резервной копии.</li>
+<li>Выбрать целевую базу.</li>
+<li>Выбрать дамп — он должен находится в каталоге sxd/backup.</li>
+<li>Нажать «Применить».</li>
+<li>После того как импорта завершиться, нажать  «Вернуться»</li>
+<li>Нажать «Выход».</li>
+</ol>
+</body>
+</html>

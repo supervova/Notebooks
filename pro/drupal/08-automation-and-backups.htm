@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Автоматизация и бэкапы</title>
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Автоматизация и бэкапы</h1>
+<ol>
+<li>Нужно чтобы на сервере автоматически выполнялись <a href="http://drupal.org/cron" target="_blank">cron tasks</a>. По умолчанию, так оно и происходит (чтобы проверить надо посмотреть <i>&gt; Reports &gt; Status Repor</i>t). Но провайдер может воспротивиться, тогда можно использовать модуль <a target="_blank" href="http://drupal.org/project/poormanscron">Poormanscron</a></li>
+<li>Следует регулярно <a href="../../-pro/drupal/admin/reports/updates">проверять обновления</a>.</li>
+<li>Перед каждым обновлением ядра или модулей сайта, нужно делать бэкап. Для этого мы ранее установили модуль <a target="_blank" href="http://drupal.org/project/backup_migrate">Backup and Migrate</a> (на всякий случай — <a href="http://drupal.org/node/22281" target="_blank">альтернативная процедура</a>).</li>
+<li>Также перед обновленим нужно переводить сайт в offline mode.</li>
+<li>После установки обновлений нужн<a href="/?q=admin/reports/updates"></a>о всегда запускать <a href="/update.php#overlay-context=">скрипт апдейта</a>.</li>
+</ol>
+</body>
+</html>
