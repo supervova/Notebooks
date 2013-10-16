@@ -14,7 +14,7 @@ DFN { background: url(/_labs/a/img/ico/help.gif) no-repeat right center; cursor:
 		A DFN SPAN.dt { border-bottom: 0 none}
 	DFN .title { background: #EEF0F4; border: 1px solid #E1E3E7; border-bottom-width: 2px; display: none; font: 11px Tahoma, Geneva, Arial, sans-serif; padding: 15px; position: absolute; top: 1.6em; left: 0; width: 200px; width/**/:/**/ 168px}
 	DFN:hover .title { display: block; z-index: 2}
-	DFN.self_dfn { background: none; cursor: default; padding-right: 0}
+	DFN.self-dfn { background: none; cursor: default; padding-right: 0}
 EM { background: #FFC; font-style: normal; padding:	.1em .4em}
 H1 { font: normal 185%/110% Georgia, "Times New Roman", Times, serif}
 	H1.with_kicker { margin-bottom: .25em}

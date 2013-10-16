@@ -11,7 +11,7 @@ ARTICLE, ASIDE, CANVAS, DETAILS, FIGCAPTION, FIGURE, FOOTER, HEADER, HGROUP, MEN
 ABBR[title], DFN[title] { border-bottom: 1px dotted; cursor: help}
 ADDRESS { font-style: normal}
 ARTICLE, ASIDE, DETAILS, FIGCAPTION, FIGURE, FOOTER, HEADER, HGROUP, MENU, NAV, SECTION { display: block}
-BLOCKQUOTE, .box, .pull_quote { background: #FFF2E5; margin-bottom: 1.54em; padding: 20px 40px}
+BLOCKQUOTE, .box, .pull-quote { background: #FFF2E5; margin-bottom: 1.54em; padding: 20px 40px}
 BUTTON { outline: none}
 CITE, .cmd, EM, I { font-style: normal; color: #008000}
 CODE, KBD, PRE { color: #009; font: 107% "Courier New", Courier, monospace}
@@ -20,7 +20,7 @@ DFN { cursor: help; font-style: normal; font-style: normal; position: relative}
 		A DFN SPAN.dt { border-bottom: 0 none}
 	DFN .title { border: 1px solid #E0E3E7; border-bottom-width: 2px; display: none; font: 11px Tahoma, Geneva, Arial, sans-serif; padding: 15px; position: absolute; top: 1.6em; left: 0; width: 168px; background-color: #EDF0F4; }
 	DFN:hover .title { display: block; z-index: 2}
-	DFN.self_dfn { background: none; cursor: default; padding-right: 0}
+	DFN.self-dfn { background: none; cursor: default; padding-right: 0}
 FIGURE, P, H3.item { margin: 0 0 1.54em}
 	H1+ P, P.lead { font-size: 107.7%; line-height: 1.429; margin-bottom: 1.429em} /*lead*/
     LI P { margin-bottom: 0}
