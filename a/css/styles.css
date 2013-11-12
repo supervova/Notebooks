@@ -1,5 +1,5 @@
 HTML { text-align: center}
-BODY { background: #FFF; color: #535659; counter-reset: section; font: 81.3%/1.54 'Helvetica Neue', Helvetica, Arial, sans-serif; text-align: left; margin: 1em auto 12em; padding: 0; width: 540px}
+BODY { background: #FFF; color: #535659; /*counter-reset: section;*/ font: 81.3%/1.54 'Helvetica Neue', Helvetica, Arial, sans-serif; text-align: left; margin: 1em auto 12em; padding: 0; width: 540px}
 
 A { color: #00F; outline: 0}
 A:visited { color: #800080}
@@ -47,6 +47,7 @@ OL, UL { margin: 0 0 1.54em; padding: 0}
 	OL OL, OL UL, UL UL, UL OL { margin-bottom: 0; padding: 0 0 0 20px}
 
 OL.alpha { list-style: lower-alpha}
+/*
 OL.chapter { list-style-type: none; list-style-position: outside}
 	OL.chapter LI { counter-increment: section; counter-reset: sub-section}
 		OL.chapter LI:before { content: counter(section) '. '} 
@@ -54,6 +55,7 @@ OL.chapter { list-style-type: none; list-style-position: outside}
         	OL.chapter OL LI:before { content: counter(section) '.' counter(sub-section) '. '} 
 		OL.chapter UL LI { counter-increment: none}
 		OL.chapter UL LI:before { content: ''}
+*/
 
 UL { list-style-image: url(/a/img/b.gif)}
 	TD UL { margin-left: 16px}
