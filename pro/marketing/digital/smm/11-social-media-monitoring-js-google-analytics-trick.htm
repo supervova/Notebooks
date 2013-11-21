@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8">
 <title>Мониторинг социальных сетей: трюк с JS и Google Analytics</title>
-<meta name="keywords" content="self employment, personal development" />
-<link href="/a/css/styles.css" rel="stylesheet" type="text/css" />
+<meta name="keywords" content="self employment, personal development">
+<link href="/a/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -18,14 +18,14 @@
 </li>
 <li>В верхнем меню Advanced Segments &gt; +New Custom Segment (Расширенные сегменты &gt; +Добавить сегмент).</li>
 <li>Ввести имя.</li>
-<li>Ниже, в фильтре выбрать Include (Включить) — Custom Variable (Value 01-04) (Моя переменная (Значение 01-05)) — Exactly Matching (С точным соответствием) — LoggedIn<br />
+<li>Ниже, в фильтре выбрать Include (Включить) — Custom Variable (Value 01-04) (Моя переменная (Значение 01-05)) — Exactly Matching (С точным соответствием) — LoggedIn<br>
 Номера переменных определяются в JS: 1 = Google, 2 = Google+, 3 = Twitter, and 4=Facebook</li>
 <li>Сохранить сегмент</li>
 <li>Повторить операции 3.1–3.5 для оставшихся соц-сетей.</li>
 </ol>
 </li>
 <li>Просмотр статистики. Первых результатов надо подождать несколько часов. В Audience &gt; Demograhics &gt; Customer Variables &gt; Advanced Segments в левой колонке выбрать «Все посещения», а в правой — один, несколько или все расширенные сегменты.
-<img src="/a/img/marcom/ga-custom-segments.png" alt="" />
+<img src="/a/img/marcom/ga-custom-segments.png" alt="">
 После этого фильтр можно закрыть. На графике «Моих переменных» появится новая кривая, отображающая пользователей, авторизованных в соц-сетях. А над графиком — дополнительная информация к размышлению.
 </li>
 </ol>
@@ -46,9 +46,9 @@
 			}
 		}
 </script>
-<img src="https://accounts.google.com/CheckCookie?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png" alt="" style="display: none" onload="record_login_status(1, 'Google', true)" onerror="record_login_status(1, 'Google', false)" />
-<img src="https://plus.google.com/up/?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png&type=st&gpsrc=ogpy0" alt="" style="display: none" onload="record_login_status(2, 'GooglePlus', true)" onerror="record_login_status(2, 'GooglePlus', false)" />
-<img src="https://twitter.com/login?redirect_after_login=%2Fimages%2Fspinner.gif" alt="" style="display: none" onload="record_login_status(3, 'Twitter', true)" onerror="record_login_status(3, 'Twitter', false)" />
+<img src="https://accounts.google.com/CheckCookie?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png" alt="" style="display: none" onload="record_login_status(1, 'Google', true)" onerror="record_login_status(1, 'Google', false)">
+<img src="https://plus.google.com/up/?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png&type=st&gpsrc=ogpy0" alt="" style="display: none" onload="record_login_status(2, 'GooglePlus', true)" onerror="record_login_status(2, 'GooglePlus', false)">
+<img src="https://twitter.com/login?redirect_after_login=%2Fimages%2Fspinner.gif" alt="" style="display: none" onload="record_login_status(3, 'Twitter', true)" onerror="record_login_status(3, 'Twitter', false)">
 
 <div id="fb-root"></div>
 <script>
