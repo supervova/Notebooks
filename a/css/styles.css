@@ -20,7 +20,7 @@ DFN { cursor: help; font-style: normal; font-style: normal; position: relative}
 		A DFN SPAN.dt { border-bottom: 0 none}
 	DFN .title { border: 1px solid #E0E3E7; border-bottom-width: 2px; display: none; font: 11px Tahoma, Geneva, Arial, sans-serif; padding: 15px; position: absolute; top: 1.6em; left: 0; width: 168px; background-color: #EDF0F4; }
 	DFN:hover .title { display: block; z-index: 2}
-	DFN.self-dfn { background: none; cursor: default; padding-right: 0}
+	DFN.self-dfn { background: none; cursor: default; position: static; padding-right: 0}
 FIGURE, P, H3.item { margin: 0 0 1.54em}
 	P.lead { font-size: 107.7%; line-height: 1.429; margin-bottom: 1.429em} /*lead*/
     LI P { margin-bottom: 0}

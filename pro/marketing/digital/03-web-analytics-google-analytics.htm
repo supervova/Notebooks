@@ -23,7 +23,15 @@
 </ul>
 <p>Самая распростаненная современная система интернет-статистики — <a href="https://support.google.com/analytics/">Google Analytics</a>.</p>
 <h2>Google Analytics и Google Webmasters Tools</h2>
-<p>Google Analytics и <a href="/pro/marketing/digital/03-google-webmaster-tools.htm">Google Webmasters Tools</a> позволяют анализировать достигнутые результаты и исправлять маркетинговую стратегию (иногда эта работа именуется «post-click маркетинг»). В частности, <strong>следить за каналами</strong>, источниками переходов, <strong>концентрировать маркетинговые усилия</strong> на тех, через которые приходят потребители, приносящие наибольшую прибыль; понимать <strong>потребности идеальных потребителей</strong>; <strong>оптимизировать потребительские свойства сайта</strong> — следить за непопулярными страницами и блоками и удалять или исправлять их, развивать популярные решения; и т.д. </p>
+<p>Google Analytics (GA) и <a href="/pro/marketing/digital/03-google-webmaster-tools.htm">Google Webmasters Tools</a> (GWT) позволяют анализировать достигнутые результаты и исправлять маркетинговую стратегию (иногда эта работа именуется «post-click маркетинг»). В частности, <strong>следить за каналами</strong>, источниками переходов, <strong>концентрировать маркетинговые усилия</strong> на тех, через которые приходят потребители, приносящие наибольшую прибыль; понимать <strong>потребности идеальных потребителей</strong>; <strong>оптимизировать потребительские свойства сайта</strong> — следить за непопулярными страницами и блоками и удалять или исправлять их, развивать популярные решения; и т.д.</p>
+<p class="caption"><b>Алгоритм работы в GA примерно такой:</b></p>
+<ul>
+<li>Открыть аккаунт, создать представление</li>
+<li>Получить и вставить на страницы сайта код</li>
+<li><a href="#targets">Определить цели</a>.</li>
+<li>Добавить пользовательские отчеты, сегменты и сводки. Проще всего это сделать в Google Analytics Solutions Gallery. <a href="https://www.google.com/analytics/gallery/#posts/search/%3F_.tab%3DMy%26_.start%3D0/">Моя коллекция</a>.</li>
+</ul>
+<h3>Отчеты по поисковой оптимизации</h3>
 <p>После установки аккаунта нужно <a href="https://www.google.com/webmasters/tools/analytics-property-selection" target="_blank">связать его с аккаунтом Google Webmasters Tools</a>. Появятся три новых отчета: Источники трафика &gt; Поисковая оптимизация &gt; Запросы / Страницы входа / Сводка географических данных.</p>
 <p>См. также <a href="http://www.eugenoprea.com/google-analytics/" target="_blank">введение в GA</a>.</p>
 <h3>Отчеты по поисковой оптимизации</h3>
@@ -33,7 +41,7 @@
 <li>Определить страницы входа с хорошим CTR, но низкой средней позицией, чтобы поправить <a href="/pro/marketing/digital/seo/index.htm#on_page">оптимизацию на уровне страницы</a>.</li>
 <li>Получить более точные данные о географии посетителей.</li>
 </ul>
-<h3>Цели для разных сайтов</h3>
+<h3 id="targets">Цели для разных сайтов</h3>
 <p class="caption">Затем следует установить цели. Они зависят от главных задач сайта: продажа товара или услуги, получение прибыли от рекламы и т.п.</p>
 <ul>
 <li><strong>Интернет-магазин</strong> — надо включить Конверсии &gt; Электронная торговля</li>
@@ -123,43 +131,5 @@
 <h3 id="in-page">Статистика страницы (In-Page Analytics) — Наложение данных</h3>
 <p>Наложенные на реальную страницу статистические данные по всем  ссылкам, кнопкам: количество кликов и процентное отношение. Можно посмотреть, как в GA, так и на сайте. Для этого надо  в GA открыть Содержание &gt; Статистика страницы. В другой вкладке можно открыть адрес любой страницы сайта — данные будут накладываться вне интерфейса GA. Если закрыть верхнюю панель In-Page Analytics, чтобы запустить сервис снова, нужно повторно нажать «Статистику страницы».</p>
 <p><img src="/a/img/marcom/in-page-analytics.png" alt=""></p>
-<h3 id="remarketing">Ремаркетинг</h3>
-<p>Ремаркетинг (ретаргетинг) — повторное привлечение прошлых посетителей — возможен не только с <a href="/pro/marketing/digital/advertising/01-ppc-google-adwords.htm">Goggle Adwords</a>, но и с Google Analytics.</p>
-<ol>
-<li>Заменить в коде трекера вот это:
-<pre>var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-xxxxx-y']);
-_gaq.push(['_trackPageview']);
-(function() {
-var ga = document.createElement('script'); 
-ga.type = 'text/javascript'; ga.async = true; 
-<strong>ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + 
-'.google-analytics.com/ga.js';</strong> 
-var s = document.getElementsByTagName('script')[0]; 
-s.parentNode.insertBefore(ga, s);
-})();</pre>
-…на это:
-<pre>var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-xxxxx-y']);
-_gaq.push(['_trackPageview']);
-(function() {
-var ga = document.createElement('script'); 
-<strong>ga.type = 'text/javascript'; ga.async = true; 
-ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 
-'stats.g.doubleclick.net/dc.js';</strong> 
-var s = document.getElementsByTagName('script')[0]; 
-s.parentNode.insertBefore(ga, s);
-})();
-</pre>
-</li>
-<li>Далее — Google настойчиво рекомендует — надо внести в раздел &quot;Конфиденциальность&quot; соответствующие положения из  https://support.google.com/analytics/answer/2444872?hl=ru&amp;utm_id=ad</li>
-<li>Настроить лист в GA<img src="/a/img/marcom/ga-remarketing-list.png" alt="Лист ремаркетинга"></li>
-</ol>
-<h4>Примеры списков и соответствующих предложений</h4>
-<ol>
-<li>Покупатели, тратящие на сайте больше всего денег. Реклама нового продукта.<img src="/a/img/marcom/ga-remarketing-list-big-spenders.png" alt="Список ремаркетинга"></li>
-<li>Покупатели, посмотревшие страницу продукта, но не купившие его. Реклама скидки на этот продукт.<img src="/a/img/marcom/ga-remarketing-list-sale.png" alt="Список ремаркетинга"></li>
-<li>Покупатели, хотевшие купить продукт, отсутствовавший в продаже. Реклама новых поступлений этого продукта. <img src="/a/img/marcom/ga-remarketing-list-out-of-stock.png" alt="Список ремаркетинга"></li>
-</ol>
 </body>
 </html>
