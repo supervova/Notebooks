@@ -10,49 +10,7 @@
 <h1>Google Adwords</h1>
 <ol>
 <li><a href="http://www.zaruka.ru/adwords-quality-score-how-to-improve-i/" target="_blank">Оптимизировать показатель качества</a> (Quality Score).</li>
+<li>  d</li>
 </ol>
-<h3 id="remarketing">Ремаркетинг</h3>
-<p>Ремаркетинг (ретаргетинг) — повторное привлечение прошлых посетителей: составление списокв посетителей (возможно не только с Goggle Adwords, но и с Google Analytics) и показ им баннеров в КМС (контекстно-медийной сети) Google. В начале 2014-го года в рамках кампаний ремаркетинга Google можно будет показывать объявления и на Фейсбуке.</p>
-<p><img src="/a/img/marcom/google-display-network.png" alt="КМС Google"></p>
-<p>Ремаркетинг чрезвычайно важен, так как <a href="http://www.bluefountainmedia.com/blog/5-lists-to-get-started-with-remarketing/" target="_blank">согласно исследованиям</a> 96% посетителей сайтов не конвертируются в лиды или покупателей. И 70% покупателей, положивших товар в корзину, покидают сайты, так и не совершив покупку.</p>
-<p>Как правило, кампанию ремаркетинга следует диференцировать под разные группы пользователей: например, а) посетители, посмотревшие только первую страницу; б) посетители, читавшие блог; в) посетители, читавшие только определенные темы в блоге; г) посетители, воспользовавшиеся каким-то онлайн-сервисом на сайте; д)&nbsp;посетители посетившие страницу продукта.</p>
-<ol>
-<li>Заменить в коде трекера вот это:
-<pre>var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-xxxxx-y']);
-_gaq.push(['_trackPageview']);
-(function() {
-var ga = document.createElement('script'); 
-ga.type = 'text/javascript'; ga.async = true; 
-<strong>ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + 
-'.google-analytics.com/ga.js';</strong> 
-var s = document.getElementsByTagName('script')[0]; 
-s.parentNode.insertBefore(ga, s);
-})();</pre>
-…на это:
-<pre>var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-xxxxx-y']);
-_gaq.push(['_trackPageview']);
-(function() {
-var ga = document.createElement('script'); 
-<strong>ga.type = 'text/javascript'; ga.async = true; 
-ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 
-'stats.g.doubleclick.net/dc.js';</strong> 
-var s = document.getElementsByTagName('script')[0]; 
-s.parentNode.insertBefore(ga, s);
-})();
-</pre>
-</li>
-<li>Далее — Google настойчиво рекомендует — надо внести в раздел &quot;Конфиденциальность&quot; соответствующие положения из  https://support.google.com/analytics/answer/2444872?hl=ru&amp;utm_id=ad</li>
-<li>Настроить лист в GA. В зависимости от степени интереса, проявленной той или иной группой, надо выбирать период показа им объявлений — чем выше интерес, тем агрессивнее (дольше, до 60 дней) должен быть этот параметр.<img src="/a/img/marcom/ga-remarketing-list.png" alt="Лист ремаркетинга"></li>
-</ol>
-<p>Далее подготовить объявления, запустить кампанию, эсперементировать с изображением и текстом объевлений, выбирая варианты с наиболее высоким CTR (больше 0,4%).</p>
-<h4>Примеры списков и соответствующих предложений</h4>
-<ol>
-<li>Покупатели, тратящие на сайте больше всего денег. Реклама нового продукта.<img src="/a/img/marcom/ga-remarketing-list-big-spenders.png" alt="Список ремаркетинга"></li>
-<li>Покупатели, посмотревшие страницу продукта, но не купившие его. Реклама скидки на этот продукт.<img src="/a/img/marcom/ga-remarketing-list-sale.png" alt="Список ремаркетинга"></li>
-<li>Покупатели, хотевшие купить продукт, отсутствовавший в продаже. Реклама новых поступлений этого продукта. <img src="/a/img/marcom/ga-remarketing-list-out-of-stock.png" alt="Список ремаркетинга"></li>
-</ol>
-<p>&nbsp;</p>
 </body>
 </html>
