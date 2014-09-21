@@ -130,7 +130,7 @@ a { color: #333}
  *			derekmack.com
  *			@derek_mack
  *
- *	Example 3 - Animated Bar Chart via jQuery
+ *	Example 3 — Animated Bar Chart via jQuery
  */
 
 // Wait for the DOM to load everything, just to be safe
@@ -174,7 +174,7 @@ $(document).ready(function() {
 			// Get legend data from table body
 			chartLegend: function() {
 				var chartLegend = [];
-				// Find th elements in table body - that will tell us what items go in the main legend
+				// Find th elements in table body — that will tell us what items go in the main legend
 				data.find('tbody th').each(function() {
 					chartLegend.push($(this).text());
 				});
@@ -193,16 +193,16 @@ $(document).ready(function() {
 				var yLegend = [];
 				// Number of divisions on the y-axis
 				var yAxisMarkings = 5;						
-				// Add required number of y-axis markings in order from 0 - max
+				// Add required number of y-axis markings in order from 0 — max
 				for (var i = 0; i < yAxisMarkings; i++) {
-					yLegend.unshift(((chartYMax * i) / (yAxisMarkings - 1)) / 1000);
+					yLegend.unshift(((chartYMax * i) / (yAxisMarkings — 1)) / 1000);
 				}
 				return yLegend;
 			},
 			// Get x-axis data from table header
 			xLegend: function() {
 				var xLegend = [];
-				// Find th elements in table header - that will tell us what items go in the x-axis legend
+				// Find th elements in table header — that will tell us what items go in the x-axis legend
 				data.find('thead th').each(function() {
 					xLegend.push($(this).text());
 				});

@@ -19,7 +19,7 @@
 <li> Проверить используется ли последняя рабочая копия .htaccess. Если есть, то надо использовать родную версию D. Или поменять фрагмент Drupal Settings. Или поправить фрагмент, похожий на этот:
 <pre>
 RewriteEngine ON
-RewriteRule "(^|/)\." - [F]
+RewriteRule "(^|/)\." — [F]
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
