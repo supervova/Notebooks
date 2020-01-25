@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <title>Usability Checklist</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <style>
+    /*
+      Get forms and buttons styles from water.css
+      {@link https://github.com/kognise/water.css/tree/master/src/parts}
+    */
+    /* #region */
+    :root {
+      --main-width: 140ch;
+      --color-primary: hsl(214, 90%, 35%);
+      --color-background-primary: hsl(0, 0%, 100%);
+      --color-background-secondary: hsl(214, 90%, 95%);
+      --color-background-tertiary: hsl(214, 90%, 85%);
+
+      --color-ink-headline: hsla(0, 0%, 0%, .87);
+      --color-ink-normal: hsla(0, 0%, 0%, .87);
+      --color-ink-muted: hsla(0, 0%, 0%, .54);
+      --color-ink-disabled: hsla(0, 0%, 0%, .38);
+      --color-ink-border: hsla(0, 0%, 0%, .12);
+      --color-ink-link: var(--color-primary);
+
+      --color-ink-accent-headline: hsla(0, 0%, 0%, .87);
+      --color-ink-accent-normal: hsla(0, 0%, 0%, .87);
+      --color-ink-accent-muted: hsla(0, 0%, 0%, .54);
+      --color-ink-accent-disabled: hsla(0, 0%, 0%, .38);
+      --color-ink-accent-border: hsla(0, 0%, 0%, .12);
+      --color-ink-accent-link: var(--color-primary);
+
+      --color-ink-inverse-normal: hsl(0, 0%, 100%);
+      --color-ink-inverse-muted: hsla(0, 0%, 100%, .7);
+      --color-ink-inverse-disabled: hsla(0, 0%, 100%, .5);
+      --color-ink-inverse-border: hsla(0, 0%, 100%, .5);
+      --color-ink-inverse-link: var(--color-primary);
+
+      --color-transparent: rgba(0, 0, 0, 0);
+
+      --size-1: .8rem;
+      --size-2: 1.6rem;
+      --size-3: 2.4rem;
+      --size-4: 3.2rem;
+      --size-5: 4rem;
+      --size-7: 5.6rem;
+      --size-8: 6.4rem;
+
+      --size-line: var(--size-3);
+
+      /* For large values use derived lines. E.g. calc(var(--size-line) * 3) */
+
+      --font-family-base:
+        'Helvetica Neue',
+        Helvetica,
+        'Roboto',
+        Arial,
+        sans-serif,
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+      --font-size-base: var(--size-2);
+      --line-height-base: 1.5;
+
+      --font-size-h1: var(--size-5);
+      /* 40 */
+      --line-height-h1: calc(var(--size-line) * 2);
+      /* 48 */
+      --font-weight-h1: 400;
+
+      --font-size-h1-smaller: var(--size-4);
+      /* 32 */
+      --line-height-h1-smaller: var(--size-5);
+      /* 40 */
+
+      --border-width: 1px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      -ms-overflow-style: scrollbar;
+      -webkit-tap-highlight-color: var(--color-transparent);
+      font-size: 62.5%;
+      text-align: center;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      background: var(--color-background-primary);
+      color: var(--color-ink-normal);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height-base);
+    }
+
+    main {
+      text-align: left;
+      margin: var(--size-line) auto;
+      padding: 0 var(--size-2);
+      max-width: var(--main-width);
+    }
+
+    h1 {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-h1);
+      line-height: var(--line-height-h1);
+      margin-top: calc(1rem + (var(--size-line) * 2));
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin-bottom: var(--size-line);
+    }
+
+    h1,
+    h2 {
+      color: var(--color-ink-headline);
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--color-ink-link);
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    hr {
+      border-top: 1px solid var(--color-ink-border);
+      border: 0;
+      display: block;
+      height: 1px;
+      margin: 1em 0;
+      padding: 0;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    table {
+      background-color: var(--color-background-primary);
+      border-collapse: collapse;
+      font-feature-settings: 'lnum'1, 'tnum'1;
+      font-variant-numeric: lining-nums tabular-nums;
+      margin-bottom: var(--size-line);
+      width: 100%;
+      max-width: 100%;
+    }
+
+    caption {
+      caption-side: bottom;
+      color: inherit;
+      padding-top: 0;
+      padding-bottom: 0;
+      text-align: left;
+    }
+
+    .table th,
+    .table td {
+      border-top: var(--border-width) solid var(--color-ink-border);
+      text-align: inherit;
+      padding: calc(var(--size-2) - var(--border-width)) var(--size-2) var(--size-2);
+      vertical-align: top;
+    }
+
+    .table thead th {
+      vertical-align: bottom;
+      border-bottom: calc(var(--border-width) * 2) solid var(--color-ink-border);
+      padding-bottom: calc(var(--size-2) - var(--border-width));
+    }
+
+    .table .table__num {
+      text-align: right;
+    }
+
+    /* Zebra */
+    .table.is-zebra tbody tr:nth-child(even) {
+      background-color: var(--color-background-secondary);
+    }
+
+    ::-moz-selection {
+      background: var(--color-background-tertiary);
+      text-shadow: none;
+    }
+
+    ::selection {
+      background: var(--color-background-tertiary);
+      text-shadow: none;
+    }
+
+    .d-none {
+      display: none !important;
+    }
+    /* #endregion */
+
+    fieldset {
+      border: 0;
+      padding: 0;
+    }
+
+    .grid {
+      --padding: 0 var(--size-2);
+
+      display: grid;
+      grid-column-gap: calc(var(--size-line) * 2);
+      grid-row-gap: var(--size-line);
+      grid-template-columns: repeat(2, 1fr);
+      padding: var(--padding);
+    }
+
+    @media only screen and (min-width: 568px) {
+      .grid  {
+        --padding: 0 var(--size-3);
+      }
+    }
+
+    @media only screen and (min-width: 768px) {
+      .grid  {
+        --padding: 0 var(--size-4);
+      }
+    }
+
+    @media only screen and (min-width: 992px) {
+      .grid  {
+        --padding: 0 var(--size-5);
+      }
+    }
+
+    .grid__checkbox {
+      display: block;
+      margin-bottom: var(--size-line);
+    }
+
+    .grid__checkbox > input {
+      margin-right: var(--size-1);
+      transform: translateY(-.2rem);
+    }
+
+    @media print {
+
+      *,
+      :after,
+      :before {
+        background: 0 0 !important;
+        color: #000 !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        text-shadow: none !important
+      }
+
+      a,
+      a:visited {
+        text-decoration: underline
+      }
+
+      a[href]:after {
+        content: " ("attr(href) ")"
+      }
+
+      abbr[title]:after {
+        content: " ("attr(title) ")"
+      }
+
+      a[href^="#"]:after,
+      a[href^="javascript:"]:after {
+        content: ""
+      }
+
+      pre {
+        white-space: pre-wrap !important
+      }
+
+      blockquote,
+      pre {
+        border: 1px solid #999;
+        page-break-inside: avoid
+      }
+
+      thead {
+        display: table-header-group
+      }
+
+      img,
+      tr {
+        page-break-inside: avoid
+      }
+
+      h2,
+      h3,
+      p {
+        orphans: 3;
+        widows: 3
+      }
+
+      h2,
+      h3 {
+        page-break-after: avoid
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <h1>Usability Checklist</h1>
+  <main class="grid">
+    <div class="grid__item">
+      <h2 id="section-1">User Experience</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox1" value="option1"><strong>Personalized features.</strong> Currency, language, country specific deals, taxes, or delivery options are changed based on user's location. IP-based geolocation is not enabled without user's permission.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox2" value="option2"><strong>Registering provides value to users.</strong> For example a "Free Trial" button communicates a clear benefit, but a "Register" button doesn't. Unnecessary registration is avoided. </label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox13" value="option13"><strong>Transparent pricing.</strong> Prices are clearly displayed. There are no hidden costs or surprises in the terms.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox4" value="option4"><strong>Pages don't refresh automatically.</strong> Users can get confused if new content is uploaded suddenly, for example on news websites.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox5" value="option5"><strong>Sample content.</strong> For example there is a sample newsletter next to a newsletter sign up form. </label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox6" value="option6"><strong>Website is credible.</strong> Credible references, credentials, contact information, location, and images of real people are displayed on the website. Also, the website is professionally <a href="http://web.archive.org/web/20130429051649/http://www.instantshift.com/2010/10/14/factors-influencing-your-overall-website-design/">designed</a> and up-to-date.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox7" value="option7"><strong>Uncluttered product and service information.</strong> Information is scannable and images can be enlarged or zoomed in on for more detailed viewing.</label>
+      </fieldset>
+    </div>
+
+    <div class="grid__item">
+      <h2>Homepage</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox11" value="option11"><strong>Clear call for action.</strong> Users know what to do next and why it benefits them. They understand the value proposition and purpose of the site.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox12" value="option12"><strong>First impression.</strong> The homepage creates a positive first impression and supports conversion. </label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox3" value="option3"><strong>Logged in user's name is displayed on the site.</strong> e.g. "Hello, Charles", not "Hello, Sir". </label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox16" value="option16"><strong>Major changes to the site are announced on the homepage.</strong> For example changes in delivery policy or website downtimes.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox18" value="option18"><strong>Company location and contact information</strong> is easily accessible from the homepage.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox19" value="option19"><strong>There is a privacy policy,</strong> in case the site gathers information about users.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox20" value="option20"><strong>Images and videos are relevant and meaningful.</strong> No unrelated stock photos of models. There are high-quality screenshots, videos or photos of the products and services. <a href="http://web.archive.org/web/20130429051649/http://www.prettysimple.co.uk/blog/index.php/2009/07/autoplaying-videos/">Audio or video doesn't start automatically</a>, unless user expects it.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox22" value="option22"><strong>URL redirection.</strong> Site URL works with or without www. For example "www.userium.com" and "userium.com". Check e.g. <a href="http://web.archive.org/web/20130429051649/http://www.seomoz.org/learn-seo/redirection">Redirect one URL to another.</a></label>
+      </fieldset>
+    </div>
+
+    <div class="grid__item">
+      <h2>Accessibility</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox24" value="option24"><strong><a href="http://web.archive.org/web/20130429051649/http://accessibility.oit.ncsu.edu/accessibleu/problems.html">Alt attributes</a> are provided for non-text elements</strong>, such as images and maps. Captions and transcriptions are used for audio and video. </label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox25" value="option25"><strong>Color</strong> alone is not used to convey information.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox26" value="option26"><strong>Content is readable</strong> without a style sheet. Check e.g: <a href="http://web.archive.org/web/20130429051649/http://achecker.ca/checker/index.php">http://achecker.ca/checker/index.php</a></label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox227" value="option227"><strong>Accessible navigation.</strong> Site can be navigated with a keyboard, without using a mouse. Browser's keyboard shortcuts aren't overridden. </label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox1127" value="option1127"><strong>Flash is avoided.</strong> There is an alternative for flash content.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox28" value="option28"><strong>Links, buttons and checkboxes are easily clickable</strong>, for example a user can select a checkbox by clicking the text, not just the checkbox.</label>
+      </fieldset>
+    </div>
+
+    <div class="grid__item">
+      <h2>Navigation</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox29" value="option29"><strong>Important links aren't placed in moving features</strong>, <a href="http://web.archive.org/web/20130429051649/http://www.nngroup.com/articles/auto-forwarding/" title="Jakob Nielsenâ€™s Alertbox: Auto-Forwarding Carousels and Accordions Annoy Users and Reduce Visibility">for example auto-rotating carousels and accordions.</a></label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox30" value="option30"><strong>Alphabetical <a href="http://web.archive.org/web/20130429051649/http://www.nngroup.com/articles/alphabetical-sorting-must-mostly-die/">A-Z sorting is avoided.</a></strong> It is used only when there are no better alternatives, such as grouping items into descriptive, related groups.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox35" value="option35"><strong>Users know where they are on the site.</strong> For example with the use of breadcrumbs. Also, there is a site map on large sites.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox36" value="option36"><strong>Navigation is consistent on every page.</strong> </label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox31" value="option31"><strong>Links are descriptive.</strong> There are no "click here" links.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox21" value="option21"><strong>There is a site description in the window title</strong>, which is easily understandable as a bookmark.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox81" value="option81"><strong>Site's <a href="http://web.archive.org/web/20130429051649/http://www.seomoz.org/blog/11-best-practices-for-urls">URL</a> is memorable.</strong></label>
+      </fieldset>
+    </div>
+
+    <div class="grid__item">
+      <h2>Search</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox38" value="option38"><strong>There is a search bar</strong>, in case of a large website.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox39" value="option39"><strong>Search is available on every page</strong>, not just the homepage.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox40" value="option40"><strong>Search box is wide</strong> enough, so that users can see what they've typed.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox41" value="option41"><strong>Search is a form</strong> where users can type search words immediately, not a link.</label>
+      </fieldset>
+    </div>
+
+    <div class="grid__item">
+      <h2>Links</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox43" value="option43"><strong>Important commands are displayed as buttons, not links.</strong> For example "Buy" or "Pay" is a button, not a link.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox44" value="option44"><strong>Links don't open a new browser tab or window</strong>, unless it is e.g. <a href="http://web.archive.org/web/20130429051649/http://www.nngroup.com/articles/open-new-windows-for-pdfs/">a .pdf file.</a></label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox45" value="option45"><strong>Links are easily recognizable.</strong> They look clickable. Items that aren't links don't look clickable, for example underlining text is avoided.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox46" value="option46"><strong>Color.</strong> Visited links color is different than unvisited.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox49" value="option49"><strong>There are no broken links.</strong> Check with e.g. <a href="http://web.archive.org/web/20130429051649/http://validator.w3.org/checklink">W3 Link Checker.</a></label>
+      </fieldset>
+    </div>
+
+    <div class="grid__item">
+      <h2>Layout</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox50" value="option50"><strong>Important content is displayed first.</strong></label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox51" value="option51"><strong>Site is responsive.</strong> Works with different screen sizes. There is no horizontal scrolling.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox52" value="option52"><strong>Related information is grouped together clearly.</strong></label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox54" value="option54"><strong>There are a minimum amount of <a href="http://web.archive.org/web/20130429051649/http://guidelines.usability.gov/guidelines/12">pop-up</a> windows.</strong></label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox55" value="option55"><strong>Consistency.</strong> Page layouts are consistent across the whole website.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox56" value="option56"><strong>Pages aren't cluttered.</strong> There is enough white space to support scanning.</label>
+      </fieldset>
+    </div>
+
+    <div class="grid__item">
+
+      <h2>Process</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox57" value="option57"><strong>Issue tracking.</strong> Usability and user experience issues are tracked in an issue tracker.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox58" value="option58"><strong>User testing.</strong> Testing with target users is done at different stages of the project. People who weren't involved in developing the site conduct testing.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox59" value="option59"><strong>Prioritizing.</strong> Changes are prioritized based on their importance. Goals, timetable, budget and other limitations of the project are also taken into consideration. Check e.g. <a href="http://web.archive.org/web/20130429051649/http://www.maya.com/portfolio/developing-guidelines-for-judging-the-cost-and-benefit-of-fixing-usability-problems">Maya's usability guidelines</a></label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox61" value="option61"><strong>Impact analysis of changes.</strong> Changes might become expensive and time consuming if they propagate to impact other parts of the product, people or process. Therefore it is important to analyze the impact of changes before doing anything.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox161" value="option161"><strong><a href="http://web.archive.org/web/20130429051649/http://www.usability.gov/basics/usasaves/">ROI</a> of changes.</strong> Website is evaluated before and after making changes.</label>
+      </fieldset>
+    </div>
+
+    <div class="grid__item">
+
+      <h2>Forms</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox62" value="option62"><strong>Simplicity.</strong> Only absolutely necessary questions are asked in forms.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox63" value="option63"><strong>Long dropdown menus are avoided.</strong> Instead users can input text, which is validated on the backend. Also, long dropdown menus are <a href="http://web.archive.org/web/20130429051649/http://www.nngroup.com/articles/drop-down-menus-use-sparingly/">error prone</a> to users scrolling with the mouse.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox64" value="option64"><strong>Inputting data is flexible</strong>, e.g. with phone numbers and credit card numbers. </label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox65" value="option65"><strong>Fields are labeled with common terms</strong>, e.g. Name, Address (supports autofill).</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox67" value="option67"><strong>Form submission is confirmed</strong> on a confirmation page.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox68" value="option68"><strong>Error messages are shown next to the input field</strong>, not just on top of the page. </label>
+      </fieldset>
+    </div>
+
+    <div class="grid__item">
+
+      <h2 id="content">Content</h2>
+      <fieldset>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox69" value="option69"><strong>Contrast. </strong>There is adequate contrast between the text and background. Check with e.g. <a href="http://web.archive.org/web/20130429051649/http://www.checkmycolours.com/">www.checkmycolours.com</a></label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox71" value="option72"><strong>Content is scannable.</strong> There are short paragraphs, descriptive headings, lists and images. Visual content is used when appropriate, instead of large amounts of text.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox73" value="option73"><strong>Content is written with common language</strong> that users easily understand. Check with e.g.: <a href="http://web.archive.org/web/20130429051649/http://www.read-able.com/">www.read-able.com/</a></label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox74" value="option74"><strong>Contact and company information is clearly displayed.</strong> Clicking the email address doesn't automatically open a mail application.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox76" value="option76"><strong>Content is useful and up-to-date</strong>, providing answers to the most common questions asked by users. There are no long instructions or "welcome to our website" text.</label>
+        <label class="grid__checkbox"><input type="checkbox" id="Checkbox82" value="option82"><strong>Use of uppercase letters in prose text is avoided.</strong> Uppercase is used only for formatting.</label>
+      </fieldset>
+
+    </div>
+
+  </main>
+</body>
+
+</html>
